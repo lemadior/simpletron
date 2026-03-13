@@ -1,0 +1,83 @@
+/**
+ * @file getCommand.c 
+ * @author lemadior (https://github.com/lemadior/simpletron)
+ * @brief A module responsible for retreiving command from std input
+ * @details used in system common mode, in the new and edit mode
+ * For each of modes the logic of retrieving data is different
+ * @version 0.1
+ * @date 2026-03-12
+ * * @copyright Copyright (c) 2026
+ * */
+
+#include "sml.h"
+
+void cleanInputBuffer(short);
+//short getOnlyNumbers(void);
+
+short getCommand(uint8_t type)
+{
+	char cvar;
+	short var, status;
+	static short prevCommand = 0; // Previous command  
+	uint8_t code, op;
+
+	code = getCode(prevCommand);
+	op = getOperand(prevCommand);
+
+	printf("> ");
+
+	// Get command symbol for SML itself
+	if (type == SYSTEM_CMD) {
+		status = scanf(" %c", &cvar);
+
+		// Drop all other symbols except first one
+		cleanInputBuffer(status);
+
+		var = (short)cvar;
+
+	} else if (type == PROGRAM_CMD) { // command symbol for program
+		//printf("PrevComamnd=%4.4d\n", prevCommand);
+		if (code == DATA || code == EDIT) {
+			printf("m[%2.2d]> ", op);
+		} else {
+			printf("[%2.2d]? ", CPU.ic);
+		}
+
+		//status = scanf("%hd", &var);
+
+		// Get number or error if value has wrong format
+		var = getOnlyNumbers();
+
+		if (var == ERROR_CMD) {
+			printf(" Wrong value! Try again\n");
+			status = 0;
+		//	cleanInputBuffer(status);	
+		} else {
+			status = 1;
+		
+			if (code == DATA || code == EDIT) {
+				prevCommand = 0;
+			} else {
+				prevCommand = var;
+			}
+		}
+	}
+
+	if (status == 0) {
+		while (getchar() != '\n');
+		var = ERROR_CMD;
+	} 
+
+	return var;
+}
+
+// Drop all symbols if it present in the buffer
+void cleanInputBuffer(short status)
+{
+	int c;
+
+	if (status == 1) {
+		while ((c = getchar()) != '\n' && c != EOF);		
+	}
+}
+
