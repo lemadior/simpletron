@@ -35,7 +35,7 @@ short getCommand(uint8_t type)
 
 		var = (short)cvar;
 
-	} else if (type == PROGRAM_CMD) { // command symbol for program
+	} else if (type == PROGRAM_NEW || type == PROGRAM_EDIT) { // command symbol for program
 		//printf("PrevComamnd=%4.4d\n", prevCommand);
 		if (code == DATA || code == EDIT) {
 			printf("m[%2.2d]> ", op);
@@ -43,15 +43,22 @@ short getCommand(uint8_t type)
 			printf("[%2.2d]? ", CPU.ic);
 		}
 
-		//status = scanf("%hd", &var);
-
 		// Get number or error if value has wrong format
 		var = getOnlyNumbers();
 
 		if (var == ERROR_CMD) {
 			printf(" Wrong value! Try again\n");
 			status = 0;
-		//	cleanInputBuffer(status);	
+		} else if (getCode(var) == EDIT && type == PROGRAM_NEW) {
+			NEWLINE;
+			printf(" The command is not allowd here!\n");
+			status = 0;
+			NEWLINE;
+		} else if (getCode(var) == DATA && type == PROGRAM_EDIT) {
+			NEWLINE;
+			printf(" The command is not allowd here!\n");
+			status = 0;
+			NEWLINE;
 		} else {
 			status = 1;
 		

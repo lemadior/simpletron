@@ -94,12 +94,12 @@ short getOnlyNumbers()
 	int value, i = 0;
 
 	scanf("%5s", buffer);
-	
+
 	while((c = buffer[i++]) != '\0') {
-		if (i == 0 && c == '-') {
+		if (i == 1 && c == '-') {
 			continue;
 		} 
-
+		
 		if (!isdigit(c)) {
 			return ERROR_CMD;
 		}

@@ -35,7 +35,7 @@ void editProgram(void)
 
 	NEWLINE;
 
-	while((reg = getCommand(PROGRAM_CMD)) != UNOP_CMD) {
+	while((reg = getCommand(PROGRAM_EDIT)) != UNOP_CMD) {
 		prevCode = getCode(reserved);
 		prevOperand = getOperand(reserved);
 
@@ -86,12 +86,6 @@ void editProgram(void)
 			continue;
 		}
 
-		//if (code != EDIT && prevCode != EDIT) {
-		//	memory[CPU.ic] = reg;
-
-		//	dumpCommand(reg, CPU.ic);
-		//}
-
 		// If previous command is DATA then current mode is 
 		// enter the value stored in cell specified by prevOperand
 		if (prevCode == EDIT) {
@@ -103,10 +97,6 @@ void editProgram(void)
 		} else {
 			reserved = reg;
 		} 
-	
-		//if (code != DATA) {
-		//	CPU.ic = getNextInstrPointer(prevCode, prevOperand);
-		//}
 	}
 
 	NEWLINE;
@@ -115,27 +105,6 @@ void editProgram(void)
 
 	NEWLINE;
 }
-
-//uint8_t getNextInstrPointer(uint8_t prevCode, uint8_t prevOperand)
-//{
-//	uint8_t ic, i = 0;
-
-//	ic = CPU.ic;
-
-	// Check if next memory cell for instruction pointer
-	// is not occupied by data value
-//	while (memory[ic + i++] != UNOP_CMD) {};
-	
-//	ic += --i;
-	
-//	if (ic >= MEMORY_SIZE) {
-//		printf(" No available memory!");
-
-//		return CPU.ic;
-//	}
-
-//	return ic;
-//}
 
 void showEditProgramModeHelp(void)
 {

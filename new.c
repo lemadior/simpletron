@@ -29,18 +29,19 @@ void newProgram(void)
 
 	NEWLINE;
 
-	while((reg = getCommand(PROGRAM_CMD)) != UNOP_CMD) {
-		// Prev code and operand need to correctly operate DATA instruction
-		prevCode = getCode(reserved);
-		prevOperand = getOperand(reserved);
-
+	while((reg = getCommand(PROGRAM_NEW)) != UNOP_CMD) {
+		
 		if (reg == ERROR_CMD) {
 			continue;
 		}
-
+		
 		// Current code and operand
 		code = getCode(reg);
 		operand = getOperand(reg);
+
+		// Prev code and operand need to correctly operate DATA instruction
+		prevCode = getCode(reserved);
+		prevOperand = getOperand(reserved);
 
 		// Exit from new program mode
 		if (reg == STOP && prevCode != DATA) {

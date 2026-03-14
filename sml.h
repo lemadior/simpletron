@@ -43,7 +43,8 @@
 #define UNOP_CMD 10000
 #define ERROR_CMD -10000
 #define SYSTEM_CMD 0
-#define PROGRAM_CMD 1
+#define PROGRAM_NEW 1
+#define PROGRAM_EDIT 2
 
 extern short memory[MEMORY_SIZE];
 
