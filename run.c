@@ -39,14 +39,14 @@ void runProgram(void)
 	CPU.cmd = 0;
 	CPU.op = 0;
 
-	while((CPU.instr = memory[CPU.ic]) != HALT && stop != 0) {
+	while(CPU.ic < MEMORY_SIZE && stop != 0) {
+		CPU.instr = memory[CPU.ic];
+
 		CPU.cmd = getCode(CPU.instr);
 		CPU.op = getOperand(CPU.instr);
 
-		if (CPU.ic >= MEMORY_SIZE) {
-			printf(" ERROR: out of range! Exiting...\n");
-
-			break;;
+		if (CPU.cmd == HALT) {
+			break;
 		}
 
 		CPU.ic++;
