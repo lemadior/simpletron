@@ -43,11 +43,13 @@ void runProgram(void)
 		CPU.cmd = getCode(CPU.instr);
 		CPU.op = getOperand(CPU.instr);
 
-		if (++CPU.ic >= MEMORY_SIZE) {
+		if (CPU.ic >= MEMORY_SIZE) {
 			printf(" ERROR: out of range! Exiting...\n");
 
-			break;
+			break;;
 		}
+
+		CPU.ic++;
 
 		switch(CPU.cmd) {
 			case NOP:
@@ -106,6 +108,24 @@ void runProgram(void)
 				}
 
 				break;
+			case JUMP:
+				CPU.ic = CPU.op;
+
+				break;
+		    case JNEG:
+				if (CPU.acc < 0) {
+					CPU.ic = CPU.op;
+				}
+
+				break;
+			case JZERO:
+				if (CPU.acc == 0) {
+					CPU.ic = CPU.op;
+				}
+
+				break;
+			default:
+				printf(" Err: IC=%2.2d  CMD:%2.2d OP:%2.2d unknown command!\n", CPU.ic, CPU.cmd, CPU.op);
 		}
 	}
 
