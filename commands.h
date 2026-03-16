@@ -2,8 +2,8 @@
  * @file commands.h
  * @author lemadior
  * @brief SML as system as operation commands
- * @version 0.1
- * @date 2026-03-12
+ * @version 0.2.0
+ * @date 2026-03-16
  * * @copyright Copyright (c) 2026
  * */
 
@@ -65,13 +65,17 @@ typedef enum {
 	CMD_NEW_SM = 110,		// Create the new program (small letter) 
 	CMD_EDIT = 69,			// Edit mode (edit SML program)
 	CMD_EDIT_SM = 101,		// Edit program (small letter)
-	CMD_LIST = 76,			// Show program listing
-	CMD_LIST_SM = 108,		// Show listing (small letter)
+	CMD_LIST = 86,			// Show program listing
+	CMD_LIST_SM = 118,		// Show listing (small letter)
 	CMD_RUN = 82,			// Run SML program
 	CMD_RUN_SM = 114,		// Run program (small letter) 
 	CMD_SML_HELP = 72,		// Short help for SML commands
 	CMD_SML_HELP_SM = 104,  // SML help (small letter)
-	CMD_HELP = 63			// Short workspace help
+	CMD_HELP = 63,			// Short workspace help
+	CMD_LOAD = 76,			// Load program from file
+	CMD_LOAD_SM = 108,      // Short alias for Load program
+	CMD_SAVE = 83,          // Save program to file
+	CMD_SAVE_SM = 115       // Short alias for Save program
 } Commands;
 
 #endif

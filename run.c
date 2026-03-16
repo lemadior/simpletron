@@ -3,8 +3,8 @@
  * @author lemadior (https://github.com/lemadior/simpletron)
  * @brief A module responsible for execution SML instructions
  * @details here the progrem is executed
- * @version 0.2.0
- * @date 2026-03-12
+ * @version 0.3.0
+ * @date 2026-03-15
  * * @copyright Copyright (c) 2026
  * */
 

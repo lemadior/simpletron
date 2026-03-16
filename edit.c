@@ -4,8 +4,8 @@
  * @brief A module responsible for edit SML for existed program
  * @details to edit a command need to specify an action's number 
  * and the cell number to edit
- * @version 0.1
- * @date 2026-03-12
+ * @version 0.1.2
+ * @date 2026-03-14
  * * @copyright Copyright (c) 2026
  * */
 

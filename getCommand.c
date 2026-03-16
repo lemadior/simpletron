@@ -4,8 +4,8 @@
  * @brief A module responsible for retreiving command from std input
  * @details used in system common mode, in the new and edit mode
  * For each of modes the logic of retrieving data is different
- * @version 0.1
- * @date 2026-03-12
+ * @version 0.1.2
+ * @date 2026-03-15
  * * @copyright Copyright (c) 2026
  * */
 

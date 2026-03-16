@@ -6,7 +6,7 @@
  * the program insertion mode directly. The last mode shows more
  * information about each comamnd than in the system mode.
  * @version 0.1
- * @date 2026-03-12
+ * @date 2026-03-16
  * * @copyright Copyright (c) 2026
  * */
 

@@ -3,7 +3,7 @@
  * @author lemadior (https://github.com/lemadior/simpletron)
  * @brief A module responsible for printing program to terminal
  * @version 0.1.1
- * @date 2026-03-12
+ * @date 2026-03-14
  * * @copyright Copyright (c) 2026
  * */
 
