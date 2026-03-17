@@ -2,8 +2,8 @@
  * @file sml.h
  * @author lemadior
  * @brief header file with main options and settings for the project
- * @version 0.1
- * @date 2026-03-12
+ * @version 0.2
+ * @date 2026-03-16
  * * @copyright Copyright (c) 2026
  * 
  * =================================================================
@@ -45,6 +45,7 @@
 #define SYSTEM_CMD 0
 #define PROGRAM_NEW 1
 #define PROGRAM_EDIT 2
+#define FILENAME_LENGTH 64
 
 extern short memory[MEMORY_SIZE];
 
@@ -65,7 +66,11 @@ const char *opcodeToString(OpCode);
 uint8_t getCode(short);
 uint8_t getOperand(short);
 
+void getFileName(char *, uint8_t);
+
 void listProgram(void);
+void saveProgram(void);
+void loadProgram(void);
 
 void showSmlHelp(uint8_t);
 void showAllHelp(void);

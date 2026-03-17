@@ -4,8 +4,8 @@
  * @brief Main (start) module for the project
  * @details contains main control procedure and call appropriate functions for the user's comamnd.
  * Initialize main data structure and operands
- * @version 0.1
- * @date 2026-03-12
+ * @version 0.2.0
+ * @date 2026-03-16
  * * @copyright Copyright (c) 2026
  * */
 
@@ -68,6 +68,14 @@ int main(void)
 			case CMD_SML_HELP:
 			case CMD_SML_HELP_SM:
 				showSmlHelp(command);
+				break;
+			case CMD_LOAD:
+			case CMD_LOAD_SM:
+				loadProgram();
+				break;
+			case CMD_SAVE:
+			case CMD_SAVE_SM:
+				saveProgram();
 				break;
 			case CMD_EXIT:
 			case CMD_EXIT_SM:

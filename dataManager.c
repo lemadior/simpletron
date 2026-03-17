@@ -6,8 +6,8 @@
  * translate instructions to the string representations,
  * getters for Code and Operand and display commands mnemonic after 
  * its being typed or edited.
- * @version 0.1
- * @date 2026-03-12
+ * @version 0.2
+ * @date 2026-03-17
  * * @copyright Copyright (c) 2026
  * */
 
@@ -112,5 +112,29 @@ short getOnlyNumbers()
 	}
 
 	return (short)value;
+}
+
+// Get name of the program file
+// buf: where is name will be stored
+// length: maximum allowed symbols in filename
+void getFileName(char *buf, uint8_t length)
+{
+    while(1) {
+        NEWLINE;
+        printf("Enter the filename: ");
+
+		if (fgets(buf, length, stdin) != NULL) {
+			// Checki if the first symbol is not an NEWLINE
+            // This catch the case of accidentally press ENTER
+			if (buf[0] == '\n') {
+                continue;
+            }
+		}
+
+        // Delete the NEWLINE symbol from the end of text line
+        buf[strcspn(buf, "\n")] = '\0';
+
+        break;
+    }
 }
 

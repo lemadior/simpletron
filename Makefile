@@ -4,7 +4,7 @@ CC = gcc
 
 CFLAGS = -Wall -g -std=c99
 
-SRCS = main.c welcome.c getCommand.c showHelp.c showSmlHelp.c new.c edit.c list.c run.c dump.c dataManager.c
+SRCS = main.c welcome.c getCommand.c showHelp.c showSmlHelp.c new.c edit.c list.c run.c dump.c dataManager.c load.c save.c
 
 # compile eash .c file separately
 OBJS = $(SRCS:.c=.o)
