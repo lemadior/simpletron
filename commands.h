@@ -75,7 +75,9 @@ typedef enum {
 	CMD_LOAD = 76,			// Load program from file
 	CMD_LOAD_SM = 108,      // Short alias for Load program
 	CMD_SAVE = 83,          // Save program to file
-	CMD_SAVE_SM = 115       // Short alias for Save program
+	CMD_SAVE_SM = 115,      // Short alias for Save program
+	CMD_YES = 89,			// YES answer
+	CMD_YES_SM = 121        // Short alias for YES answer
 } Commands;
 
 #endif

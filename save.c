@@ -14,14 +14,11 @@
 
 void saveProgram()
 {
-	int ch;	 	// Store a current loaded symbol
-	short cmd;  // store the command to save
+	//int ch;	 	// Store a current loaded symbol
+	//short cmd;  // store the command to save
 	FILE *fd;   // File descriptor (pointer to it)
+	char name[FILENAME_LENGTH - 5];
 	char fname[FILENAME_LENGTH];
-
-	getFileName(fname, FILENAME_LENGTH);
-
-	NEWLINE;
 
 	if (memory[0] == UNOP_CMD) {
 		NEWLINE;
@@ -31,6 +28,26 @@ void saveProgram()
 		return;
 	}	
 
+	getFileName(name, FILENAME_LENGTH - 5);
 
+	sprintf(fname, "%s.sml", name);
+
+	NEWLINE;
+
+	if ((fd = fopen(fname, "w")) == NULL) {
+		printf("Cannot create the file %s!\n", fname);
+
+		return;
+	}
+
+	fwrite(memory, sizeof(short), MEMORY_SIZE, fd);
+
+	fclose(fd);
+
+	NEWLINE;
+
+	printf("The program was saved to the %s file", fname);
+
+	NEWLINE;
 }
 
