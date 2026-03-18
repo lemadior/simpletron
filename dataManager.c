@@ -121,7 +121,7 @@ void getFileName(char *buf, uint8_t length)
 {
     while(1) {
         NEWLINE;
-        printf("Enter the filename: ");
+        printf(" Enter the filename: ");
 
 		if (fgets(buf, length, stdin) != NULL) {
 			// Checki if the first symbol is not an NEWLINE

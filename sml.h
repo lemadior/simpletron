@@ -2,8 +2,8 @@
  * @file sml.h
  * @author lemadior
  * @brief header file with main options and settings for the project
- * @version 0.2
- * @date 2026-03-16
+ * @version 0.2.1
+ * @date 2026-03-18
  * * @copyright Copyright (c) 2026
  * 
  * =================================================================
@@ -50,11 +50,11 @@
 extern short memory[MEMORY_SIZE];
 
 typedef struct {
-	short acc;			// Accumulator (stored temporary value)
-	uint8_t ic;		    // Instruction Counter (next command to use)
+	short acc;	  // Accumulator (stored temporary value)
+	uint8_t ic;	  // Instruction Counter (next command to use)
 	short instr;  // Current instruction (command + operand)
-	uint8_t cmd;	// Command code (operation code)
-	uint8_t op;	// Command operand (it use to be memory adress) 
+	uint8_t cmd;  // Command code (operation code)
+	uint8_t op;	  // Command operand (it used to be memory adress) 
 } Cpu;
 
 extern Cpu CPU;
@@ -82,19 +82,6 @@ void memoryInit(void);
 
 void input(short *);
 void print(short *);
-
-void push(short);
-void pop();
-void sml_add(short);
-void sml_sub(short);
-void sml_div(short);
-void sml_mul(short);
-
-void goTo(short);
-void goToIfNeg(short);
-void goToIfZero(short);
-
-void halt();
 
 #endif
 

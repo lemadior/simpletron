@@ -4,8 +4,8 @@
  * @brief Main (start) module for the project
  * @details contains main control procedure and call appropriate functions for the user's comamnd.
  * Initialize main data structure and operands
- * @version 0.2.0
- * @date 2026-03-16
+ * @version 1.0.0
+ * @date 2026-03-18
  * * @copyright Copyright (c) 2026
  * */
 
@@ -19,14 +19,12 @@ short memory[MEMORY_SIZE] = {11, 12};
 
 void welcomeMsg(void);
 void showHelp(void);
-//void showSmlHelp(uint8_t);
 short getCommand(uint8_t);
 void showDump(void);
 void newProgram(void);
 void editProgram(void);
 void listProgram(void);
 void runProgram();
-//void commandsInit(void);
 
 int main(void)
 {
@@ -38,7 +36,6 @@ int main(void)
 	memoryInit();
 	while (exit) {
 		command = (uint8_t)getCommand(SYSTEM_CMD);
-		//printf("CODE=%d\n", command);
 
 		switch(command) {
 			case CMD_HELP:

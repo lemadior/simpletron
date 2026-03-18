@@ -8,6 +8,7 @@ The study project about emulation of fake CPU named is SIMPLETRON
 - **Memory:** 100 words (ranging from -9999 to +9999).
 - **Console Interface:** Supports creating new programs, editing code at specific addresses, and memory dumps.
 - **Full SML Support:** From basic I/O to arithmetic operations and conditional branching.
+- **Store and Load:** Possibility to store entered program to the file and load it back
 
 ## 💻 SML (Simpletron Machine Language) Overview
 Each instruction is a 4-digit signed integer: `CCAA`, where `CC` is the Operation Code and `AA` is the Memory Address (operand).
