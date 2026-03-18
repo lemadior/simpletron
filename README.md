@@ -35,5 +35,6 @@ To compile the project, use `gcc` to link all `.c` files:
 ```bash
 gcc *.c -o simpletron
 ./simpletron
+```
 
 Or just type `make`
