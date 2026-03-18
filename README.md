@@ -31,8 +31,9 @@ Each instruction is a 4-digit signed integer: `CCAA`, where `CC` is the Operatio
 
 ## 🛠 Compilation and Usage
 To compile the project, use `gcc` to link all `.c` files:
-Or just type `make`
 
 ```bash
 gcc *.c -o simpletron
 ./simpletron
+
+Or just type `make`
