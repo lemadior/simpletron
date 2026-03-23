@@ -1,4 +1,4 @@
-# Prerequisites
+B# Prerequisites
 *.d
 
 # Object files
@@ -36,7 +36,7 @@
 *.i*86
 *.x86_64
 *.hex
-sml
+postfix
 
 # Debug files
 *.dSYM/
