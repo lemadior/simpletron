@@ -1,10 +1,10 @@
-TARGET = sml
+TARGET = postfix
 
 CC = gcc
 
 CFLAGS = -Wall -g -std=c99
 
-SRCS = main.c welcome.c getCommand.c showHelp.c showSmlHelp.c new.c edit.c list.c run.c dump.c dataManager.c load.c save.c
+SRCS = main.c input.c convert.c checking.c get.c pop.c push.c print.c empty.c
 
 # compile eash .c file separately
 OBJS = $(SRCS:.c=.o)
@@ -15,7 +15,7 @@ $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
 
 # if common.h has been changed all the files should be recompiled
-%.o: %.c sml.h
+%.o: %.c postfix.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

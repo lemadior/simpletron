@@ -1,93 +1,30 @@
-/**
- * @file main.c
- * @author lemadior (https://github.com/lemadior/simpletron)
- * @brief Main (start) module for the project
- * @details contains main control procedure and call appropriate functions for the user's comamnd.
- * Initialize main data structure and operands
- * @version 1.0.0
- * @date 2026-03-18
- * * @copyright Copyright (c) 2026
- * */
+#include "struct.h"
 
-#include "sml.h"
+#define EXIT 3
 
-
-OpCode OPCODE;
-Commands CMD;
-Cpu CPU = { 0, 0, 0, 0, 0};
-short memory[MEMORY_SIZE] = {11, 12};
-
-void welcomeMsg(void);
-void showHelp(void);
-short getCommand(uint8_t);
-void showDump(void);
-void newProgram(void);
-void editProgram(void);
-void listProgram(void);
-void runProgram();
+//void push(STACKNODEPTR *,int);
+//int pop(STACKNODEPTR *);
+//int isEmpty(STACKNODEPTR);
+//void printStack(STACKNODEPTR);
+//void instructions(void);
 
 int main(void)
-{
-	uint8_t command = -1;
-	uint8_t exit = 1;
+{	
+	STACKNODEPTR stackPtr = NULL;
+	int choice, value;
 
-	welcomeMsg();
+	char infix[INPUT_SIZE];
+	char postfix[INPUT_SIZE];
 
-	memoryInit();
-	while (exit) {
-		command = (uint8_t)getCommand(SYSTEM_CMD);
+	getExpression();
 
-		switch(command) {
-			case CMD_HELP:
-				showHelp();
-				break;
-			case CMD_DUMP:
-			case CMD_DUMP_SM:
-				showDump();
-				break;
-			case CMD_NEW:
-			case CMD_NEW_SM:
-				memoryInit();
-				newProgram();
-				break;
-			case CMD_EDIT:
-			case CMD_EDIT_SM:
-				editProgram();
-				break;
-			case CMD_LIST:
-			case CMD_LIST_SM:
-				listProgram();
-				break;
-			case CMD_RUN:
-			case CMD_RUN_SM:
-				runProgram();
-				break;
-			case CMD_SML_HELP:
-			case CMD_SML_HELP_SM:
-				showSmlHelp(command);
-				break;
-			case CMD_LOAD:
-			case CMD_LOAD_SM:
-				loadProgram();
-				break;
-			case CMD_SAVE:
-			case CMD_SAVE_SM:
-				saveProgram();
-				break;
-			case CMD_EXIT:
-			case CMD_EXIT_SM:
-				exit = 0;
-				break;
-			default:
-				printf("Unknown command!\n");
-		}
+	convertToPostfix(infix, postfix);
 
-		NEWLINE;
-	}
+	printf("Postfix: %s\n", postfix);
 
-	printf(" SIMPLETRON shutdown now...\n");
-	NEWLINE;
+	printf("Coniec\n");
 
-	return CMD_EXIT;
+	return 0;
 }
+
 
