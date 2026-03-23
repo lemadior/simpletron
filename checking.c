@@ -20,7 +20,7 @@ int8_t precendence(char op1, char op2)
 		priority[0] = 0;
 	}
 
-	if (op2 = OP_ADD || op2 == OP_SUB) {
+	if (op2 == OP_ADD || op2 == OP_SUB) {
 		priority[1] = 0;
 	} else if (op2 == '(') {
 		priority[1] = -1;

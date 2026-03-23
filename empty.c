@@ -1,4 +1,4 @@
-#include "struct.h"
+#include "postfix.h"
 
 uint8_t isEmpty(STACKNODEPTR sPtr)
 {

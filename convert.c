@@ -1,12 +1,14 @@
-#include <postfix.h>
+#include "postfix.h"
 
 void convertToPostfix(const char *source, char *target)
 {
-	char chr, stackChr;
-	uint8_t comparation;
+	char chr;
+	//char stackChr;
+	//uint8_t comparation;
 
 	while((chr = *source++) != '\0') {
-		print(stack);
+		printStack(stack);
+
 		// If chr is numeric symbol just store it to teh postfix
 		if (isdigit(chr)) {
 			*target++ = chr;
@@ -16,7 +18,7 @@ void convertToPostfix(const char *source, char *target)
 
 		// If start parenthensis just save it to the stack
 		if (chr == '(') {
-			push(stack, chr);
+			push(&stack, chr);
 
 			continue;
 		}
@@ -24,7 +26,7 @@ void convertToPostfix(const char *source, char *target)
 		// If chr is closed parenthensis - save to postfix all the stack
 		// until opened '(' is occurs 
 		if (chr == ')') {
-			while ((chr = pop(stack)) != '(') {
+			while ((chr = pop(&stack)) != '(') {
 				*target++ = chr;
 			}
 
@@ -35,20 +37,20 @@ void convertToPostfix(const char *source, char *target)
 		// If stack is empty - put into any expression operator
 		// here don't worry about priority
 		if (isEmpty(stack)) {
-			push(stack, chr);
+			push(&stack, chr);
 
 			continue;
 		}
 
 		//if (chr == OP_ADD || chr == OP_SUB) {
-		stackChr = stackTop(stack);
+		//stackChr = stackTop(&stack);
 		
-		while(!isEmpty(stack) && stackTop(stack) != '(' && precendence(chr, stackTop(stack)) <= 0) {
-			print(stack);
-			*target++ = pop(stack);
+		while(!isEmpty(stack) && stackTop(&stack) != '(' && precendence(chr, stackTop(&stack)) <= 0) {
+			printStack(stack);
+			*target++ = pop(&stack);
 		}
 		
-		push(stack, chr);
+		push(&stack, chr);
 	}
 	
 	*target = chr;

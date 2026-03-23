@@ -1,4 +1,4 @@
-#include "struct.h"
+#include "postfix.h"
 
 void push(STACKNODEPTR *sPtr, char info)
 {

@@ -1,7 +1,8 @@
-#ifndef STRUCT_H
-#define STRUCT_H
+#ifndef POSTFIX_H
+#define POSTFIX_H
 
 #include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
@@ -9,20 +10,14 @@
 
 #define INPUT_SIZE 80
 
-extern infix[INPUT_SIZE]
-extern postfix[INPUT_SIZE]
+extern char infix[INPUT_SIZE];
+extern char postfix[INPUT_SIZE];
 
-void convertToPostfix(char *, char *);
+void convertToPostfix(const char *, char *);
 uint8_t isOperator(char);
 int8_t precendence(char, char);
 
-void getExpression(void)
-
-void push(STACKNODEPTR *, char);
-char pop(STACKNODEPTR *);
-uint8_t isEmpty(STACKNODEPTR);
-void printStack(STACKNODEPTR);
-void instructions(void);
+void getExpression(void);
 
 typedef struct StackNode { 
 	char data;
@@ -31,6 +26,14 @@ typedef struct StackNode {
 
 typedef StackNode STACKNODE;
 typedef STACKNODE *STACKNODEPTR;
+
+void push(STACKNODEPTR *, char);
+char pop(STACKNODEPTR *);
+char stackTop(STACKNODEPTR *);
+uint8_t isEmpty(STACKNODEPTR);
+void printStack(STACKNODEPTR);
+void instructions(void);
+
 
 extern STACKNODEPTR stack;
 

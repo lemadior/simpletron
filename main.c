@@ -7,13 +7,15 @@
 //void printStack(STACKNODEPTR);
 //void instructions(void);
 
+
+char infix[INPUT_SIZE];
+char postfix[INPUT_SIZE];
+STACKNODEPTR stack;
+
 int main(void)
 {	
-	STACKNODEPTR stackPtr = NULL;
-	int choice, value;
-
-	char infix[INPUT_SIZE];
-	char postfix[INPUT_SIZE];
+	stack = NULL;
+	//int choice, value;
 
 	getExpression();
 

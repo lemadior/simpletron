@@ -1,4 +1,4 @@
-#include "struct.h"
+#include "postfix.h"
 
 void printStack(STACKNODEPTR currentPtr)
 {

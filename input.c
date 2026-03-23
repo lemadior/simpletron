@@ -1,16 +1,17 @@
 #include "postfix.h"
 
-int i = 0;
-const char *allowed = "0123456789+-*/%^()";
-uint8_t stop = 0;
-
 void getExpression(void)
 {
+	int i = 0;
+	const char *allowed = "0123456789+-*/%^()";
+	char ch;
+	uint8_t stop = 0;
+	
 	while (stop == 0) {
 		printf("\nInput the math expression\n");
 		printf("exp: ");
 
-		while (i < (INPUT_LENGTH - 1) && (ch = getchar()) != '\n' && ch != EOF) {
+		while (i < (INPUT_SIZE - 1) && (ch = getchar()) != '\n' && ch != EOF) {
 			infix[i++] = ch;
 		}
 
