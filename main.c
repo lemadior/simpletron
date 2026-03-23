@@ -1,6 +1,5 @@
-#include "struct.h"
+#include "postfix.h"
 
-#define EXIT 3
 
 //void push(STACKNODEPTR *,int);
 //int pop(STACKNODEPTR *);
