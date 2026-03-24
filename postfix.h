@@ -34,7 +34,6 @@ uint8_t isEmpty(STACKNODEPTR);
 void printStack(STACKNODEPTR);
 void instructions(void);
 
-
 extern STACKNODEPTR stack;
 
 typedef enum {

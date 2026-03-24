@@ -15,7 +15,6 @@ STACKNODEPTR stack;
 int main(void)
 {	
 	stack = NULL;
-	//int choice, value;
 
 	getExpression();
 

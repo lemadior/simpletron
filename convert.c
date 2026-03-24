@@ -3,10 +3,12 @@
 void convertToPostfix(const char *source, char *target)
 {
 	char chr;
-	//char stackChr;
-	//uint8_t comparation;
 
 	while((chr = *source++) != '\0') {
+		if (chr == ' ') {
+			continue;
+		}
+			
 		printStack(stack);
 
 		// If chr is numeric symbol just store it to teh postfix
@@ -42,9 +44,6 @@ void convertToPostfix(const char *source, char *target)
 			continue;
 		}
 
-		//if (chr == OP_ADD || chr == OP_SUB) {
-		//stackChr = stackTop(&stack);
-		
 		while(!isEmpty(stack) && stackTop(&stack) != '(' && precendence(chr, stackTop(&stack)) <= 0) {
 			printStack(stack);
 			*target++ = pop(&stack);
@@ -52,7 +51,13 @@ void convertToPostfix(const char *source, char *target)
 		
 		push(&stack, chr);
 	}
+
+	// Get the rest of the stack
+	while(!isEmpty(stack)) {
+		printStack(stack);
+		*target++ = pop(&stack);
+	}
 	
-	*target = chr;
+	*target = '\0';
 }
 

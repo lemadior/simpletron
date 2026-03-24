@@ -25,7 +25,7 @@ void getExpression(void)
 		// Check for wrong symbols
 		for (i = 0; infix[i] != '\0'; i++) {
 			// Skip newline
-			if (infix[i] == '\n') {
+			if (infix[i] == '\n' || infix[i] == ' ') {
 				continue;
 			}
 
