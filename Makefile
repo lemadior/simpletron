@@ -1,4 +1,4 @@
-TARGET = postfix
+TARGET = evaluate
 
 CC = gcc
 

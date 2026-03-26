@@ -10,14 +10,10 @@
 
 #define INPUT_SIZE 80
 
-extern char infix[INPUT_SIZE];
 extern char postfix[INPUT_SIZE];
 
-void convertToPostfix(const char *, char *);
-uint8_t isOperator(char);
-int8_t precendence(char, char);
-
-void getExpression(void);
+void evaluatePostfixExpression(const char *);
+int calculate(uint8_t, uint8_t, char);
 
 typedef struct StackNode { 
 	char data;

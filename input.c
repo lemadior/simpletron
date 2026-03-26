@@ -15,7 +15,7 @@ void getExpression(void)
 			infix[i++] = ch;
 		}
 
-		if (infix[0] == '\0' || infix[0] == '\n') {
+		if (postfix[0] == '\0' || postfix[0] == '\n') {
 			 continue;
 		}
 
@@ -23,14 +23,14 @@ void getExpression(void)
 		stop = 1;
 		
 		// Check for wrong symbols
-		for (i = 0; infix[i] != '\0'; i++) {
+		for (i = 0; postfix[i] != '\0'; i++) {
 			// Skip newline
-			if (infix[i] == '\n' || infix[i] == ' ') {
+			if (postfix[i] == '\n' || infix[i] == ' ') {
 				continue;
 			}
 
 			// If not allowed symbol
-			if (strchr(allowed, infix[i]) == NULL) {
+			if (strchr(allowed, postfix[i]) == NULL) {
 				stop = 0; // All is not ok!
 				break;
 			}
