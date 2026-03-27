@@ -1,5 +1,37 @@
 #include "evaluate.h"
 
+int calculate(uint8_t op1, uint8_t op2, char operator)
+{
+	int result;
+
+	switch(operator) {
+		case '+':
+			result = op1 + op2;
+			break;
+		case '-':
+			result = op1 - op2;
+			break;
+		case '*':
+			result = op1 * op2;
+			break;
+		case '/':
+			result = op1 / op2;
+			break;
+		case '%':
+			result = op1 % op2;
+			break;
+		case '^':
+			result = pow(op1, op2);
+			break;
+		default:
+			result = 0;
+			
+	};
+
+	return result;
+}
+
+/*
 uint8_t isOperator(char c)
 {
 	if (isdigit(c) || c == ')' || c == '(') {
@@ -8,6 +40,7 @@ uint8_t isOperator(char c)
 
 	return true;
 }
+
 
 // '(' has lowest priority
 // '-' and '+' has middle priority
@@ -34,4 +67,4 @@ int8_t precendence(char op1, char op2)
 	
 	return 1;
 }
-
+*/
