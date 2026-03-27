@@ -1,4 +1,4 @@
-#include "postfix.h"
+#include "evaluate.h"
 
 // get value from top of the stack.
 // Value still remains at the top of the stack

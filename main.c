@@ -1,26 +1,20 @@
 #include "postfix.h"
 
 
-//void push(STACKNODEPTR *,int);
-//int pop(STACKNODEPTR *);
-//int isEmpty(STACKNODEPTR);
-//void printStack(STACKNODEPTR);
-//void instructions(void);
-
-
-char infix[INPUT_SIZE];
 char postfix[INPUT_SIZE];
 STACKNODEPTR stack;
 
 int main(void)
 {	
+	int result;
+
 	stack = NULL;
 
 	getExpression();
 
-	convertToPostfix(infix, postfix);
+	result = evaluatePostfixExpression(postfix);
 
-	printf("Postfix: %s\n", postfix);
+	printf("Result: %d\n", result);
 
 	printf("Coniec\n");
 

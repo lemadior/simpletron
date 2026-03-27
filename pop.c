@@ -1,4 +1,4 @@
-#include "postfix.h"
+#include "evaluate.h"
 
 char pop(STACKNODEPTR *sPtr)
 {

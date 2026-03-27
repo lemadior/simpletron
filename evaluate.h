@@ -1,5 +1,5 @@
-#ifndef POSTFIX_H
-#define POSTFIX_H
+#ifndef EVALUATE_H
+#define EVALUATE_H
 
 #include <stdio.h>
 #include <stdint.h>

@@ -1,6 +1,6 @@
-#include "postfix.h"
+#include "evaluate.h"
 
-void convertToPostfix(const char *source, char *target)
+void evaluatePostfixExpression(const char *source)
 {
 	char chr;
 

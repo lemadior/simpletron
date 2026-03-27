@@ -1,4 +1,4 @@
-#include "postfix.h"
+#include "evaluate.h"
 
 void printStack(STACKNODEPTR currentPtr)
 {
