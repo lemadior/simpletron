@@ -6,13 +6,21 @@ void getExpression(void)
 	const char *allowed = "0123456789+-*/%^()";
 	char ch;
 	uint8_t stop = 0;
+	char inp[];
+
+	printf(" Postfix evaluation program\n");
+	printf(" NOTE: all elements should be divided by space symbol!\n");
+	printf("       MAX alllowed num is 99");
+	NEWLINE;
 	
 	while (stop == 0) {
-		printf("\nInput the math expression\n");
-		printf("exp: ");
+		NEWLINE;
+		printf(" Input the math expression");
+		NEWLINE;
+		printf(" exp: ");
 
 		while (i < (INPUT_SIZE - 1) && (ch = getchar()) != '\n' && ch != EOF) {
-			infix[i++] = ch;
+			postfix[i++] = ch;
 		}
 
 		if (postfix[0] == '\0' || postfix[0] == '\n') {
@@ -25,7 +33,7 @@ void getExpression(void)
 		// Check for wrong symbols
 		for (i = 0; postfix[i] != '\0'; i++) {
 			// Skip newline
-			if (postfix[i] == '\n' || infix[i] == ' ') {
+			if (postfix[i] == '\n' || postfix[i] == ' ') {
 				continue;
 			}
 

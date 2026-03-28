@@ -10,14 +10,16 @@
 #include <math.h>
 
 #define INPUT_SIZE 80
+#define NEWLINE printf("\n");
+#define E_VALUE 100 // 100 is means here empty cell or wrong value
 
 extern char postfix[INPUT_SIZE];
 
-void evaluatePostfixExpression(const char *);
+int evaluatePostfixExpression(const char *);
 int calculate(uint8_t, uint8_t, char);
 
 typedef struct StackNode { 
-	char data;
+	int data;
 	struct StackNode *nextPtr;
 } StackNode;
 

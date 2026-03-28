@@ -25,7 +25,6 @@ int calculate(uint8_t op1, uint8_t op2, char operator)
 			break;
 		default:
 			result = 0;
-			
 	};
 
 	return result;

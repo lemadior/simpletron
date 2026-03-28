@@ -1,63 +1,79 @@
 #include "evaluate.h"
 
-void evaluatePostfixExpression(const char *source)
+
+uint8_t getNumber(char);
+int getValue(char *);
+
+int evaluatePostfixExpression(const char *source)
 {
 	char chr;
+	char buff[2] = {E_VALUE, E_VALUE}; 
+	uint8_t x, y, tmp, i = 0;
 
 	while((chr = *source++) != '\0') {
 		if (chr == ' ') {
+			tmp = getValue(buff);
+	
+			if (tmp >= E_VALUE || tmp <= E_VALUE*(-1)) {
+				printf("Value %d is out of allowd range (-99:99)!\n");
+
+				return E_VALUE;
+			}
+
+			push(&stack, tmp);
+
+			printStack(stack);			
+			
+			buff[0] = E_VALUE;
+			buff[1] = E_VALUE;
+			i = 0;
+
 			continue;
 		}
-			
-		printStack(stack);
 
 		// If chr is numeric symbol just store it to teh postfix
 		if (isdigit(chr)) {
-			*target++ = chr;
+			buff[i++] = chr;	
 
 			continue;
 		}
 
-		// If start parenthensis just save it to the stack
-		if (chr == '(') {
-			push(&stack, chr);
+		// If we go here it means that we got some of math operator 
+		x = pop(&stack);
+		y = pop(&stack);
 
-			continue;
-		}
+		// Calculate the value and push it back to teh stack
+		// First argument should be y!
+		push(&stack, calculate(y, x, chr));
 
-		// If chr is closed parenthensis - save to postfix all the stack
-		// until opened '(' is occurs 
-		if (chr == ')') {
-			while ((chr = pop(&stack)) != '(') {
-				*target++ = chr;
-			}
-
-			continue;
-		}
-
-		// Here the chr contains some of math operator
-		// If stack is empty - put into any expression operator
-		// here don't worry about priority
-		if (isEmpty(stack)) {
-			push(&stack, chr);
-
-			continue;
-		}
-
-		while(!isEmpty(stack) && stackTop(&stack) != '(' && precendence(chr, stackTop(&stack)) <= 0) {
-			printStack(stack);
-			*target++ = pop(&stack);
-		}
-		
-		push(&stack, chr);
+		printStack(stack);
 	}
 
-	// Get the rest of the stack
-	while(!isEmpty(stack)) {
-		printStack(stack);
-		*target++ = pop(&stack);
+	return pop(&stack);
+}
+
+
+// Convert value from
+int getValue(char *buff)
+{
+	int result = 0;
+	
+	if (*buff != E_VALUE) {
+		result = getNumber(*buff) * 10; // 48 is value for '0' symbol
 	}
 	
-	*target = '\0';
+	buff++;
+
+	if (*buff != E_VALUE) {
+		result += getNumber(*buff);
+	}
+
+
+	return result;
+}
+
+uint8_t getNumber(char num)
+{
+	return num - 48; // 48 is value for '0' symbol
 }
 

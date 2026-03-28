@@ -14,6 +14,12 @@ int main(void)
 
 	result = evaluatePostfixExpression(postfix);
 
+	if (result == E_VALUE) {
+		printf("ERROR: wrong input value!");
+
+		return 0;
+	}
+
 	printf("Result: %d\n", result);
 
 	printf("Coniec\n");
