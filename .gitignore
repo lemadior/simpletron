@@ -36,7 +36,7 @@ B# Prerequisites
 *.i*86
 *.x86_64
 *.hex
-postfix
+evaluate
 
 # Debug files
 *.dSYM/
