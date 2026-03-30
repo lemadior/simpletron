@@ -12,7 +12,7 @@ void push(STACKNODEPTR *sPtr, char info)
 
 		*sPtr = newPtr;
 	} else {
-		printf("%c not inserted. No memory available.\n", info);
+		printf("%d not inserted. No memory available.\n", info);
 	}
 }
 

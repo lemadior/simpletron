@@ -17,6 +17,7 @@ extern char postfix[INPUT_SIZE];
 
 int evaluatePostfixExpression(const char *);
 int calculate(uint8_t, uint8_t, char);
+void getExpression(void);
 
 typedef struct StackNode { 
 	int data;

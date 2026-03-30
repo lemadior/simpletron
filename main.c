@@ -1,5 +1,4 @@
-#include "postfix.h"
-
+#include "evaluate.h"
 
 char postfix[INPUT_SIZE];
 STACKNODEPTR stack;
@@ -11,6 +10,10 @@ int main(void)
 	stack = NULL;
 
 	getExpression();
+
+	NEWLINE;
+	printf("POSTFIX: %s\n", postfix);
+	NEWLINE;
 
 	result = evaluatePostfixExpression(postfix);
 

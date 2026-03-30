@@ -6,8 +6,8 @@ void getExpression(void)
 	const char *allowed = "0123456789+-*/%^()";
 	char ch;
 	uint8_t stop = 0;
-	char inp[];
 
+	NEWLINE;
 	printf(" Postfix evaluation program\n");
 	printf(" NOTE: all elements should be divided by space symbol!\n");
 	printf("       MAX alllowed num is 99");
