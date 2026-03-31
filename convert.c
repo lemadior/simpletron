@@ -1,5 +1,7 @@
 #include "postfix.h"
 
+// Generate the postfix representation of arithmetic expression
+// Each element will be divided by SPACE symbol!
 void convertToPostfix(const char *source, char *target)
 {
 	char chr;
@@ -11,11 +13,15 @@ void convertToPostfix(const char *source, char *target)
 			
 		printStack(stack);
 
-		// If chr is numeric symbol just store it to teh postfix
+		// If chr is numeric symbol just store it to the postfix
 		if (isdigit(chr)) {
 			*target++ = chr;
 
 			continue;
+		}
+		
+		if (*(target-1) != ' ') {
+			*target++ = ' ';
 		}
 
 		// If start parenthensis just save it to the stack
@@ -30,6 +36,8 @@ void convertToPostfix(const char *source, char *target)
 		if (chr == ')') {
 			while ((chr = pop(&stack)) != '(') {
 				*target++ = chr;
+
+				*target++ = ' ';
 			}
 
 			continue;
@@ -46,7 +54,11 @@ void convertToPostfix(const char *source, char *target)
 
 		while(!isEmpty(stack) && stackTop(&stack) != '(' && precendence(chr, stackTop(&stack)) <= 0) {
 			printStack(stack);
+			
 			*target++ = pop(&stack);
+
+			*target++ = ' '; // This need to add SPACE after last operator
+							 // returned from stack
 		}
 		
 		push(&stack, chr);
@@ -55,6 +67,8 @@ void convertToPostfix(const char *source, char *target)
 	// Get the rest of the stack
 	while(!isEmpty(stack)) {
 		printStack(stack);
+		*target++ = ' ';
+
 		*target++ = pop(&stack);
 	}
 	
