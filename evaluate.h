@@ -16,7 +16,7 @@
 extern char postfix[INPUT_SIZE];
 
 int evaluatePostfixExpression(const char *);
-int calculate(uint8_t, uint8_t, char);
+int calculate(int, int, char);
 void getExpression(void);
 
 typedef struct StackNode { 
@@ -27,9 +27,9 @@ typedef struct StackNode {
 typedef StackNode STACKNODE;
 typedef STACKNODE *STACKNODEPTR;
 
-void push(STACKNODEPTR *, char);
-char pop(STACKNODEPTR *);
-char stackTop(STACKNODEPTR *);
+void push(STACKNODEPTR *, int);
+int pop(STACKNODEPTR *);
+//char stackTop(STACKNODEPTR *);
 uint8_t isEmpty(STACKNODEPTR);
 void printStack(STACKNODEPTR);
 void instructions(void);

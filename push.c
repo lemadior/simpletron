@@ -1,6 +1,6 @@
 #include "evaluate.h"
 
-void push(STACKNODEPTR *sPtr, char info)
+void push(STACKNODEPTR *sPtr, int info)
 {
 	STACKNODEPTR newPtr;
 

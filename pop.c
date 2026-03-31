@@ -1,9 +1,9 @@
 #include "evaluate.h"
 
-char pop(STACKNODEPTR *sPtr)
+int pop(STACKNODEPTR *sPtr)
 {
 	STACKNODEPTR tempPtr;
-	char popValue;
+	int popValue;
 
 	tempPtr = *sPtr;
 	popValue = (*sPtr)->data;

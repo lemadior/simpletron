@@ -1,6 +1,6 @@
 #include "evaluate.h"
 
-int calculate(uint8_t op1, uint8_t op2, char operator)
+int calculate(int op1, int op2, char operator)
 {
 	int result;
 

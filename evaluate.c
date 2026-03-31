@@ -1,5 +1,7 @@
 #include "evaluate.h"
 
+#define BUFF_SIZE 2
+
 uint8_t getNumber(char);
 int getValue(char *);
 
@@ -8,14 +10,14 @@ int evaluatePostfixExpression(const char *source)
 	char chr;
 	char buff[2] = {E_VALUE, E_VALUE}; // buff[0] first digit
 									   // buff[0] second or only digit
-	uint8_t x, y;
-	uint8_t i = 1; // Counter for buff (to allow 2 digit numbers) 
+	int x, y;
+	uint8_t i = BUFF_SIZE - 1; // Counter for buff (to allow 2 digit numbers) 
 	uint8_t isCalc = 0; // Flag to indicate success math operation 
     int tmp;
 
 	while((chr = *source++) != '\0') {
 		if (chr == ' ') {
-			// If previous symbol was a math operator
+			// If previous symbol was a math operator just skip this SPACE
 			if (isCalc == 1) {
 				isCalc = 0;
 
@@ -35,16 +37,24 @@ int evaluatePostfixExpression(const char *source)
 
 			printStack(stack);			
 			
-			buff[0] = E_VALUE;
-			buff[1] = E_VALUE;
-			i = 1;
+			// Clean the buffer
+			for (i = 0; i < BUFF_SIZE; i++) {
+				buff[i] = E_VALUE;
+			}
+			
+			i = BUFF_SIZE - 1;
 
 			continue;
 		}
 
 		// If chr is numeric symbol just store it to the postfix
 		if (isdigit(chr)) {
-			buff[i--] = chr;	
+			if (i < BUFF_SIZE - 1) {
+				buff[i] = buff[i+1]; // Shift unit to decimal 
+			}
+
+			buff[BUFF_SIZE - 1] = chr;	
+			i--;
 
 			continue;
 		}
