@@ -9,34 +9,38 @@
 #include <stdbool.h>
 #include <math.h>
 
+/*
 #define INPUT_SIZE 80
+
 #ifndef NEWLINE
 #define NEWLINE printf("\n");
 #endif
 #define E_VALUE 100 // 100 is means here empty cell or wrong value
+*/
 
 extern char postfix[INPUT_SIZE];
 
 int evaluatePostfixExpression(const char *);
 int calculate(int, int, char);
-void getExpression(void);
+void getPostfixExpression(void);
 
-typedef struct StackNode { 
-	int data;
-	struct StackNode *nextPtr;
-} StackNode;
+/* typedef struct StackNode {  
+	 int data;
+	 struct StackNode *nextPtr; 
+ } StackNode; */
 
-typedef StackNode STACKNODE;
-typedef STACKNODE *STACKNODEPTR;
+/* typedef StackNode STACKNODE;
+typedef STACKNODE *STACKNODEPTR; */
 
-void push(STACKNODEPTR *, int);
-int pop(STACKNODEPTR *);
+/* void push(STACKNODEPTR *, int); */
+/* int pop(STACKNODEPTR *); */
 //char stackTop(STACKNODEPTR *);
-uint8_t isEmpty(STACKNODEPTR);
+/* uint8_t isEmpty(STACKNODEPTR); */
 /* void printStack(STACKNODEPTR); */
-void instructions(void);
+/* void instructions(void); */
 
-extern STACKNODEPTR stack;
+/* extern STACKNODEPTR stack; */
+/*
 
 typedef enum {
 	OP_ADD = 43,
@@ -46,6 +50,6 @@ typedef enum {
 	OP_MOD = 37,
 	OP_POWER = 94 
 } Operations;
-
+*/
 #endif
 

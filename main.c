@@ -11,7 +11,9 @@
 
 #include "sbc.h"
 
-
+short memory[MEMORY_SIZE];
+uint8_t flags[MEMORY_SIZE];
+TableEntry TABLEENTRY;
 OpCode OPCODE;
 // Commands CMD;
 Cpu CPU = { 0, 0, 99, 0, 0, 0};

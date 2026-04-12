@@ -1,7 +1,7 @@
 #include "func.h"
 #include "convert.h"
 
-void getExpression(void)
+void getInfixExpression(void)
 {
 	int i = 0;
 	const char *allowed = "0123456789+-*/%^()";

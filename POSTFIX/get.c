@@ -1,7 +1,7 @@
-#include "sbc.h"
+#include "func.h"
 #include "evaluate.h"
 
-void getExpression(void)
+void getPostfixExpression(void)
 {
 	// int i = 0;
 	// const char *allowed = "0123456789+-*/%^()";

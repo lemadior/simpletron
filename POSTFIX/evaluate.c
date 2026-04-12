@@ -1,4 +1,4 @@
-#include "sbc.h"
+#include "func.h"
 #include "evaluate.h"
 
 #define BUFF_SIZE 2

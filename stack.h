@@ -1,0 +1,29 @@
+#ifndef STACK_H
+#define STACK_H
+
+#define INPUT_SIZE 80
+#define E_VALUE 100 // 100 is means here empty cell or wrong value
+
+typedef struct stackNode {
+	int data;
+	struct stackNode *nextPtr;
+} StackNode;
+
+typedef StackNode STACKNODE;
+typedef  *STACKNODEPTR;
+
+extern STACKNODEPTR stack;
+
+void instructions(void);
+
+typedef enum {
+	OP_ADD = 43,
+	OP_SUB = 45,
+	OP_MUL = 42,
+	OP_DIV = 47,
+	OP_MOD = 37,
+	OP_POWER = 94 
+} Operations;
+
+#endif
+

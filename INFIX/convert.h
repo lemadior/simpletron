@@ -17,8 +17,9 @@ void convertToPostfix(const char *, char *);
 uint8_t isOperator(char);
 int8_t precendence(char, char);
 
-void getExpression(void);
+void getInfixExpression(void);
 
+/*
 typedef struct StackNode { 
 	char data;
 	struct StackNode *nextPtr;
@@ -27,14 +28,15 @@ typedef struct StackNode {
 typedef StackNode STACKNODE;
 typedef STACKNODE *STACKNODEPTR;
 
-void push(STACKNODEPTR *, char);
-char pop(STACKNODEPTR *);
-char stackTop(STACKNODEPTR *);
-uint8_t isEmpty(STACKNODEPTR);
+ void push(STACKNODEPTR *, char); 
+ char pop(STACKNODEPTR *);
+ char stackTop(STACKNODEPTR *);
+ uint8_t isEmpty(STACKNODEPTR); 
 //void printStack(STACKNODEPTR);
+
 void instructions(void);
 
-extern STACKNODEPTR stack;
+ extern STACKNODEPTR stack;
 
 typedef enum {
 	OP_ADD = 43,
@@ -44,6 +46,6 @@ typedef enum {
 	OP_MOD = 37,
 	OP_POWER = 94 
 } Operations;
-
+*/
 #endif
 
