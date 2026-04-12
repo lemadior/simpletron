@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-
+#include "commands.h"
 #include "stack.h"
 
 #define NEWLINE printf("\n")

@@ -1,4 +1,7 @@
-#include "sbc.h"
+#include <stdint.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include "stack.h"
 
 uint8_t isEmpty(STACKNODEPTR sPtr)
 {

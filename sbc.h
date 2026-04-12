@@ -20,7 +20,6 @@
 #ifndef SBC_H
 #define SBC_H
 
-#include "commands.h"
 #include "func.h"
 #include "INFIX/infix.h"
 #include "POSTFIX/postfix.h"

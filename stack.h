@@ -16,6 +16,14 @@ extern STACKNODEPTR stack;
 
 void instructions(void);
 
+uint8_t isEmpty(STACKNODEPTR);
+
+void push(STACKNODEPTR *, int);
+
+int pop(STACKNODEPTR *);
+
+int stackTop(STACKNODEPTR *);
+
 typedef enum {
 	OP_ADD = 43,
 	OP_SUB = 45,
