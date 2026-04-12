@@ -22,7 +22,6 @@
 
 #include "commands.h"
 #include "func.h"
-#include "stack.h"
 #include "INFIX/infix.h"
 #include "POSTFIX/postfix.h"
 

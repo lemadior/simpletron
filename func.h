@@ -7,6 +7,8 @@
 #include <string.h>
 #include <ctype.h>
 
+#include "stack.h"
+
 #define NEWLINE printf("\n")
 
 #define MEMORY_SIZE 100
