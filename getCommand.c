@@ -9,7 +9,7 @@
  * * @copyright Copyright (c) 2026
  * */
 
-#include "sml.h"
+#include "sbc.h"
 
 void cleanInputBuffer(short);
 //short getOnlyNumbers(void);
@@ -17,10 +17,10 @@ void cleanInputBuffer(short);
 short getCommand(uint8_t type)
 {
 	char cvar;
-	short var, status;
+	short var = 0, status;
 	static short prevCommand = 0; // Previous command  
 	uint8_t code, op;
-
+/*
 	code = getCode(prevCommand);
 	op = getOperand(prevCommand);
 
@@ -74,8 +74,9 @@ short getCommand(uint8_t type)
 		while (getchar() != '\n');
 		var = ERROR_CMD;
 	} 
-
+	*/
 	return var;
+
 }
 
 // Drop all symbols if it present in the buffer

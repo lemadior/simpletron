@@ -9,34 +9,24 @@
  * * @copyright Copyright (c) 2026
  * */
 
-#include "sml.h"
+#include "sbc.h"
 
 
 OpCode OPCODE;
-Commands CMD;
-Cpu CPU = { 0, 0, 0, 0, 0};
-short memory[MEMORY_SIZE] = {11, 12};
-
-void welcomeMsg(void);
-void showHelp(void);
-short getCommand(uint8_t);
-void showDump(void);
-void newProgram(void);
-void editProgram(void);
-void listProgram(void);
-void runProgram();
+// Commands CMD;
+Cpu CPU = { 0, 0, 99, 0, 0, 0};
 
 int main(void)
 {
-	uint8_t command = -1;
+	// uint8_t command = -1;
 	uint8_t exit = 1;
 
-	welcomeMsg();
+	// welcomeMsg();
 
 	memoryInit();
 	while (exit) {
-		command = (uint8_t)getCommand(SYSTEM_CMD);
-
+		// command = (uint8_t)getCommand(SYSTEM_CMD);
+/*
 		switch(command) {
 			case CMD_HELP:
 				showHelp();
@@ -83,11 +73,12 @@ int main(void)
 		}
 
 		NEWLINE;
+		*/
 	}
 
 	printf(" SIMPLETRON shutdown now...\n");
 	NEWLINE;
 
-	return CMD_EXIT;
+	return EXIT_SUCCESS;
 }
 

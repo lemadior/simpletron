@@ -56,6 +56,7 @@ typedef enum {
 } OpCode;
 
 /* Workspace command */
+/*
 typedef enum {
 	CMD_EXIT = 88,			// Exit workspace
 	CMD_EXIT_SM = 120,		// Exit program (small letter)
@@ -79,6 +80,6 @@ typedef enum {
 	CMD_YES = 89,			// YES answer
 	CMD_YES_SM = 121        // Short alias for YES answer
 } Commands;
-
+*/
 #endif
 

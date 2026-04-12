@@ -11,7 +11,7 @@
  * * @copyright Copyright (c) 2026
  * */
 
-#include "sml.h"
+#include "sbc.h"
 
 
 /*
@@ -46,7 +46,7 @@ const char *opcodeToString(OpCode code)
 		case HALT: return "HALT";
 		case NOP: return "NOP";
 		case DATA: return "DATA";
-		case EDIT: return "EDIT";
+//		case EDIT: return "EDIT";
 		default: return "UNKNOWN";
 	}
 }
@@ -64,6 +64,7 @@ uint8_t getOperand(short opcode)
 }
 
 // Print command data (memory cell, command and operand)
+/*
 void dumpCommand(short instr, uint8_t counter)
 {
 	const char *command;
@@ -86,6 +87,7 @@ void dumpCommand(short instr, uint8_t counter)
 
 	icReserved = code;
 }
+*/
 
 // Check input value for numeric format only!
 short getOnlyNumbers()

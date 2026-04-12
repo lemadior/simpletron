@@ -8,7 +8,7 @@
  * @date 2026-03-18
  * * @copyright Copyright (c) 2026
  * */
-#include "sml.h"
+#include "sbc.h"
 
 #define EXT_PICK_UP 6
 
@@ -18,7 +18,7 @@ void loadProgram()
 	FILE *fd;   // File descriptor (pointer to it)
 	char name[FILENAME_LENGTH - EXT_PICK_UP];
 	char fname[FILENAME_LENGTH];
-
+/*
 	if (memory[0] != UNOP_CMD) {
 		NEWLINE;
 		printf(" WARNING: this command delete the current program!\n");
@@ -52,7 +52,7 @@ void loadProgram()
 	} 
 
 	fclose(fd);
-
+*/
 	NEWLINE;
 }
 

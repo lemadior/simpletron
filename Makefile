@@ -1,25 +1,36 @@
-TARGET = sml
+TARGET = sbc
 
 CC = gcc
 
 CFLAGS = -Wall -g -std=c99
+# Source files
+MOD1_SRC = INFIX/checking.c INFIX/convert.c INFIX/empty.c INFIX/get.c INFIX/input.c INFIX/pop.c INFIX/push.c
 
-SRCS = main.c welcome.c getCommand.c showHelp.c showSmlHelp.c new.c edit.c list.c run.c dump.c dataManager.c load.c save.c
+MOD2_SRC = POSTFIX/calculate.c POSTFIX/evaluate.c POSTFIX/empty.c POSTFIX/input.c POSTFIX/pop.c POSTFIX/push.c
+
+SRCS = main.c getCommand.c showHelp.c dataManager.c load.c save.c
+
+# Object files list (generate automatically)
+MOD1_OBJS = $(MOD1_SRC:.c=.o)
+
+MOD2_OBJS = $(MOD2_SRC:.c=.o)
 
 # compile eash .c file separately
 OBJS = $(SRCS:.c=.o)
 
+ALL_OBJS = $(OBJS) $(MOD1_OBJS) $(MOD2_OBJS)
+
 all: $(TARGET)
 
-$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
+$(TARGET): $(ALL_OBJS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(ALL_OBJS)
 
-# if common.h has been changed all the files should be recompiled
-%.o: %.c sml.h
-	$(CC) $(CFLAGS) -c $< -o $@
+# if sbc.h has been changed all the files should be recompiled
+%.o: %.c sbc.h
+	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f $(ALL_OBJS) $(TARGET)
 
 re: clean all
 
