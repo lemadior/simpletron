@@ -42,6 +42,10 @@ int pop(STACKNODEPTR *sPtr)
 // Value still remains at the top of the stack
 int stackTop(STACKNODEPTR *sPtr)
 {
-	return (*sPtr)->data;
+	if (sPtr != NULL) {
+		return (*sPtr)->data;
+	}
+
+	return -1;
 }
 

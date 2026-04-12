@@ -10,7 +10,7 @@ typedef struct stackNode {
 } StackNode;
 
 typedef StackNode STACKNODE;
-typedef  *STACKNODEPTR;
+typedef STACKNODE *STACKNODEPTR;
 
 extern STACKNODEPTR stack;
 
