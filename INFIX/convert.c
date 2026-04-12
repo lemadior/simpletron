@@ -31,7 +31,7 @@ void convertToPostfix(const char *source, char *target)
 
 		// If start parenthensis just save it to the stack
 		if (chr == '(') {
-			push(&stack, chr);
+			push(&stack, (int)chr);
 
 			continue;
 		}
@@ -39,7 +39,7 @@ void convertToPostfix(const char *source, char *target)
 		// If chr is closed parenthensis - save to postfix all the stack
 		// until opened '(' is occurs 
 		if (chr == ')') {
-			while ((chr = pop(&stack)) != '(') {
+			while ((chr = (char)pop(&stack)) != '(') {
 				*target++ = chr;
 
 				*target++ = ' ';
@@ -52,21 +52,21 @@ void convertToPostfix(const char *source, char *target)
 		// If stack is empty - put into any expression operator
 		// here don't worry about priority
 		if (isEmpty(stack)) {
-			push(&stack, chr);
+			push(&stack, (int)chr);
 
 			continue;
 		}
 
-		while(!isEmpty(stack) && stackTop(&stack) != '(' && precendence(chr, stackTop(&stack)) <= 0) {
+		while(!isEmpty(stack) && (char)stackTop(&stack) != '(' && precendence(chr, (char)stackTop(&stack)) <= 0) {
 			// printStack(stack);
 			
-			*target++ = pop(&stack);
+			*target++ = (char)pop(&stack);
 
 			*target++ = ' '; // This need to add SPACE after last operator
 							 // returned from stack
 		}
 		
-		push(&stack, chr);
+		push(&stack, (int)chr);
 	}
 
 	// Get the rest of the stack
@@ -74,7 +74,7 @@ void convertToPostfix(const char *source, char *target)
 		// printStack(stack);
 		*target++ = ' ';
 
-		*target++ = pop(&stack);
+		*target++ = (char)pop(&stack);
 	}
 	
 	*target = '\0';

@@ -5,7 +5,6 @@ uint8_t isEmpty(STACKNODEPTR sPtr)
 	return (uint8_t)(sPtr == NULL);
 }
 
-
 void push(STACKNODEPTR *sPtr, int info)
 {
 	STACKNODEPTR newPtr;
