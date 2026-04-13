@@ -33,10 +33,12 @@
 *.out
 *.app
 *.sml
+*.slp
 *.i*86
 *.x86_64
 *.hex
 sml
+slc
 
 # Debug files
 *.dSYM/
