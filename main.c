@@ -11,6 +11,8 @@
 
 #include "slc.h"
 
+#define DEFAULT_OUT_NAME "prog.sml"
+
 short memory[MEMORY_SIZE];
 uint8_t flags[MEMORY_SIZE];
 TableEntry TABLEENTRY;
@@ -21,7 +23,17 @@ Cpu CPU = { 0, 0, 99, 0, 0, 0};
 
 int main(int argc, char *argv[])
 {
-	int c;
+	// Flags
+	uint8_t isDump = 0;    // 1 - show dump of compiled program
+	uint8_t stop = 0;      // 1 - exit from iiner while for argv checking
+
+	// Common vars
+	char programName[80] = {0};
+	int c, oldArgc;
+
+	// Set default program name to the 'prog.sml'
+	strcpy(programName, DEFAULT_OUT_NAME);
+
 	// uint8_t command = -1;
 	// uint8_t exit = 1;
 	// char *source = "source";
@@ -40,17 +52,53 @@ int main(int argc, char *argv[])
 		printf(" Use '-h' key to get short help\n\n");
 	} else {
 		while (--argc > 0 && (*++argv)[0] == '-') {
-			while (c = *++argv[0]) {
+			oldArgc = argc;
+			stop = 0;
+			while ((c = *++argv[0])) {
+				if (stop == 1) {
+					break;
+				}
+
+				if (c == '-') {
+					if (oldArgc == argc) {
+						printf("\n Error: double dash not allowed!\n\n");
+					} 
+
+					exit(EXIT_FAILURE);
+				}
+				
 				switch(c) {
 				case 'h':
 					showHelp();
 					break;
 				case 'd':
-					showDump();
+					isDump = 1;
 					break;
-				case 's':
+				case 'c':
 					break;
 				case 'o':
+					if (argc > 1) {
+						--argc;
+						++argv;
+					} else {
+						// If the '-o' key is last key but filename is miss
+						printf("\n Error: missing argument for '-o' key!\n\n");
+
+						exit(EXIT_FAILURE);
+					}
+
+					// Check if the next argv is the filename
+					if (*argv[0] == '-') {
+						printf("\n Error: missing argument for command key: '-o'!\n\n");
+
+						exit(EXIT_FAILURE);
+					}
+					
+					strcpy(programName, *argv);
+					strcat(programName, ".sml");
+					
+					stop = 1;
+
 					break;
 				default:
 					printf(" Unknown parameter: %c\n", c);
@@ -62,60 +110,10 @@ int main(int argc, char *argv[])
 	}
 
 	memoryInit();
-	// while (exit) {
-		// command = (uint8_t)getCommand(SYSTEM_CMD);
-/*
-		switch(command) {
-			case CMD_HELP:
-				showHelp();
-				break;
-			case CMD_DUMP:
-			case CMD_DUMP_SM:
-				showDump();
-				break;
-			case CMD_NEW:
-			case CMD_NEW_SM:
-				memoryInit();
-				newProgram();
-				break;
-			case CMD_EDIT:
-			case CMD_EDIT_SM:
-				editProgram();
-				break;
-			case CMD_LIST:
-			case CMD_LIST_SM:
-				listProgram();
-				break;
-			case CMD_RUN:
-			case CMD_RUN_SM:
-				runProgram();
-				break;
-			case CMD_SML_HELP:
-			case CMD_SML_HELP_SM:
-				showSmlHelp(command);
-				break;
-			case CMD_LOAD:
-			case CMD_LOAD_SM:
-				loadProgram();
-				break;
-			case CMD_SAVE:
-			case CMD_SAVE_SM:
-				saveProgram();
-				break;
-			case CMD_EXIT:
-			case CMD_EXIT_SM:
-				exit = 0;
-				break;
-			default:
-				printf("Unknown command!\n");
-		}
-
-		NEWLINE;
-		*/
-	// }
 
 	NEWLINE;
 
+	printf(" Output program name: %s\n", programName);
 	printf(" SIMPLE compiler shutdown now...\n");
 
 	NEWLINE;
