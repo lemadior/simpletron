@@ -9,13 +9,14 @@
  * * @copyright Copyright (c) 2026
  * */
 
-#include "sbc.h"
+#include "slc.h"
 
 void showHelp(void)
 {
 	NEWLINE;
-	printf(" SIMPLETRON compiler commands HELP:\n");
-	printf(" ----------------------------------\n");
+
+	printf(" SIMPLE language compiler commands HELP:\n");
+	printf(" ---------------------------------------\n");
 	printf("\n '-h' - Show the short help\n");
 	printf(" '-d' - print memory and cpu vaiables\n");
 	printf(" '-o' - specify program filename (just specify ONLY the name)\n");

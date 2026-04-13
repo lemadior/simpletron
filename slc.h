@@ -17,8 +17,8 @@
  *
  * */
 
-#ifndef SBC_H
-#define SBC_H
+#ifndef SLC_H
+#define SLC_H
 
 #include "func.h"
 #include "INFIX/infix.h"

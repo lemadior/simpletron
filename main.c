@@ -9,7 +9,7 @@
  * * @copyright Copyright (c) 2026
  * */
 
-#include "sbc.h"
+#include "slc.h"
 
 short memory[MEMORY_SIZE];
 uint8_t flags[MEMORY_SIZE];
@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 		printf("\n ERROR: no source SIMPLE file is founded!\n\n");
 		printf("\n Short hint:\n");
 		printf(" ------------------------------\n");
-		printf(" USAGE: sbc filename.sbl\n");
+		printf(" USAGE: slc filename.sbl\n");
 		printf(" Use '-h' key to get short help\n\n");
 	} else {
 		while (--argc > 0 && (*++argv)[0] == '-') {

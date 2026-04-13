@@ -1,4 +1,4 @@
-TARGET = sbc
+TARGET = slc
 
 CC = gcc
 
@@ -26,7 +26,7 @@ $(TARGET): $(ALL_OBJS)
 	$(CC) $(CFLAGS) -o $(TARGET) $(ALL_OBJS) -lm
 
 # if sbc.h has been changed all the files should be recompiled
-%.o: %.c sbc.h
+%.o: %.c slc.h
 	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 clean:

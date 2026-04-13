@@ -7,7 +7,7 @@
  * * @copyright Copyright (c) 2026
  * */
 
-#include "sbc.h"
+#include "slc.h"
 
 void showDump(void)
 {
@@ -19,6 +19,7 @@ void showDump(void)
 
 	printf(" REGISTERS:\n");
 	printf(" InstructionCounter:  %5.2d\n", CPU.ic);
+	printf(" DataStoreCounter:    %5.2d\n", CPU.dc );
 	printf(" Accumulator:         %5.4d\n", CPU.acc);
 	printf(" Instruction:         %5.4d\n", CPU.instr);
 	printf(" Command:             %5.2d\n", CPU.cmd);
