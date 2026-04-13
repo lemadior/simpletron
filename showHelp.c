@@ -14,15 +14,10 @@
 void showHelp(void)
 {
 	NEWLINE;
-	printf(" Console commands HELP:\n");
-	printf(" ----------------------\n");
-	printf("\n 'D' - print memory and cpu vaiables dump\n");
-	printf(" 'N' - Create new program (old program will gone)\n");
-	printf(" 'E' - Edit mode (type program here)\n");
-	printf(" 'V' - View program on the terminal (get listing)\n");
-	printf(" 'R' - Run the SML program\n");
-	printf(" 'H' - Show the SML laguange commands\n");
-	printf(" 'L' - Load program from the file (system will ask for the one)\n");
-	printf(" 'S' - Save program to the file (just specify ONLY the name)\n");
+	printf(" SIMPLETRON compiler commands HELP:\n");
+	printf(" ----------------------------------\n");
+	printf("\n '-h' - Show the short help\n");
+	printf(" '-d' - print memory and cpu vaiables\n");
+	printf(" '-o' - specify program filename (just specify ONLY the name)\n");
 }
 

@@ -31,7 +31,8 @@ void getFileName(char *, uint8_t);
 /* void listProgram(void); */
 void saveProgram(void);
 void loadProgram(void);
-
+void showDump(void);
+void showHelp(void);
 /* void showSmlHelp(uint8_t); */
 /* void showAllHelp(void); */
 

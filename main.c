@@ -5,7 +5,7 @@
  * @details contains main control procedure and call appropriate functions for the user's comamnd.
  * Initialize main data structure and operands
  * @version 1.0.0
- * @date 2026-03-18
+ * @date 2026-04-12
  * * @copyright Copyright (c) 2026
  * */
 
@@ -18,15 +18,51 @@ OpCode OPCODE;
 // Commands CMD;
 Cpu CPU = { 0, 0, 99, 0, 0, 0};
 
-int main(void)
-{
-	// uint8_t command = -1;
-	uint8_t exit = 1;
 
+int main(int argc, char *argv[])
+{
+	int c;
+	// uint8_t command = -1;
+	// uint8_t exit = 1;
+	// char *source = "source";
+	// char *target = "target";
+
+	// convertToPostfix(source, target);
+	// evaluatePostfixExpression(source);
 	// welcomeMsg();
+	printf("\n SIMPLE compiler starting...\n\n");
+
+	if (argc == 1) {
+		printf("\n ERROR: no source SIMPLE file is founded!\n\n");
+		printf("\n Short hint:\n");
+		printf(" ------------------------------\n");
+		printf(" USAGE: sbc filename.sbl\n");
+		printf(" Use '-h' key to get short help\n\n");
+	} else {
+		while (--argc > 0 && (*++argv)[0] == '-') {
+			while (c = *++argv[0]) {
+				switch(c) {
+				case 'h':
+					showHelp();
+					break;
+				case 'd':
+					showDump();
+					break;
+				case 's':
+					break;
+				case 'o':
+					break;
+				default:
+					printf(" Unknown parameter: %c\n", c);
+					argc = 0;
+					break;
+				}
+			}
+		}
+	}
 
 	memoryInit();
-	while (exit) {
+	// while (exit) {
 		// command = (uint8_t)getCommand(SYSTEM_CMD);
 /*
 		switch(command) {
@@ -76,9 +112,12 @@ int main(void)
 
 		NEWLINE;
 		*/
-	}
+	// }
 
-	printf(" SIMPLETRON shutdown now...\n");
+	NEWLINE;
+
+	printf(" SIMPLE compiler shutdown now...\n");
+
 	NEWLINE;
 
 	return EXIT_SUCCESS;
