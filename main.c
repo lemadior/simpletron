@@ -17,7 +17,6 @@ short memory[MEMORY_SIZE];
 uint8_t flags[MEMORY_SIZE];
 TableEntry TABLEENTRY;
 OpCode OPCODE;
-// Commands CMD;
 Cpu CPU = { 0, 0, 99, 0, 0, 0};
 
 
@@ -25,10 +24,13 @@ int main(int argc, char *argv[])
 {
 	// Flags
 	uint8_t isDump = 0;    // 1 - show dump of compiled program
-	uint8_t stop = 0;      // 1 - exit from iiner while for argv checking
+	uint8_t isTarget = 0;  // 1 - next argv is grogram name
+	uint8_t stop = 0;      // 1 - exit from inner 'while' for argv
+
 
 	// Common vars
 	char programName[80] = {0};
+	char sourceName[80] = {0};
 	int c, oldArgc;
 
 	// Set default program name to the 'prog.sml'
@@ -44,76 +46,86 @@ int main(int argc, char *argv[])
 	// welcomeMsg();
 	printf("\n SIMPLE compiler starting...\n\n");
 
-	if (argc == 1) {
-		printf("\n ERROR: no source SIMPLE file is founded!\n\n");
-		printf("\n Short hint:\n");
-		printf(" ------------------------------\n");
-		printf(" USAGE: slc filename.sbl\n");
-		printf(" Use '-h' key to get short help\n\n");
-	} else {
-		while (--argc > 0 && (*++argv)[0] == '-') {
-			oldArgc = argc;
-			stop = 0;
-			while ((c = *++argv[0])) {
-				if (stop == 1) {
-					break;
-				}
+		while (--argc > 0) { 
+			// oldArgc = argc;
+			// stop = 0;
 
-				if (c == '-') {
-					if (oldArgc == argc) {
-						printf("\n Error: double dash not allowed!\n\n");
-					} 
+			++argv;
 
-					exit(EXIT_FAILURE);
+			if (isTarget == 1) {
+				// Check if the next argv is the filename
+				if (*argv[0] == '-') {
+					ERROR("missing argument for command key: '-o'!");
 				}
+					
+				strcpy(programName, *argv);
+				strcat(programName, ".sml");
+
+				isTarget = 0;
+
+				continue;
+			}
+
+			if (*argv[0] == '-') {
+				while ((c = *++argv[0])) {
+					if (c == '-') {
+						ERROR("double dash not allowed!");
+					}
 				
-				switch(c) {
-				case 'h':
-					showHelp();
-					break;
-				case 'd':
-					isDump = 1;
-					break;
-				case 'c':
-					break;
-				case 'o':
-					if (argc > 1) {
-						--argc;
-						++argv;
-					} else {
-						// If the '-o' key is last key but filename is miss
-						printf("\n Error: missing argument for '-o' key!\n\n");
+					switch(c) {
+					case 'h':
+						showHelp();
+						break;
+					case 'd':
+						isDump = 1;
+						break;
+					case 'c':
+						break;
+					case 'o':
+						if (argc <= 1) {
+							// If the '-o' key is last key but filename is miss
+							ERROR("missing argument for '-o' key!");
+						}
+						isTarget = 1;
 
-						exit(EXIT_FAILURE);
+						break;
+					default:
+						printf(" Unknown parameter: %c\n", c);
+						argc = 0;
+						break;
 					}
-
-					// Check if the next argv is the filename
-					if (*argv[0] == '-') {
-						printf("\n Error: missing argument for command key: '-o'!\n\n");
-
-						exit(EXIT_FAILURE);
-					}
-					
-					strcpy(programName, *argv);
-					strcat(programName, ".sml");
-					
-					stop = 1;
-
-					break;
-				default:
-					printf(" Unknown parameter: %c\n", c);
-					argc = 0;
-					break;
+				} 
+			} else {
+				// Gget source filename
+				if (sourceName[0] == 0) {
+					strcpy(sourceName, *argv);
+				} else {
+					ERROR("duplicate input of source file!");
 				}
 			}
 		}
-	}
+
+
+	if (sourceName[0] == 0) {
+		printf("\n ERROR: no source SIMPLE file is founded!\n\n");
+		printf("\n Short hint:\n");
+		printf(" ------------------------------\n");
+		printf(" USAGE: slc filename.slp\n");
+		printf(" Use '-h' key to get short help\n\n");
+
+		exit(EXIT_SUCCESS);
+	} 
+
 
 	memoryInit();
 
 	NEWLINE;
 
+	printf(" Source SIMPLE file is: %s\n", sourceName);
 	printf(" Output program name: %s\n", programName);
+	if (isDump == 1) {
+		printf(" Dump program\n");
+	}
 	printf(" SIMPLE compiler shutdown now...\n");
 
 	NEWLINE;

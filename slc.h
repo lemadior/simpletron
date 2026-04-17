@@ -24,6 +24,15 @@
 #include "INFIX/infix.h"
 #include "POSTFIX/postfix.h"
 
+
+#define ERROR(...) \
+	do { \
+		fprintf(stderr, " ERROR: "); \
+		fprintf(stderr, __VA_ARGS__); \
+		fprintf(stderr, "\n\n"); \
+		exit(EXIT_FAILURE); \
+	} while (0)
+
 /* extern Commands CMD; */
 
 void getFileName(char *, uint8_t);
