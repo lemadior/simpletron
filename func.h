@@ -12,13 +12,21 @@
 #define NEWLINE printf("\n")
 
 #define MEMORY_SIZE 100
-#define SYMBOL_TABLE_SIZE 100
+#define SYMBOL_TABLE_SIZE 256
 #define UNOP_CMD 10000
 #define ERROR_CMD -10000
 #define SYSTEM_CMD 0
 #define PROGRAM_NEW 1
 #define PROGRAM_EDIT 2
 #define FILENAME_LENGTH 64
+
+#define ERROR(...) \
+	do { \
+		fprintf(stderr, " ERROR: "); \
+		fprintf(stderr, __VA_ARGS__); \
+		fprintf(stderr, "\n\n"); \
+		exit(EXIT_FAILURE); \
+	} while (0)
 
 extern short memory[MEMORY_SIZE];
 extern uint8_t flags[MEMORY_SIZE];
@@ -38,8 +46,14 @@ typedef struct {
 	int location; // cell address (0 to 99)
 } TableEntry;
 
+typedef struct {
+	FILE *fdSRC;
+	FILE *fdTGT;
+} Descriptors;
+
 extern Cpu CPU;
 extern TableEntry TABLEENTRY;
+extern Descriptors FDESCR;
 
 short getOnlyNumbers();
 
