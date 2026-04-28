@@ -13,6 +13,11 @@
 
 #include "slc.h"
 
+typedef struct {
+	char *name;
+	Commands code;
+} CommandMap;
+
 
 /*
  * Init memory array by UNOP (1000) value.
@@ -49,6 +54,56 @@ const char *opcodeToString(OpCode code)
 //		case EDIT: return "EDIT";
 		default: return "UNKNOWN";
 	}
+}
+
+
+// Return the name of the SIMPLE language command
+const char *cmdcodeToString(Commands cmd)
+{
+	switch(cmd) {
+		case SL_REM: return "REM";
+		case SL_REM_SM: return "rem";
+		case SL_INPUT: return "INPUT";
+		case SL_INPUT_SM: return "input";
+		case SL_LET: return "LET";
+		case SL_LET_SM: return "let";
+		case SL_PRINT: return "PRINT";
+		case SL_PRINT_SM: return "print";
+		case SL_GOTO: return "GOTO";
+		case SL_GOTO_SM: return "goto";
+		case SL_IF: return "IF";
+		case SL_IF_SM: return "if";
+		case SL_END: return "END";
+		case SL_END_SM: return "end";
+		default: return "UNKNOWN";
+	}
+}
+
+// Return the name of the SIMPLE language command
+int cmdnameToCode(char *cmdName)
+{
+	static CommandMap table[] = {
+		{ "REM", SL_REM },
+		{ "INPUT", SL_INPUT },
+		{ "LET", SL_LET },
+		{ "PRINT", SL_PRINT },
+		{ "GOTO", SL_GOTO },
+		{ "IF", SL_IF },
+		{ "END", SL_END }
+	};
+	int i;
+	int num_cmds = sizeof(table) / sizeof(CommandMap);
+
+	for (i = 0; i < num_cmds; i++) {
+		// Logic of strcasecmp:
+		// If string are equals, then function returns 0.
+		// If strings are differ, the function returns 1 or -1.
+		if (strcasecmp(cmdName, table[i].name) == 0) {
+			return table[i].code;
+		}
+	}
+
+	return SL_UNKNOWN;
 }
 
 // Get command code (2 digit)
@@ -116,9 +171,11 @@ short getOnlyNumbers()
 	return (short)value;
 }
 
-// Get name of the program file
-// buf: where is name will be stored
-// length: maximum allowed symbols in filename
+/*
+ * Get name of the program file
+ * buf: where is name will be stored
+ * length: maximum allowed symbols in filename
+ */
 void getFileName(char *buf, uint8_t length)
 {
     while(1) {
@@ -138,5 +195,30 @@ void getFileName(char *buf, uint8_t length)
 
         break;
     }
+}
+
+
+/*
+ * Get line from file FDESCR.fdSRC (if not NULL)
+ * and return the length of the readed
+ *
+ * Return: length of line or -1 for error
+ */
+int getline(char *str, int size, FILE *file)
+{
+	int c;
+	int i = 0;
+
+	if (file == NULL) {
+		return -1;
+	}
+
+	while((c = fgetc(file)) != EOF && (char)c != '\n' && i++ < size - 1) {
+		*str++ = (char)c;
+	}
+
+	*str = '\0';
+	
+	return c == EOF ? -1 : i;
 }
 

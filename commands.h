@@ -55,31 +55,24 @@ typedef enum {
 	HALT = 43			// Stop program execution
 } OpCode;
 
-/* Workspace command */
-/*
+/* SIMPLE language command */
 typedef enum {
-	CMD_EXIT = 88,			// Exit workspace
-	CMD_EXIT_SM = 120,		// Exit program (small letter)
-	CMD_DUMP = 68,			// Print memory dump
-	CMD_DUMP_SM = 100,		// Print dump (smal letter)
-	CMD_NEW = 78,			// Create the new program
-	CMD_NEW_SM = 110,		// Create the new program (small letter) 
-	CMD_EDIT = 69,			// Edit mode (edit SML program)
-	CMD_EDIT_SM = 101,		// Edit program (small letter)
-	CMD_LIST = 86,			// Show program listing
-	CMD_LIST_SM = 118,		// Show listing (small letter)
-	CMD_RUN = 82,			// Run SML program
-	CMD_RUN_SM = 114,		// Run program (small letter) 
-	CMD_SML_HELP = 72,		// Short help for SML commands
-	CMD_SML_HELP_SM = 104,  // SML help (small letter)
-	CMD_HELP = 63,			// Short workspace help
-	CMD_LOAD = 76,			// Load program from file
-	CMD_LOAD_SM = 108,      // Short alias for Load program
-	CMD_SAVE = 83,          // Save program to file
-	CMD_SAVE_SM = 115,      // Short alias for Save program
-	CMD_YES = 89,			// YES answer
-	CMD_YES_SM = 121        // Short alias for YES answer
+	SL_UNKNOWN = 0,		// All not defined values
+	SL_REM = 1,			// Command for comment
+	SL_REM_SM = 11,		// Shortcut for REM
+	SL_INPUT = 2,		// Save value to variable from sdtin
+	SL_INPUT_SM = 21,	// Shortcut for INPUT
+	SL_LET = 3,			// Save value to variable
+	SL_LET_SM = 31,		// Shortcut for LET
+	SL_PRINT = 4,		// Print value to stdout from variable
+	SL_PRINT_SM = 41,	// Shortcut for PRINT
+	SL_GOTO = 5,		// Jump to specified line
+	SL_GOTO_SM = 51,	// Shortcut for GOTO
+	SL_IF = 6,			// Conditions
+	SL_IF_SM = 61,		// Shortcut for IF
+	SL_END = 7,			// End of program (terminete execution)
+	SL_END_SM = 71		// Shortcut for END
 } Commands;
-*/
+
 #endif
 

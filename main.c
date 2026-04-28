@@ -5,6 +5,7 @@
  * @details contains main control procedure and call appropriate functions for the user's comamnd.
  * Initialize main data structure and operands
  * @version 1.0.0
+ *
  * @date 2026-04-12
  * * @copyright Copyright (c) 2026
  * */
@@ -112,6 +113,7 @@ int main(int argc, char *argv[])
 
 	NEWLINE;
 
+
 	fprintf(stderr, " Source SIMPLE file is: %s\n", sourceName);
 	fprintf(stderr, " Output program name: %s\n", programName);
 	if (isDump == 1) {
@@ -126,6 +128,8 @@ int main(int argc, char *argv[])
 	} else {
 		fprintf(stderr, " Source program file is opened\n");
 	}	
+
+	firstPass();
 
 	// ERROR("Test error!");
 
@@ -158,3 +162,4 @@ void terminate(void)
 
 	NEWLINE;
 }
+
