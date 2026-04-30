@@ -4,7 +4,7 @@
 
 15 rem check y == x
 
-20 if y == x goto 60
+20 if y - 1 == x + 2*3 goto 60
 
 25 rem increment y (counter of iteration)
 

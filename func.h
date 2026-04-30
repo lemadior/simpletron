@@ -58,7 +58,7 @@ typedef struct {
 // SIMPLE lsnguage statement (for store per line)
 typedef struct { 
 	int line;			// Number of line
-	char name[6];	    // name of the SIMPLE command
+	char cmd[6];	    // name of the SIMPLE command
 	char var;           // variable (main for expression)
 	char exprleft[EXPRESSION_LENGTH];	// Mainly for IF (left part of comparsion)
 	char exprright[EXPRESSION_LENGTH];  // For most expression or comparstion (right part)
