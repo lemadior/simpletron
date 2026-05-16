@@ -12,7 +12,7 @@ void firstPass()
 {
 	int linesCount = 0; // Amount of lines with code in source program
 	uint8_t line;
-	int entryCount = 0;
+	int entryPos = 0;
 
 	memset(program, 0, sizeof(program));
 
@@ -22,11 +22,11 @@ void firstPass()
 	NEWLINE;
 	for (int i = 0; i < linesCount; i++) {
 		line = findEntry(program[i].line, 'L');
-
+		entryPos = findFreeEntry(); 
 		if (line == NOT_FOUND) {
-			TABLEENTRY[entryCount].symbol = program[i].line;
-			TABLEENTRY[entryCount].type = 'L';
-			TABLEENTRY[entryCount].location = CPU.ic;
+			TABLEENTRY[entryPos].symbol = program[i].line;
+			TABLEENTRY[entryPos].type = 'L';
+			TABLEENTRY[entryPos].location = CPU.ic;
 		}
 
 		if (checkCommand(program[i].cmd, SL_REM)) {
@@ -34,19 +34,23 @@ void firstPass()
 		}
 
 		if (checkCommand(program[i].cmd, SL_PRINT)) {
-			generatePrint(program[i]);		
+			generatePrint(program[i]);
+			
+			continue;
 		}
 
 		if (checkCommand(program[i].cmd, SL_INPUT)) {
-			generateInput(program[i]);		
+			generateInput(program[i]);
+
+			continue;
 		}
 
 		printf(" Line: %d", program[i].line);
 		printf(" Cmd: %s", program[i].cmd);
 		
 		if (checkCommand(program[i].cmd, SL_END)) {
-			TABLEENTRY[entryCount].location = CPU.ic;
-			
+			generateEnd(program[i]);
+
 			continue;
 		} 
 		

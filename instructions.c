@@ -53,3 +53,29 @@ void generatePrint(Statement entry)
 	memory[CPU.ic++] = WRITE * 100 + cell;
 }
 
+void generateEnd(Statement entry)
+{
+	int pos, cell; // Number of memory cell
+	// int newEntryPos;
+
+	NEWLINE;
+	printf(" In 'generateEnd'\n");
+	NEWLINE;
+
+	// pos = findEntry(entry.line, 'L');
+
+	// if (pos != NOT_FOUND) {
+		// cell = TABLEENTRY[pos].location;
+	// } else {
+		// cell = CPU.dc--;
+	// }
+	
+	// newEntryPos = findFreeEntry();
+	
+	// TABLEENTRY[newEntryPos].symbol = entry.line;
+	// TABLEENTRY[newEntryPos].type = 'L';
+	// TABLEENTRY[pos].location = CPU.ic;
+
+	memory[CPU.ic++] = HALT * 100;
+}
+

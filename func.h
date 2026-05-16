@@ -82,6 +82,7 @@ short getCommand(uint8_t);
 uint8_t findFreeEntry(void);
 void generateInput(Statement);
 void generatePrint(Statement);
+void generateEnd(Statement);
 uint8_t findEntry(int, char);
 
 #endif

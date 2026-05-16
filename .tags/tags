@@ -20,17 +20,18 @@ OPCODE	main.c	/^OpCode OPCODE;$/;"	v	typeref:typename:OpCode
 TABLEENTRY	main.c	/^TableEntry TABLEENTRY[SYMBOL_TABLE_SIZE] = {0};$/;"	v	typeref:typename:TableEntry[]
 __anon7bffdc2b0108	dataManager.c	/^typedef struct {$/;"	s	file:
 calculate	POSTFIX/calculate.c	/^int calculate(int op1, int op2, char operator)$/;"	f	typeref:typename:int
-checkCommand	passes.c	/^uint8_t checkCommand(char *cmdName, Commands command)$/;"	f	typeref:typename:uint8_t
+checkCommand	../passes.c	/^uint8_t checkCommand(char *cmdName, Commands command)$/;"	f	typeref:typename:uint8_t
 cleanInputBuffer	getCommand.c	/^void cleanInputBuffer(short status)$/;"	f	typeref:typename:void
 cmdcodeToString	dataManager.c	/^const char *cmdcodeToString(Commands cmd)$/;"	f	typeref:typename:const char *
 cmdnameToCode	dataManager.c	/^int cmdnameToCode(char *cmdName)$/;"	f	typeref:typename:int
 code	dataManager.c	/^	Commands code;$/;"	m	struct:__anon7bffdc2b0108	typeref:typename:Commands	file:
 convertToPostfix	INFIX/convert.c	/^void convertToPostfix(const char *source, char *target)$/;"	f	typeref:typename:void
 evaluatePostfixExpression	POSTFIX/evaluate.c	/^int evaluatePostfixExpression(const char *source)$/;"	f	typeref:typename:int
-findEntry	passes.c	/^uint8_t findEntry(int symbol, char type)$/;"	f	typeref:typename:uint8_t
-findFreeEntry	passes.c	/^uint8_t findFreeEntry()$/;"	f	typeref:typename:uint8_t
-firstPass	passes.c	/^void firstPass()$/;"	f	typeref:typename:void
+findEntry	../passes.c	/^uint8_t findEntry(int symbol, char type)$/;"	f	typeref:typename:uint8_t
+findFreeEntry	../passes.c	/^uint8_t findFreeEntry()$/;"	f	typeref:typename:uint8_t
+firstPass	../passes.c	/^void firstPass()$/;"	f	typeref:typename:void
 flags	main.c	/^uint8_t flags[MEMORY_SIZE];$/;"	v	typeref:typename:uint8_t[]
+generateEnd	instructions.c	/^void generateEnd(Statement entry)$/;"	f	typeref:typename:void
 generateInput	instructions.c	/^void generateInput(Statement entry)$/;"	f	typeref:typename:void
 generatePrint	instructions.c	/^void generatePrint(Statement entry)$/;"	f	typeref:typename:void
 getCode	dataManager.c	/^uint8_t getCode(short opcode)$/;"	f	typeref:typename:uint8_t
@@ -41,10 +42,10 @@ getNumber	POSTFIX/evaluate.c	/^uint8_t getNumber(char num)$/;"	f	typeref:typenam
 getOnlyNumbers	dataManager.c	/^short getOnlyNumbers()$/;"	f	typeref:typename:short
 getOperand	dataManager.c	/^uint8_t getOperand(short opcode)$/;"	f	typeref:typename:uint8_t
 getPostfixExpression	POSTFIX/get.c	/^void getPostfixExpression(void)$/;"	f	typeref:typename:void
-getToken	passes.c	/^char *getToken(char *str, const char *delim)$/;"	f	typeref:typename:char *
+getToken	../passes.c	/^char *getToken(char *str, const char *delim)$/;"	f	typeref:typename:char *
 getValue	POSTFIX/evaluate.c	/^int getValue(char *buff)$/;"	f	typeref:typename:int
 getline	dataManager.c	/^int getline(char *str, int size, FILE *file)$/;"	f	typeref:typename:int
-initStatement	passes.c	/^Statement initStatement(void)$/;"	f	typeref:typename:Statement
+initStatement	../passes.c	/^Statement initStatement(void)$/;"	f	typeref:typename:Statement
 isEmpty	stack.c	/^uint8_t isEmpty(STACKNODEPTR sPtr)$/;"	f	typeref:typename:uint8_t
 isOperator	INFIX/checking.c	/^uint8_t isOperator(char c)$/;"	f	typeref:typename:uint8_t
 loadProgram	load.c	/^void loadProgram()$/;"	f	typeref:typename:void
@@ -53,10 +54,10 @@ memory	main.c	/^short memory[MEMORY_SIZE];$/;"	v	typeref:typename:short[]
 memoryInit	dataManager.c	/^void memoryInit(void)$/;"	f	typeref:typename:void
 name	dataManager.c	/^	char *name;$/;"	m	struct:__anon7bffdc2b0108	typeref:typename:char *	file:
 opcodeToString	dataManager.c	/^const char *opcodeToString(OpCode code)$/;"	f	typeref:typename:const char *
-parseProgram	passes.c	/^int parseProgram(Statement program[])$/;"	f	typeref:typename:int
+parseProgram	../passes.c	/^int parseProgram(Statement program[])$/;"	f	typeref:typename:int
 pop	stack.c	/^int pop(STACKNODEPTR *sPtr)$/;"	f	typeref:typename:int
 precendence	INFIX/checking.c	/^int8_t precendence(char op1, char op2)$/;"	f	typeref:typename:int8_t
-program	passes.c	/^Statement program[100];$/;"	v	typeref:typename:Statement[100]
+program	../passes.c	/^Statement program[100];$/;"	v	typeref:typename:Statement[100]
 push	stack.c	/^void push(STACKNODEPTR *sPtr, int info)$/;"	f	typeref:typename:void
 saveProgram	save.c	/^void saveProgram()$/;"	f	typeref:typename:void
 showDump	dump.c	/^void showDump(void)$/;"	f	typeref:typename:void
