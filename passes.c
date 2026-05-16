@@ -1,24 +1,120 @@
-#include <slc.h>
+#include "slc.h"
 
 char *getToken(char *, const char *);
 Statement initStatement(void);
 uint8_t checkCommand(char *cmd, Commands);
-
+uint8_t findEntry(int, char);
 Statement program[100];
 
-int linesCount = 0; // Amount of lines with code in source program
+int parseProgram(Statement[]);
 
 void firstPass()
 {
+	int linesCount = 0; // Amount of lines with code in source program
+	uint8_t line;
+	int entryCount = 0;
+
+	memset(program, 0, sizeof(program));
+
+	linesCount = parseProgram(program);
+
+	printf(" Total lines = %d\n", linesCount);
+	NEWLINE;
+	for (int i = 0; i < linesCount; i++) {
+		line = findEntry(program[i].line, 'L');
+
+		if (line == NOT_FOUND) {
+			TABLEENTRY[entryCount].symbol = program[i].line;
+			TABLEENTRY[entryCount].type = 'L';
+			TABLEENTRY[entryCount].location = CPU.ic;
+		}
+
+		if (checkCommand(program[i].cmd, SL_REM)) {
+			continue;
+		}
+
+		if (checkCommand(program[i].cmd, SL_PRINT)) {
+			generatePrint(program[i]);		
+		}
+
+		if (checkCommand(program[i].cmd, SL_INPUT)) {
+			generateInput(program[i]);		
+		}
+
+		printf(" Line: %d", program[i].line);
+		printf(" Cmd: %s", program[i].cmd);
+		
+		if (checkCommand(program[i].cmd, SL_END)) {
+			TABLEENTRY[entryCount].location = CPU.ic;
+			
+			continue;
+		} 
+		
+		printf(" V: %c", program[i].var);
+		printf(" L: %s", program[i].exprleft);
+		printf(" C: %s", program[i].cond);
+		printf(" R: %s", program[i].exprright);
+		printf(" J: %d", program[i].jumpto);
+		NEWLINE;
+	}
+
+	// printf("Entry POS = %d", findEntry(5, 'C'));
+
+	NEWLINE;
+}
+
+
+char *getToken(char *str, const char *delim)
+{
+	static char *tokenPtr = NULL;
+
+	if (tokenPtr == NULL) {
+		tokenPtr = strtok(str, delim);
+	} else {
+		tokenPtr = strtok(NULL, delim);
+	}
+
+	return tokenPtr;
+}
+
+uint8_t checkCommand(char *cmdName, Commands command)
+{
+	return cmdnameToCode(cmdName) == command ? 1 : 0;
+}
+
+Statement initStatement(void)
+{
+	return (Statement){ 0 };
+}
+
+// Return the position in TABLEENTRY array (if find)
+uint8_t findEntry(int symbol, char type)
+{
+	int i;
+	TableEntry entry;
+
+	for (i = 0; i < SYMBOL_TABLE_SIZE; i++) {
+		entry = TABLEENTRY[i];
+		
+		if (entry.symbol == symbol && entry.type == type) {
+			return i;
+		}
+
+	}
+
+	return 255;
+}
+
+int parseProgram(Statement program[])
+{
 	int len;
+	int count = 0; // Lines count
 	int lenToken, lenExpr;
 	char *token;
 	char strBuffer[MAX_LINE_SIZE];
 	uint8_t isLine, isCmd, isOperator, isExprLeft, isExprRght,
 			isCondition, isSimple, isLet, isVar, isJump;
 	Statement currStat;
-
-	memset(program, 0, sizeof(program));
 
 	while((len = getline(strBuffer, MAX_LINE_SIZE, FDESCR.fdSRC)) != -1) {
 		// skip empty string
@@ -35,7 +131,6 @@ void firstPass()
 
 		while ((token = getToken(strBuffer, " ")) != NULL) {
 			// printf("TOKEN:%s\n", token);
-			
 
 			// printf("Before LINENUM\n");
 			if (!isLine) {
@@ -151,74 +246,22 @@ void firstPass()
 			}
 		}
 
-		// printf(" Line: %d Cmd: %s Var: %c", currStat.line, currStat.cmd, currStat.var);
-		// if (isJump) {
-			// printf(" J: %d", currStat.jumpto);
-		// }
-
-		// if (isLet) {
-			// printf(" E: %s", currStat.exprright);
-		// }
-
-		// NEWLINE;
-
-		// if (isCondition) {
-			// printf(" L: %s C:%s R: %s\n", currStat.exprleft, currStat.cond, currStat.exprright);
-		// }
-
-		program[linesCount++] = currStat;
-
-		// NEWLINE;
+		program[count++] = currStat;
 	}
 
-	printf(" Total lines = %d\n", linesCount);
-	NEWLINE;
-	for (int i = 0; i < linesCount; i++) {
-		printf(" Line: %d", program[i].line);
-		printf(" Cmd: %s", program[i].cmd);
-		
-		if (
-				checkCommand(program[i].cmd, SL_REM) ||
-				checkCommand(program[i].cmd, SL_END)
-			) {
-			NEWLINE;
-			continue;
-		} 
-		
-		printf(" V: %c", program[i].var);
-		printf(" L: %s", program[i].exprleft);
-		printf(" C: %s", program[i].cond);
-		printf(" R: %s", program[i].exprright);
-		printf(" J: %d", program[i].jumpto);
-		NEWLINE;
+	return count;
+}
+
+uint8_t findFreeEntry()
+{
+	int i;
+
+	for(i = 0; i < SYMBOL_TABLE_SIZE; i++) {
+		if (TABLEENTRY[i].symbol == 0) {
+			return i;
+		}
 	}
 
-	NEWLINE;
+	return 255;
 }
-
-
-char *getToken(char *str, const char *delim)
-{
-	static char *tokenPtr = NULL;
-
-	if (tokenPtr == NULL) {
-		tokenPtr = strtok(str, delim);
-	} else {
-		tokenPtr = strtok(NULL, delim);
-	}
-
-	return tokenPtr;
-}
-
-uint8_t checkCommand(char *cmdName, Commands command)
-{
-	return cmdnameToCode(cmdName) == command ? 1 : 0;
-}
-
-Statement initStatement(void)
-{
-	return (Statement){ 0 };
-}
-
-
 

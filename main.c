@@ -16,25 +16,40 @@
 
 short memory[MEMORY_SIZE];
 uint8_t flags[MEMORY_SIZE];
-TableEntry TABLEENTRY;
+TableEntry TABLEENTRY[SYMBOL_TABLE_SIZE] = {0};
 OpCode OPCODE;
 Cpu CPU = { 0, 0, 99, 0, 0, 0};
 Descriptors FDESCR = {NULL, NULL}; // File descriptors (source/target)
 
+void showEntryTable(void);
 void terminate(void);
 
 int main(int argc, char *argv[])
 {
 	// Flags
-	uint8_t isDump = 0;    // 1 - show dump of compiled program
-	uint8_t isTarget = 0;  // 1 - next argv is grogram name
-	uint8_t stop = 0;      // 1 - exit from inner 'while' for argv
+	uint8_t isDump = 0;       // 1 - show dump of compiled program
+	uint8_t isTarget = 0;     // 1 - next argv is grogram name
+	uint8_t stop = 0;		  // 1 - exit from inner 'while' for argv
+	uint8_t isEntryTable = 0; // 1 - show Table Entry
 
 	// Common vars
 	char programName[FILENAME_LENGTH] = {0};
 	char sourceName[FILENAME_LENGTH] = {0};
 	int c;
-
+/*
+	TABLEENTRY[0] = (TableEntry){ 5, 'C', 1005 };
+	TABLEENTRY[1] = (TableEntry){ 15, 'V', 9915 };
+	TABLEENTRY[2] = (TableEntry){ 25, 'L', 1025 };
+	TABLEENTRY[3] = (TableEntry){ 35, 'L', 3935 };
+	TABLEENTRY[4] = (TableEntry){ 45, 'L', 4045 };
+	TABLEENTRY[5] = (TableEntry){ 55, 'V', 5955 };
+	TABLEENTRY[6] = (TableEntry){ 65, 'C', 6056 };
+	TABLEENTRY[7] = (TableEntry){ 75, 'C', 7975 };
+	TABLEENTRY[8] = (TableEntry){ 85, 'L', 8085 };
+	TABLEENTRY[9] = (TableEntry){ 95, 'V', 9995 };
+	TABLEENTRY[10] = (TableEntry){ 98, 'V', 9898 };
+	TABLEENTRY[11] = (TableEntry){ 99, 'L', 9999 };
+*/
 	atexit(terminate);
 
 	// Set default program name to the 'prog.sml'
@@ -72,6 +87,9 @@ int main(int argc, char *argv[])
 					break;
 				case 'd':
 					isDump = 1;
+					break;
+				case 't':
+					isEntryTable = 1;
 					break;
 				case 'c':
 					break;
@@ -116,9 +134,6 @@ int main(int argc, char *argv[])
 
 	fprintf(stderr, " Source SIMPLE file is: %s\n", sourceName);
 	fprintf(stderr, " Output program name: %s\n", programName);
-	if (isDump == 1) {
-		fprintf(stderr, " Dump program\n");
-	}
 	fprintf(stderr, " SIMPLE compiler shutdown now...\n");
 
 	NEWLINE;
@@ -135,6 +150,15 @@ int main(int argc, char *argv[])
 
 	fclose(FDESCR.fdSRC);
 	FDESCR.fdSRC = NULL;
+	
+	if (isEntryTable) {
+		showEntryTable();		
+	}
+
+	if (isDump) {
+		fprintf(stderr, " Dump program\n");
+		showDump();
+	}
 
 	return 0;
 }
@@ -158,6 +182,33 @@ void terminate(void)
 		fprintf(stderr, " Close target program file...\n");
 
 		fclose(FDESCR.fdTGT);
+	}
+
+	NEWLINE;
+}
+
+
+void showEntryTable(void)
+{
+	int i = 0;
+	
+	NEWLINE;
+	printf(" Show Table Entry data:\n");
+	NEWLINE;
+
+	for (i = 0; i < SYMBOL_TABLE_SIZE; i++) {
+		if (!TABLEENTRY[i].symbol) {
+			break;
+		}
+	
+		if (TABLEENTRY[i].type != 'V') {
+			printf(" S: %d ", TABLEENTRY[i].symbol);
+		} else {
+			printf(" S: %c ", (char)TABLEENTRY[i].symbol);
+		}
+
+		printf("\tV: %c ", TABLEENTRY[i].type);
+		printf("\tL: %d\n", TABLEENTRY[i].location);
 	}
 
 	NEWLINE;

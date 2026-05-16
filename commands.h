@@ -74,5 +74,12 @@ typedef enum {
 	SL_END_SM = 71		// Shortcut for END
 } Commands;
 
+// TableEntry Entites
+typedef enum {
+	E_SYMBOL = 0,
+	E_TYPE = 1,
+	E_LOCATION = 2
+} Entries;
+
 #endif
 

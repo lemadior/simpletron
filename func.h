@@ -10,12 +10,12 @@
 #include "commands.h"
 #include "stack.h"
 
-
 #define NEWLINE printf("\n")
 
 #define MEMORY_SIZE 100
 #define MAX_LINE_SIZE 128
-#define SYMBOL_TABLE_SIZE 256
+#define SYMBOL_TABLE_SIZE 250
+#define NOT_FOUND 255
 #define UNOP_CMD 10000
 #define ERROR_CMD -10000
 #define SYSTEM_CMD 0
@@ -68,7 +68,7 @@ typedef struct {
 } Statement;
 
 extern Cpu CPU;
-extern TableEntry TABLEENTRY;
+extern TableEntry TABLEENTRY[SYMBOL_TABLE_SIZE];
 extern Descriptors FDESCR;
 
 short getOnlyNumbers();
@@ -79,5 +79,9 @@ uint8_t getCode(short);
 uint8_t getOperand(short);
 void firstPass();
 short getCommand(uint8_t);
+uint8_t findFreeEntry(void);
+void generateInput(Statement);
+void generatePrint(Statement);
+uint8_t findEntry(int, char);
 
 #endif
