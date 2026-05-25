@@ -2,7 +2,6 @@
 
 char *getToken(char *, const char *);
 Statement initStatement(void);
-uint8_t checkCommand(char *cmd, Commands);
 uint8_t findEntry(int, char);
 Statement program[100];
 
@@ -14,12 +13,15 @@ void firstPass()
 	uint8_t line;
 	int entryPos = 0;
 
+	char postfix[EXPRESSION_LENGTH];
+
 	memset(program, 0, sizeof(program));
 
 	linesCount = parseProgram(program);
 
 	printf(" Total lines = %d\n", linesCount);
 	NEWLINE;
+
 	for (int i = 0; i < linesCount; i++) {
 		line = findEntry(program[i].line, 'L');
 		entryPos = findFreeEntry(); 
@@ -41,6 +43,18 @@ void firstPass()
 
 		if (checkCommand(program[i].cmd, SL_INPUT)) {
 			generateInput(program[i]);
+
+			continue;
+		}
+
+		if (checkCommand(program[i].cmd, SL_GOTO)) {
+			generateJump(program[i].jumpto, JUMP);
+
+			continue;
+		}
+
+		if (checkCommand(program[i].cmd, SL_LET)) {
+			convertToPostfix(program[i].exprright, postfix);
 
 			continue;
 		}

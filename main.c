@@ -14,6 +14,7 @@
 
 #define DEFAULT_OUT_NAME "prog.sml"
 
+
 short memory[MEMORY_SIZE];
 uint8_t flags[MEMORY_SIZE];
 TableEntry TABLEENTRY[SYMBOL_TABLE_SIZE] = {0};

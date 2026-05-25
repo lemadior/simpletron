@@ -83,6 +83,8 @@ uint8_t findFreeEntry(void);
 void generateInput(Statement);
 void generatePrint(Statement);
 void generateEnd(Statement);
+void generateJump(int, OpCode);
+void generateLet(Statement);
 uint8_t findEntry(int, char);
-
+uint8_t checkCommand(char *, Commands);
 #endif

@@ -48,6 +48,10 @@ void convertToPostfix(const char *source, char *target)
 			continue;
 		}
 
+		// TODO: here need to add checking varaiables
+		// Here need to check if chr is alphabetic char 
+		//checkVar(chr);
+
 		// Here the chr contains some of math operator
 		// If stack is empty - put into any expression operator
 		// here don't worry about priority
@@ -78,5 +82,31 @@ void convertToPostfix(const char *source, char *target)
 	}
 	
 	*target = '\0';
+}
+
+int checkVar(char varName)
+{
+	int pos, cell; // Number of memory cell
+	int newEntryPos;
+
+	NEWLINE;
+	printf(" In 'generateInput'\n");
+	NEWLINE;
+
+	pos = findEntry(varName, 'V');
+
+	if (pos == NOT_FOUND) {
+		cell = CPU.dc--;
+
+		newEntryPos = findFreeEntry();
+	
+		TABLEENTRY[newEntryPos].symbol = varName;
+		TABLEENTRY[newEntryPos].type = 'V';
+		TABLEENTRY[newEntryPos].location = cell;
+	} else {
+		cell = TABLEENTRY[pos].location;
+	}
+	
+	return cell;
 }
 
