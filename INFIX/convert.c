@@ -1,6 +1,8 @@
 #include "func.h"
 #include "convert.h"
 
+int checkVar(char);
+
 // Generate the postfix representation of arithmetic expression
 // Each element will be divided by SPACE symbol!
 void convertToPostfix(const char *source, char *target)
@@ -48,9 +50,14 @@ void convertToPostfix(const char *source, char *target)
 			continue;
 		}
 
-		// TODO: here need to add checking varaiables
 		// Here need to check if chr is alphabetic char 
-		//checkVar(chr);
+		// If so - the new var saved int the TABLEENTRY or just saved into the INFIX
+		// TODO: correctly add the name of variable to the INFIX
+		if (isalpha(chr)) {
+			checkVar(chr);
+			
+			continue;
+		}
 
 		// Here the chr contains some of math operator
 		// If stack is empty - put into any expression operator
@@ -90,7 +97,7 @@ int checkVar(char varName)
 	int newEntryPos;
 
 	NEWLINE;
-	printf(" In 'generateInput'\n");
+	printf(" In 'checkVar'\n");
 	NEWLINE;
 
 	pos = findEntry(varName, 'V');

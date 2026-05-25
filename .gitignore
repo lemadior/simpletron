@@ -15,8 +15,6 @@
 # Precompiled Headers
 *.gch
 *.pch
-.cache/
-.tags/
 
 # Libraries
 *.lib
@@ -48,6 +46,9 @@ slc
 *.idb
 *.pdb
 *.log
+.cache/
+.tags/
+.tags/tags
 compile_commands.json
 
 # Kernel Module Compile Results

@@ -1,6 +1,7 @@
 #ifndef STACK_H
 #define STACK_H
 
+#include <stdint.h>
 #define INPUT_SIZE 80
 #define E_VALUE 100 // 100 is means here empty cell or wrong value
 
