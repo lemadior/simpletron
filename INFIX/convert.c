@@ -1,7 +1,9 @@
-#include "func.h"
+#include "../func.h"
 #include "convert.h"
 
 int checkVar(char);
+
+STACKNODEPTR stack;
 
 // Generate the postfix representation of arithmetic expression
 // Each element will be divided by SPACE symbol!
@@ -11,7 +13,7 @@ void convertToPostfix(const char *source, char *target)
 
 	printf("IN CONVERT FUNCTION\n");
 
-	return;
+	// return;
 
 	while((chr = *source++) != '\0') {
 		if (chr == ' ') {
@@ -56,7 +58,7 @@ void convertToPostfix(const char *source, char *target)
 		if (isalpha(chr)) {
 			checkVar(chr);
 			
-			continue;
+			//continue;
 		}
 
 		// Here the chr contains some of math operator

@@ -72,7 +72,7 @@ extern TableEntry TABLEENTRY[SYMBOL_TABLE_SIZE];
 extern Descriptors FDESCR;
 
 short getOnlyNumbers();
-int getline(char *, int, FILE *);
+int readline(char *, int, FILE *);
 const char *opcodeToString(OpCode);
 int cmdnameToCode(char *);
 uint8_t getCode(short);

@@ -204,7 +204,7 @@ void getFileName(char *buf, uint8_t length)
  *
  * Return: length of line or -1 for error
  */
-int getline(char *str, int size, FILE *file)
+int readline(char *str, int size, FILE *file)
 {
 	int c;
 	int i = 0;

@@ -55,7 +55,7 @@ void firstPass()
 
 		if (checkCommand(program[i].cmd, SL_LET)) {
 			convertToPostfix(program[i].exprright, postfix);
-
+			printf("postfix=%s\n", postfix);
 			continue;
 		}
 
@@ -134,7 +134,7 @@ int parseProgram(Statement program[])
 			isCondition, isSimple, isLet, isVar, isJump;
 	Statement currStat;
 
-	while((len = getline(strBuffer, MAX_LINE_SIZE, FDESCR.fdSRC)) != -1) {
+	while((len = readline(strBuffer, MAX_LINE_SIZE, FDESCR.fdSRC)) != -1) {
 		// skip empty string
 		if (!len) {
 			continue;
