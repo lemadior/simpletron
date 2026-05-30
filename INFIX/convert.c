@@ -2,7 +2,7 @@
 #include "convert.h"
 
 int checkVar(char);
-
+int checkConst(char *number);
 STACKNODEPTR stack;
 
 // Generate the postfix representation of arithmetic expression
@@ -10,7 +10,9 @@ STACKNODEPTR stack;
 void convertToPostfix(const char *source, char *target)
 {
 	char chr;
-
+	char nums[16] = {0};
+	char *num = &nums[0];
+	uint8_t isNum = 0;
 	printf("IN CONVERT FUNCTION\n");
 
 	// return;
@@ -25,12 +27,24 @@ void convertToPostfix(const char *source, char *target)
 		// If chr is numeric symbol just store it to the postfix
 		if (isdigit(chr)) {
 			*target++ = chr;
+			
+			isNum = 1;
+			*num++ = chr;
 
 			continue;
 		}
 		
-		if (*(target-1) != ' ') {
+		if (*(target-1) != ' ' && *(target-1) != 0) {
+			// printf("CHECK isNum=%d CHR=%c\n", isNum, *(target-1)); 
 			*target++ = ' ';
+			if (isNum == 1) {
+				// printf("IN NUM\n");
+				isNum = 0;
+				*num = '\0';
+				num = &nums[0];	
+		
+				checkConst(num);
+			}
 		}
 
 		// If start parenthensis just save it to the stack
@@ -82,6 +96,13 @@ void convertToPostfix(const char *source, char *target)
 		push(&stack, (int)chr);
 	}
 
+	if (isNum == 1) {
+		*num = '\0';
+		// printf("IN LAST NUM NUM=%s\n", num);
+	
+		checkConst(&nums[0]);
+	}
+	
 	// Get the rest of the stack
 	while(!isEmpty(stack)) {
 		// printStack(stack);
@@ -112,6 +133,36 @@ int checkVar(char varName)
 		TABLEENTRY[newEntryPos].symbol = varName;
 		TABLEENTRY[newEntryPos].type = 'V';
 		TABLEENTRY[newEntryPos].location = cell;
+	} else {
+		cell = TABLEENTRY[pos].location;
+	}
+	
+	return cell;
+}
+
+int checkConst(char *number)
+{
+	int pos, cell; // Number of memory cell
+	int newEntryPos;
+	int num;
+
+	NEWLINE;
+	printf(" In 'checkConst'\n");
+	NEWLINE;
+
+	num = atoi(number);
+	pos = findEntry(num, 'C');
+	printf("NUM=%d NUMB=%s POS=%d\n", num, number, pos);
+	if (pos == NOT_FOUND) {
+		cell = CPU.dc;
+
+		newEntryPos = findFreeEntry();
+	
+		TABLEENTRY[newEntryPos].symbol = num;
+		TABLEENTRY[newEntryPos].type = 'C';
+		TABLEENTRY[newEntryPos].location = cell;
+
+		memory[CPU.dc--] = num;
 	} else {
 		cell = TABLEENTRY[pos].location;
 	}

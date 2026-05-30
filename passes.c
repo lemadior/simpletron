@@ -54,6 +54,7 @@ void firstPass()
 		}
 
 		if (checkCommand(program[i].cmd, SL_LET)) {
+			memset(postfix, 0, sizeof(postfix)); 
 			convertToPostfix(program[i].exprright, postfix);
 			printf("postfix=%s\n", postfix);
 			continue;
