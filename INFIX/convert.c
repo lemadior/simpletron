@@ -13,17 +13,13 @@ void convertToPostfix(const char *source, char *target)
 	char nums[16] = {0};
 	char *num = &nums[0];
 	uint8_t isNum = 0;
-	printf("IN CONVERT FUNCTION\n");
-
-	// return;
+	// printf("--- IN CONVERT FUNCTION ---\n");
 
 	while((chr = *source++) != '\0') {
 		if (chr == ' ') {
 			continue;
 		}
 			
-		// printStack(stack);
-
 		// If chr is numeric symbol just store it to the postfix
 		if (isdigit(chr)) {
 			*target++ = chr;
@@ -37,6 +33,7 @@ void convertToPostfix(const char *source, char *target)
 		if (*(target-1) != ' ' && *(target-1) != 0) {
 			// printf("CHECK isNum=%d CHR=%c\n", isNum, *(target-1)); 
 			*target++ = ' ';
+
 			if (isNum == 1) {
 				// printf("IN NUM\n");
 				isNum = 0;
@@ -45,6 +42,16 @@ void convertToPostfix(const char *source, char *target)
 		
 				checkConst(num);
 			}
+		}
+
+		// Here need to check if chr is alphabetic char 
+		// If so - the new var saved into the TABLEENTRY or just saved into the INFIX
+		if (isalpha(chr)) {
+			checkVar(chr);
+		
+			*target++ = chr;
+
+			continue;
 		}
 
 		// If start parenthensis just save it to the stack
@@ -66,27 +73,19 @@ void convertToPostfix(const char *source, char *target)
 			continue;
 		}
 
-		// Here need to check if chr is alphabetic char 
-		// If so - the new var saved int the TABLEENTRY or just saved into the INFIX
-		// TODO: correctly add the name of variable to the INFIX
-		if (isalpha(chr)) {
-			checkVar(chr);
-			
-			//continue;
-		}
 
 		// Here the chr contains some of math operator
 		// If stack is empty - put into any expression operator
 		// here don't worry about priority
 		if (isEmpty(stack)) {
 			push(&stack, (int)chr);
-
+			// printf("IN Stack CHR=%c\n", chr);
 			continue;
 		}
 
 		while(!isEmpty(stack) && (char)stackTop(&stack) != '(' && precendence(chr, (char)stackTop(&stack)) <= 0) {
 			// printStack(stack);
-			
+			// printf("IN  STACKi=%c\n", (char)stackTop(&stack));			
 			*target++ = (char)pop(&stack);
 
 			*target++ = ' '; // This need to add SPACE after last operator
@@ -119,9 +118,9 @@ int checkVar(char varName)
 	int pos, cell; // Number of memory cell
 	int newEntryPos;
 
-	NEWLINE;
-	printf(" In 'checkVar'\n");
-	NEWLINE;
+	// NEWLINE;
+	// printf(" In 'checkVar'\n");
+	// NEWLINE;
 
 	pos = findEntry(varName, 'V');
 
@@ -146,13 +145,13 @@ int checkConst(char *number)
 	int newEntryPos;
 	int num;
 
-	NEWLINE;
-	printf(" In 'checkConst'\n");
-	NEWLINE;
+	// NEWLINE;
+	// printf(" In 'checkConst'\n");
+	// NEWLINE;
 
 	num = atoi(number);
 	pos = findEntry(num, 'C');
-	printf("NUM=%d NUMB=%s POS=%d\n", num, number, pos);
+	// printf("NUM=%d NUMB=%s POS=%d\n", num, number, pos);
 	if (pos == NOT_FOUND) {
 		cell = CPU.dc;
 
