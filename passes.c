@@ -2,15 +2,14 @@
 
 char *getToken(char *, const char *);
 Statement initStatement(void);
-uint8_t findEntry(int, char);
+uint8_t getTempCell(void);
 Statement program[100];
-
 int parseProgram(Statement[]);
 
 void firstPass()
 {
 	int linesCount = 0; // Amount of lines with code in source program
-	uint8_t line;
+	uint8_t line, value;
 	int entryPos = 0;
 
 	char postfix[EXPRESSION_LENGTH];
@@ -56,7 +55,13 @@ void firstPass()
 		if (checkCommand(program[i].cmd, SL_LET)) {
 			memset(postfix, 0, sizeof(postfix)); 
 			convertToPostfix(program[i].exprright, postfix);
+
 			printf("postfix=%s\n", postfix);
+
+			value = evaluatePostfixExpression(postfix);
+			printf("Value=%d\n", value);
+			generateLet(program[i], value);
+			// printf();
 			continue;
 		}
 
@@ -282,5 +287,14 @@ uint8_t findFreeEntry()
 	}
 
 	return 255;
+}
+
+uint8_t getTempCell()
+{
+	if (tempCell == OUT_OF_MEMORY) {
+		tempCell = CPU.dc--;
+	}
+
+	return tempCell;
 }
 

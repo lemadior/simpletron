@@ -1,10 +1,17 @@
-#include "func.h"
+/*
+ * Here an evaluate the math expression prepared by INFIX
+ * Instead of direct calculation of values the memory cells
+ * used to it.
+ */
+
 #include "evaluate.h"
 
 #define BUFF_SIZE 2
 
 uint8_t getNumber(char);
-int getValue(char *);
+uint8_t getNumAddr(char *);
+STACKNODEPTR stack;
+uint8_t getVarAddr(char var);
 
 int evaluatePostfixExpression(const char *source)
 {
@@ -14,26 +21,32 @@ int evaluatePostfixExpression(const char *source)
 	int x, y;
 	uint8_t i = BUFF_SIZE - 1; // Counter for buff (to allow 2 digit numbers) 
 	uint8_t isCalc = 0; // Flag to indicate success math operation 
-    int tmp;
+	uint8_t isVar = 0;  // Flag to indicate that previous value was a var!
+    uint8_t tmp;
 
-	printf("IN EVALUATE FUNCTION\n");
-	return 0;
+	printf("IN EVALUATE FUNCTION %s\n", source);
+	// return 0;
 	while((chr = *source++) != '\0') {
+		printf("CHR=%c\n", chr);
 		if (chr == ' ') {
 			// If previous symbol was a math operator just skip this SPACE
-			if (isCalc == 1) {
+			if (isCalc) {
 				isCalc = 0;
 
 				continue;
 			}
 
+			if (isVar) {
+				isVar = 0;
+
+				continue;
+			}
+
 			// Get number from string representation
-			tmp = (uint8_t)getValue(buff);
-
+			tmp = getNumAddr(buff);
+			printf("N-Tmp=%d\n", tmp);
 			if (tmp >= E_VALUE || tmp <= E_VALUE*(-1)) {
-				// printf("Value %d is out of allowd range (-99:99)!\n", tmp);
-
-				return E_VALUE;
+				ERROR("Const value %d is out of allowd range (-99:99)!", tmp);
 			}
 
 			push(&stack, tmp);
@@ -41,9 +54,11 @@ int evaluatePostfixExpression(const char *source)
 			// printStack(stack);			
 			
 			// Clean the buffer
-			for (i = 0; i < BUFF_SIZE; i++) {
-				buff[i] = E_VALUE;
-			}
+
+		memset(buff, E_VALUE, sizeof(buff)); 
+			// for (i = 0; i < BUFF_SIZE; i++) {
+				// buff[i] = E_VALUE;
+			// }
 			
 			i = BUFF_SIZE - 1;
 
@@ -62,13 +77,30 @@ int evaluatePostfixExpression(const char *source)
 			continue;
 		}
 
+		if (isalpha(chr)) {
+			tmp = getVarAddr(chr);
+
+			if (tmp >= E_VALUE || tmp <= E_VALUE*(-1)) {
+				ERROR("Var value %c = %d is out of allowd range (-99:99)!", chr, tmp);
+			}
+
+			printf("A-tmp %d\n", tmp);
+			push(&stack, tmp);
+
+			isVar = 1;
+
+			continue;
+		}
+
 		// If we go here it means that we got some of math operator 
 		x = pop(&stack);
 		y = pop(&stack);
 
-		// Calculate the value and push it back to teh stack
+		// Calculate the value and push it back to the stack
 		// First argument should be y!
-		push(&stack, calculate(y, x, chr));
+		tmp = calculate(y, x, chr);
+		printf("CALC=%d\n", tmp);
+		push(&stack, tmp);
 
 		// printStack(stack);
 
@@ -79,20 +111,26 @@ int evaluatePostfixExpression(const char *source)
 }
 
 // Convert value from string
-int getValue(char *buff)
+uint8_t getNumAddr(char *buff)
 {
-	int result = 0;
-
-
-	if (*(buff) != E_VALUE) {
+	uint8_t result = 0;
+	if (*buff != E_VALUE) {
+		printf("BUFF =%c", *buff);
 		result = getNumber(*buff) * 10;
 	}
 
 	if (*(buff+1) != E_VALUE) {
+		printf("%c\n", *(buff+1));
 		result += getNumber(*(buff+1));
 	}
 
-	return result;
+	return TABLEENTRY[findEntry(result, 'C')].location;
+}
+
+uint8_t getVarAddr(char var)
+{
+	printf("VARR=%c\n", var);
+	return TABLEENTRY[findEntry(var, 'V')].location;
 }
 
 // Get number from char

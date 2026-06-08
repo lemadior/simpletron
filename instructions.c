@@ -71,13 +71,13 @@ void generateJump(int jumpto, OpCode jType)
 	memory[CPU.ic++] = jType * 100 + jumpto;
 }
 
-void generateLet(Statement entry)
+void generateLet(Statement entry, int valueCell)
 {
 	int pos, cell; // Number of memory cell
 	int newEntryPos;
 
 	NEWLINE;
-	printf(" In 'generatePrint'\n");
+	printf(" In 'generateLet'\n");
 	NEWLINE;
 
 	pos = findEntry(entry.var, 'V');
@@ -94,6 +94,7 @@ void generateLet(Statement entry)
 	TABLEENTRY[newEntryPos].type = 'V';
 	TABLEENTRY[newEntryPos].location = cell;
 
-	memory[CPU.ic++] = WRITE * 100 + cell;
+	memory[CPU.ic++] = LOAD * 100 + valueCell;
+	memory[CPU.ic++] = STORE * 100 + cell;
 }
 

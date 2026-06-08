@@ -1,6 +1,7 @@
 #ifndef EVALUATE_H
 #define EVALUATE_H
 
+#include "../func.h"
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -18,10 +19,10 @@
 #define E_VALUE 100 // 100 is means here empty cell or wrong value
 */
 
-extern char postfix[INPUT_SIZE];
+/* extern char postfix[INPUT_SIZE]; */
 
 int evaluatePostfixExpression(const char *);
-int calculate(int, int, char);
+uint8_t calculate(uint8_t, uint8_t, char);
 void getPostfixExpression(void);
 
 /* typedef struct StackNode {  

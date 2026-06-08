@@ -23,6 +23,7 @@
 #define PROGRAM_EDIT 2
 #define FILENAME_LENGTH 64
 #define EXPRESSION_LENGTH 64
+#define OUT_OF_MEMORY 100
 
 #define ERROR(...) \
 	do { \
@@ -41,7 +42,7 @@ typedef struct {
 	uint8_t dc;	  // Data counter (next cell to store data)
 	short instr;  // Current instruction (command + operand)
 	uint8_t cmd;  // Command code (operation code)
-	uint8_t op;	  // Command operand (it used to be memory adress) 
+	uint8_t op;	  // Command operand (it used to be memory adress)
 } Cpu;
 
 typedef struct {
@@ -70,6 +71,7 @@ typedef struct {
 extern Cpu CPU;
 extern TableEntry TABLEENTRY[SYMBOL_TABLE_SIZE];
 extern Descriptors FDESCR;
+extern uint8_t tempCell;
 
 short getOnlyNumbers();
 int readline(char *, int, FILE *);
@@ -80,11 +82,14 @@ uint8_t getOperand(short);
 void firstPass();
 short getCommand(uint8_t);
 uint8_t findFreeEntry(void);
+uint8_t findEntry(int, char);
 void generateInput(Statement);
 void generatePrint(Statement);
 void generateEnd(Statement);
 void generateJump(int, OpCode);
-void generateLet(Statement);
+void generateLet(Statement, int);
 uint8_t findEntry(int, char);
 uint8_t checkCommand(char *, Commands);
+uint8_t getTempCell(void);
+
 #endif

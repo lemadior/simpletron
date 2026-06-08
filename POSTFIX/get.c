@@ -1,4 +1,3 @@
-#include "func.h"
 #include "evaluate.h"
 
 void getPostfixExpression(void)

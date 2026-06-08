@@ -3,7 +3,7 @@
 
 int checkVar(char);
 int checkConst(char *number);
-STACKNODEPTR stack;
+// STACKNODEPTR stack;
 
 // Generate the postfix representation of arithmetic expression
 // Each element will be divided by SPACE symbol!
