@@ -35,14 +35,14 @@ typedef enum {
 	ADD = 30,			// Add the value from accumulator and from the specified address
 						// and store the result back into the accumulator
 
-	SUB = 31,				// Subtrct the value from accumulator and from the specified address
+	SUB = 31,			// Subtrct the value from accumulator and from the specified address
 						// and store the result back into the accumulator
 
-	DIV = 32,				// Divide the value from accumulator and from the specified address
+	DIV = 32,			// Divide the value from accumulator and from the specified address
 						// and store the result back into the accumulator
 
-	MUL = 33,				// Multiple the value from accumulator and from the specified address
-						// and store teh result back into the accumulator
+	MUL = 33,			// Multiple the value from accumulator and from the specified address
+						// and store the result back into the accumulator
 
 	/* Jump instructions */
 

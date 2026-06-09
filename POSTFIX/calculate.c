@@ -20,32 +20,75 @@ uint8_t calculate(uint8_t op1, uint8_t op2, char operator)
 			cmd = LOAD * 100 + op1;
 		    memory[CPU.ic++] = cmd;
 
-			// Add value from cell to value from acc and store it back (acc)
+			// Add value from op2 to accumulator and store it back (acc)
 			cmd = ADD * 100 + op2;
 			memory[CPU.ic++] = cmd;
 			
 			// Get the next free data cell
 			cmd = STORE * 100 + tmp;
+
 			// Store result in temporary cell
 			memory[CPU.ic++] = cmd;
 
 			result = tmp;
 			break;
 		case '-':
-			result = op1 - op2;
+			// Load first value (op1) into accumulator
+			cmd = LOAD * 100 + op1;
+		    memory[CPU.ic++] = cmd;
+
+			// Add value from op2 to accumulator and store it back (acc)
+			cmd = SUB * 100 + op2;
+			memory[CPU.ic++] = cmd;
+			
+			// Get the next free data cell
+			cmd = STORE * 100 + tmp;
+
+			// Store result in temporary cell
+			memory[CPU.ic++] = cmd;
+
+			result = tmp;
 			break;
 		case '*':
-			result = op1 * op2;
+			// Load first value (op1) into accumulator
+			cmd = LOAD * 100 + op1;
+		    memory[CPU.ic++] = cmd;
+
+			// Add value from op2 to accumulator and store it back (acc)
+			cmd = MUL * 100 + op2;
+			memory[CPU.ic++] = cmd;
+			
+			// Get the next free data cell
+			cmd = STORE * 100 + tmp;
+
+			// Store result in temporary cell
+			memory[CPU.ic++] = cmd;
+
+			result = tmp;
 			break;
 		case '/':
-			result = op1 / op2;
+			// Load first value (op1) into accumulator
+			cmd = LOAD * 100 + op1;
+		    memory[CPU.ic++] = cmd;
+
+			// Add value from op2 to accumulator and store it back (acc)
+			cmd = DIV * 100 + op2;
+			memory[CPU.ic++] = cmd;
+			
+			// Get the next free data cell
+			cmd = STORE * 100 + tmp;
+
+			// Store result in temporary cell
+			memory[CPU.ic++] = cmd;
+
+			result = tmp;
 			break;
-		case '%':
-			result = op1 % op2;
-			break;
-		case '^':
-			result = pow(op1, op2);
-			break;
+		// case '%':
+			// result = op1 % op2;
+			// break;
+		// case '^':
+			// result = pow(op1, op2);
+			// break;
 		default:
 			result = 0;
 	};

@@ -19,7 +19,7 @@ int evaluatePostfixExpression(const char *source)
 	char buff[2] = {E_VALUE, E_VALUE}; // buff[0] first digit
 									   // buff[0] second or only digit
 	int x, y;
-	uint8_t i = BUFF_SIZE - 1; // Counter for buff (to allow 2 digit numbers) 
+	uint8_t bufPos = BUFF_SIZE - 1; // Counter for buff (to allow 2 digit numbers) 
 	uint8_t isCalc = 0; // Flag to indicate success math operation 
 	uint8_t isVar = 0;  // Flag to indicate that previous value was a var!
     uint8_t tmp;
@@ -36,6 +36,7 @@ int evaluatePostfixExpression(const char *source)
 				continue;
 			}
 
+			// If previous symbol was a variable symbol
 			if (isVar) {
 				isVar = 0;
 
@@ -46,7 +47,7 @@ int evaluatePostfixExpression(const char *source)
 			tmp = getNumAddr(buff);
 			printf("N-Tmp=%d\n", tmp);
 			if (tmp >= E_VALUE || tmp <= E_VALUE*(-1)) {
-				ERROR("Const value %d is out of allowd range (-99:99)!", tmp);
+				ERROR("Const value %d is out of allowed range (-99:99)!", tmp);
 			}
 
 			push(&stack, tmp);
@@ -55,24 +56,24 @@ int evaluatePostfixExpression(const char *source)
 			
 			// Clean the buffer
 
-		memset(buff, E_VALUE, sizeof(buff)); 
+		    memset(buff, E_VALUE, sizeof(buff)); 
 			// for (i = 0; i < BUFF_SIZE; i++) {
 				// buff[i] = E_VALUE;
 			// }
 			
-			i = BUFF_SIZE - 1;
+			bufPos = BUFF_SIZE - 1;
 
 			continue;
 		}
 
 		// If chr is numeric symbol just store it to the postfix
 		if (isdigit(chr)) {
-			if (i < BUFF_SIZE - 1) {
-				buff[i] = buff[i+1]; // Shift unit to decimal 
+			if (bufPos < BUFF_SIZE - 1) {
+				buff[bufPos] = buff[bufPos+1]; // Shift unit to decimal 
 			}
 
 			buff[BUFF_SIZE - 1] = chr;	
-			i--;
+			bufPos--;
 
 			continue;
 		}
@@ -81,7 +82,7 @@ int evaluatePostfixExpression(const char *source)
 			tmp = getVarAddr(chr);
 
 			if (tmp >= E_VALUE || tmp <= E_VALUE*(-1)) {
-				ERROR("Var value %c = %d is out of allowd range (-99:99)!", chr, tmp);
+				ERROR("Var value %c = %d is out of allowed range (-99:99)!", chr, tmp);
 			}
 
 			printf("A-tmp %d\n", tmp);
