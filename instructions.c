@@ -64,11 +64,21 @@ void generateEnd(Statement entry)
 
 void generateJump(int jumpto, OpCode jType)
 {
+	int pos;
+	
 	NEWLINE;
 	printf(" In 'generateJump'\n");
 	NEWLINE;
 
-	memory[CPU.ic++] = jType * 100 + jumpto;
+	pos = findEntry(jumpto, 'L');
+
+	// If pos not found it returns 255
+	if (pos > SYMBOL_TABLE_SIZE) {
+		memory[CPU.ic] = 4000; // incomplete cell jump
+		flags[CPU.ic++] = jumpto;
+	} else {
+		memory[CPU.ic++] = jType * 100 + pos;
+	}
 }
 
 void generateLet(Statement entry, int valueCell)
@@ -96,5 +106,45 @@ void generateLet(Statement entry, int valueCell)
 
 	memory[CPU.ic++] = LOAD * 100 + valueCell;
 	memory[CPU.ic++] = STORE * 100 + cell;
+}
+
+void generateIf(uint8_t lValue, uint8_t rValue, char *condition, int jumpto)
+{
+	if (strcasecmp(condition, "==") == 0) {
+		memory[CPU.ic++] = LOAD * 100 + lValue;
+		memory[CPU.ic++] = SUB * 100 + rValue;
+		
+		generateJump(jumpto, JZERO);
+	}
+
+	if (strcasecmp(condition, ">") == 0) {
+		memory[CPU.ic++] = LOAD * 100 + rValue;
+		memory[CPU.ic++] = SUB * 100 + rValue;
+		
+		generateJump(jumpto, JNEG);
+	}
+
+	if (strcasecmp(condition, "<") == 0) {
+		memory[CPU.ic++] = LOAD * 100 + lValue;
+		memory[CPU.ic++] = SUB * 100 + rValue;
+		
+		generateJump(jumpto, JNEG);
+	}
+
+	if (strcasecmp(condition, "<=") == 0) {
+		memory[CPU.ic++] = LOAD * 100 + lValue;
+		memory[CPU.ic++] = SUB * 100 + rValue;
+		
+		generateJump(jumpto, JNEG);
+		generateJump(jumpto, JZERO);
+	}
+
+	if (strcasecmp(condition, ">=") == 0) {
+		memory[CPU.ic++] = LOAD * 100 + rValue;
+		memory[CPU.ic++] = SUB * 100 + lValue;
+		
+		generateJump(jumpto, JNEG);
+		generateJump(jumpto, JZERO);
+	}
 }
 

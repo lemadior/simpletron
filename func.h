@@ -64,7 +64,7 @@ typedef struct {
 	char exprleft[EXPRESSION_LENGTH];	// Mainly for IF (left part of comparsion)
 	char exprright[EXPRESSION_LENGTH];  // For most expression or comparstion (right part)
 	char varright;      // Second var (exmp, i = y). This will store 'y'
-	char cond[3];		// Condition (==, != etc.)
+	char cond[3];		// Condition (==, !=, >, <, >=, <=)
 	int jumpto;			// Line number to jump
 } Statement;
 
@@ -88,6 +88,7 @@ void generatePrint(Statement);
 void generateEnd(Statement);
 void generateJump(int, OpCode);
 void generateLet(Statement, int);
+void generateIf(uint8_t, uint8_t, char *, int);
 uint8_t findEntry(int, char);
 uint8_t checkCommand(char *, Commands);
 uint8_t getTempCell(void);

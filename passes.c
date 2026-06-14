@@ -11,6 +11,7 @@ void firstPass()
 	int linesCount = 0; // Amount of lines with code in source program
 	uint8_t line, value;
 	int entryPos = 0;
+	int lValue, rValue;
 
 	char postfix[EXPRESSION_LENGTH];
 
@@ -64,7 +65,29 @@ void firstPass()
 			// printf();
 			continue;
 		}
+/*
+		if (checkCommand(program[i].cmd, SL_IF)) {
+			memset(postfix, 0, sizeof(postfix));
+			convertToPostfix(program[i].exprleft, postfix);
 
+			printf("LEFT postfix=%s ", postfix);
+			lValue = evaluatePostfixExpression(postfix);
+			printf("lValue=%d\n", lValue);
+
+			// Copy data for lValue to different cell
+			memory[CPU.dc] = LOAD * 100 + lValue;
+			lValue = CPU.dc--;
+
+			memset(postfix, 0, sizeof(postfix));
+			convertToPostfix(program[i].exprright, postfix);
+
+			printf("RIGHT postfix=%s ", postfix);
+			rValue = evaluatePostfixExpression(postfix);
+			printf("lValue=%d\n", rValue);
+
+			// generateIf(lValue, rValue, program[i].cond);
+		}
+*/
 		printf(" Line: %d", program[i].line);
 		printf(" Cmd: %s", program[i].cmd);
 		
