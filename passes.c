@@ -6,6 +6,7 @@ uint8_t getTempCell(void);
 Statement program[100];
 int parseProgram(Statement[]);
 
+
 void firstPass()
 {
 	int linesCount = 0; // Amount of lines with code in source program
@@ -65,7 +66,7 @@ void firstPass()
 			// printf();
 			continue;
 		}
-/*
+
 		if (checkCommand(program[i].cmd, SL_IF)) {
 			memset(postfix, 0, sizeof(postfix));
 			convertToPostfix(program[i].exprleft, postfix);
@@ -75,7 +76,7 @@ void firstPass()
 			printf("lValue=%d\n", lValue);
 
 			// Copy data for lValue to different cell
-			memory[CPU.dc] = LOAD * 100 + lValue;
+			memory[CPU.dc] = memory[lValue];
 			lValue = CPU.dc--;
 
 			memset(postfix, 0, sizeof(postfix));
@@ -85,9 +86,9 @@ void firstPass()
 			rValue = evaluatePostfixExpression(postfix);
 			printf("lValue=%d\n", rValue);
 
-			// generateIf(lValue, rValue, program[i].cond);
+			generateIf(lValue, rValue, program[i].cond, program[i].jumpto);
 		}
-*/
+
 		printf(" Line: %d", program[i].line);
 		printf(" Cmd: %s", program[i].cmd);
 		
@@ -319,5 +320,26 @@ uint8_t getTempCell()
 	}
 
 	return tempCell;
+}
+
+/*
+ * Get amount of math operators in expression
+ * If it return 0 (zero) it means that no math operation (just var or const)
+ * If it return 1 (one) it means that opnly one math operation here
+ */
+uint8_t checkOperationsAmount(const char *expression)
+{
+	int operatorCount = 0;
+	char operator;
+
+	while(*expression != '\0') {
+		operator = *expression++;
+
+		if (operator == '+' || operator == '-' || operator == '*' || operator == '\\') {
+			operatorCount++;
+		}
+	}
+
+	return operatorCount;
 }
 

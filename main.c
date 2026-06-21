@@ -210,7 +210,7 @@ void showEntryTable(void)
 		}
 
 		printf("\tV: %c ", TABLEENTRY[i].type);
-		printf("\tL: %d\n", TABLEENTRY[i].location);
+		printf("\tL: %2.2d\n", TABLEENTRY[i].location);
 	}
 
 	NEWLINE;

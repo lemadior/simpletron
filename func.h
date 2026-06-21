@@ -7,6 +7,7 @@
 #include <string.h>
 #include <strings.h>
 #include <ctype.h>
+#include <stdbool.h>
 #include "commands.h"
 #include "stack.h"
 
@@ -73,6 +74,8 @@ extern TableEntry TABLEENTRY[SYMBOL_TABLE_SIZE];
 extern Descriptors FDESCR;
 extern uint8_t tempCell;
 
+
+bool isAllNumeric(const char *);
 short getOnlyNumbers();
 int readline(char *, int, FILE *);
 const char *opcodeToString(OpCode);
@@ -92,5 +95,6 @@ void generateIf(uint8_t, uint8_t, char *, int);
 uint8_t findEntry(int, char);
 uint8_t checkCommand(char *, Commands);
 uint8_t getTempCell(void);
+uint8_t checkOperationsAmount(const char *);
 
 #endif

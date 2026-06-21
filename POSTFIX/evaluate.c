@@ -5,6 +5,7 @@
  */
 
 #include "evaluate.h"
+#include "func.h"
 
 #define BUFF_SIZE 2
 
@@ -25,6 +26,8 @@ int evaluatePostfixExpression(const char *source)
     uint8_t tmp;
 
 	printf("IN EVALUATE FUNCTION %s\n", source);
+
+
 	// return 0;
 	while((chr = *source++) != '\0') {
 		printf("CHR=%c\n", chr);
@@ -108,6 +111,20 @@ int evaluatePostfixExpression(const char *source)
 		isCalc = 1;
 	}
 
+	// If expression just variable or constant number
+	if (checkOperationsAmount(source) == 0) {
+		/*
+		 * Because expression (source) doesn't have any math operators,
+		 * so it means that 'source' contains or just number or var name
+		 * NOTE: number can be more than one digit!
+		 */
+		if(isAllNumeric(source)) {
+			return findEntry(atoi(source), 'C');				
+		} else {
+			return findEntry(source[0], 'V');
+		}	
+	}
+
 	return pop(&stack);
 }
 
@@ -140,3 +157,13 @@ uint8_t getNumber(char num)
 	return num - 48; // 48 is value for '0' symbol
 }
 
+bool isAllNumeric(const char *str)
+{
+	while(*str != '\0') {
+		if(!isdigit(*str++)) {
+			return false;
+		}
+	}
+
+	return true;
+}
