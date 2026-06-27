@@ -11,17 +11,17 @@ void generateInput(Statement entry)
 
 	pos = findEntry(entry.var, 'V');
 
-	if (pos == NOT_FOUND) {
-		cell = CPU.dc--;
+	// if (pos == NOT_FOUND) {
+		// cell = CPU.dc--;
 
-		newEntryPos = findFreeEntry();
+		// newEntryPos = findFreeEntry();
 	
-		TABLEENTRY[newEntryPos].symbol = entry.var;
-		TABLEENTRY[newEntryPos].type = 'V';
-		TABLEENTRY[newEntryPos].location = cell;
-	} else {
+		// TABLEENTRY[newEntryPos].symbol = entry.var;
+		// TABLEENTRY[newEntryPos].type = 'V';
+		// TABLEENTRY[newEntryPos].location = cell;
+	// } else {
 		cell = TABLEENTRY[pos].location;
-	}
+	// }
 	
 	memory[CPU.ic++] = READ * 100 + cell;
 }
@@ -38,17 +38,17 @@ void generatePrint(Statement entry)
 
 	pos = findEntry(entry.var, 'V');
 
-	if (pos == NOT_FOUND) {
-		cell = CPU.dc--;
+	// if (pos == NOT_FOUND) {
+		// cell = CPU.dc--;
 
-		newEntryPos = findFreeEntry();
+		// newEntryPos = findFreeEntry();
 	
-		TABLEENTRY[newEntryPos].symbol = entry.var;
-		TABLEENTRY[newEntryPos].type = 'V';
-		TABLEENTRY[newEntryPos].location = cell;
-	} else {
+		// TABLEENTRY[newEntryPos].symbol = entry.var;
+		// TABLEENTRY[newEntryPos].type = 'V';
+		// TABLEENTRY[newEntryPos].location = cell;
+	// } else {
 		cell = TABLEENTRY[pos].location;
-	}
+	// }
 	
 	memory[CPU.ic++] = WRITE * 100 + cell;
 }
@@ -86,26 +86,31 @@ void generateLet(Statement entry, int valueCell)
 	int pos, cell; // Number of memory cell
 	int newEntryPos;
 
-	NEWLINE;
-	printf(" In 'generateLet'\n");
-	NEWLINE;
+	// NEWLINE;
+	// printf(" In 'generateLet Start'\n");
+	// NEWLINE;
 
 	pos = findEntry(entry.var, 'V');
 
-	if (pos == NOT_FOUND) {
-		cell = TABLEENTRY[pos].location;
+	// if (pos == NOT_FOUND) {
+		// cell = TABLEENTRY[pos].location;
 
-		newEntryPos = findFreeEntry();
+		// newEntryPos = findFreeEntry();
 	
-		TABLEENTRY[newEntryPos].symbol = entry.var;
-		TABLEENTRY[newEntryPos].type = 'V';
-		TABLEENTRY[newEntryPos].location = cell;
-	} else {
-		cell = CPU.dc--;
-	}
+		// TABLEENTRY[newEntryPos].symbol = entry.var;
+		// TABLEENTRY[newEntryPos].type = 'V';
+		// TABLEENTRY[newEntryPos].location = cell;
+	// } else {
+		cell = TABLEENTRY[pos].location;
+	// }
 
 	memory[CPU.ic++] = LOAD * 100 + valueCell;
 	memory[CPU.ic++] = STORE * 100 + cell;
+
+	
+	NEWLINE;
+	printf(" In 'generateLet Start END'\n");
+	NEWLINE;
 }
 
 void generateIf(uint8_t lValue, uint8_t rValue, char *condition, int jumpto)

@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include "stack.h"
@@ -49,5 +50,54 @@ int stackTop(STACKNODEPTR *sPtr)
 	}
 
 	return -1;
+}
+
+void printStack(STACKNODEPTR sPtr)
+{
+	if (sPtr == NULL) {
+		printf("The stack is empty\n\n");
+	} else {
+		printf("The stack is:\n");
+
+		while(sPtr != NULL) {
+			printf("%d-> ", sPtr->data);
+			sPtr = sPtr->nextPtr;
+		}
+
+		printf("NULL\n\n");
+	}
+}
+
+char delete(STACKNODEPTR *sPtr, char value)
+{
+	STACKNODEPTR previousPtr, currentPtr, tempPtr;
+
+	if (value == (*sPtr)->data) {
+		tempPtr = *sPtr;
+		*sPtr = (*sPtr)->nextPtr;
+
+		free(tempPtr);
+
+		return value;
+	} else {
+		previousPtr = *sPtr;
+		currentPtr = (*sPtr)->nextPtr;
+
+		while(currentPtr != NULL && currentPtr->data != value) {
+			previousPtr = currentPtr;
+			currentPtr = currentPtr->nextPtr;
+		}
+
+		if (currentPtr != NULL) {
+			tempPtr = currentPtr;
+			previousPtr->nextPtr = currentPtr->nextPtr;
+
+			free(tempPtr);
+
+			return value;
+		}
+	}
+
+	return '\0';
 }
 

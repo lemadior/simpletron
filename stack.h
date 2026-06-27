@@ -25,6 +25,8 @@ int pop(STACKNODEPTR *);
 
 int stackTop(STACKNODEPTR *);
 
+void printStack(STACKNODEPTR);
+
 typedef enum {
 	OP_ADD = 43,
 	OP_SUB = 45,

@@ -26,6 +26,7 @@ void firstPass()
 	for (int i = 0; i < linesCount; i++) {
 		line = findEntry(program[i].line, 'L');
 		entryPos = findFreeEntry(); 
+
 		if (line == NOT_FOUND) {
 			TABLEENTRY[entryPos].symbol = program[i].line;
 			TABLEENTRY[entryPos].type = 'L';
@@ -55,6 +56,10 @@ void firstPass()
 		}
 
 		if (checkCommand(program[i].cmd, SL_LET)) {
+			NEWLINE;
+			printf(" In 'generateLet Start'\n");
+			NEWLINE;
+			printf("EXPRRIGHT: %s\n", program[i].exprright);
 			memset(postfix, 0, sizeof(postfix)); 
 			convertToPostfix(program[i].exprright, postfix);
 
@@ -138,7 +143,7 @@ Statement initStatement(void)
 // Return the position in TABLEENTRY array (if find)
 uint8_t findEntry(int symbol, char type)
 {
-	int i;
+	int i, cell, newEntryPos;
 	TableEntry entry;
 
 	for (i = 0; i < SYMBOL_TABLE_SIZE; i++) {
@@ -150,7 +155,20 @@ uint8_t findEntry(int symbol, char type)
 
 	}
 
-	return 255;
+	// Only for line number or  jump
+	if (type == 'L') {
+		return 255;
+	}
+
+	cell = CPU.dc--;
+
+	newEntryPos = findFreeEntry();
+	
+	TABLEENTRY[newEntryPos].symbol = symbol;
+	TABLEENTRY[newEntryPos].type = type;
+	TABLEENTRY[newEntryPos].location = cell;
+	
+	return newEntryPos;
 }
 
 int parseProgram(Statement program[])

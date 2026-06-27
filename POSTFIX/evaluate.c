@@ -19,18 +19,19 @@ int evaluatePostfixExpression(const char *source)
 	char chr;
 	char buff[2] = {E_VALUE, E_VALUE}; // buff[0] first digit
 									   // buff[0] second or only digit
-	int x, y;
+	int x, y, cell;
 	uint8_t bufPos = BUFF_SIZE - 1; // Counter for buff (to allow 2 digit numbers) 
 	uint8_t isCalc = 0; // Flag to indicate success math operation 
 	uint8_t isVar = 0;  // Flag to indicate that previous value was a var!
     uint8_t tmp;
 
 	printf("IN EVALUATE FUNCTION %s\n", source);
-
+	printf("pSTACK BEF: ");
+	printStack(stack);
 
 	// return 0;
 	while((chr = *source++) != '\0') {
-		printf("CHR=%c\n", chr);
+		// printf("CHR=%c\n", chr);
 		if (chr == ' ') {
 			// If previous symbol was a math operator just skip this SPACE
 			if (isCalc) {
@@ -48,7 +49,7 @@ int evaluatePostfixExpression(const char *source)
 
 			// Get number from string representation
 			tmp = getNumAddr(buff);
-			printf("N-Tmp=%d\n", tmp);
+			// printf("N-Tmp=%d\n", tmp);
 			if (tmp >= E_VALUE || tmp <= E_VALUE*(-1)) {
 				ERROR("Const value %d is out of allowed range (-99:99)!", tmp);
 			}
@@ -88,7 +89,7 @@ int evaluatePostfixExpression(const char *source)
 				ERROR("Var value %c = %d is out of allowed range (-99:99)!", chr, tmp);
 			}
 
-			printf("A-tmp %d\n", tmp);
+			// printf("A-tmp %d\n", tmp);
 			push(&stack, tmp);
 
 			isVar = 1;
@@ -103,13 +104,18 @@ int evaluatePostfixExpression(const char *source)
 		// Calculate the value and push it back to the stack
 		// First argument should be y!
 		tmp = calculate(y, x, chr);
-		printf("CALC=%d\n", tmp);
+		// printf("CALC=%d\n", tmp);
 		push(&stack, tmp);
 
 		// printStack(stack);
 
 		isCalc = 1;
 	}
+
+	cell = pop(&stack);
+	
+	printf("pSTACK AFT: ");
+	printStack(stack);
 
 	// If expression just variable or constant number
 	if (checkOperationsAmount(source) == 0) {
@@ -119,13 +125,13 @@ int evaluatePostfixExpression(const char *source)
 		 * NOTE: number can be more than one digit!
 		 */
 		if(isAllNumeric(source)) {
-			return findEntry(atoi(source), 'C');				
+			return TABLEENTRY[findEntry(atoi(source), 'C')].location;	
 		} else {
-			return findEntry(source[0], 'V');
+			return TABLEENTRY[findEntry(source[0], 'V')].location;
 		}	
 	}
 
-	return pop(&stack);
+	return cell;
 }
 
 // Convert value from string

@@ -5,6 +5,7 @@ int checkVar(char);
 int checkConst(char *number);
 // STACKNODEPTR stack;
 
+// void printStack(STACKNODEPTR);
 // Generate the postfix representation of arithmetic expression
 // Each element will be divided by SPACE symbol!
 void convertToPostfix(const char *source, char *target)
@@ -13,9 +14,12 @@ void convertToPostfix(const char *source, char *target)
 	char nums[16] = {0};
 	char *num = &nums[0];
 	uint8_t isNum = 0;
-	// printf("--- IN CONVERT FUNCTION ---\n");
+	printf("--- IN CONVERT FUNCTION ---: %s\n", source);
+	printf("iSTACK BEF: ");
+	printStack(stack);
 
 	while((chr = *source++) != '\0') {
+		// printf("CHR=%c\n", chr);
 		if (chr == ' ') {
 			continue;
 		}
@@ -73,7 +77,6 @@ void convertToPostfix(const char *source, char *target)
 			continue;
 		}
 
-
 		// Here the chr contains some of math operator
 		// If stack is empty - put into any expression operator
 		// here don't worry about priority
@@ -84,7 +87,7 @@ void convertToPostfix(const char *source, char *target)
 		}
 
 		while(!isEmpty(stack) && (char)stackTop(&stack) != '(' && precendence(chr, (char)stackTop(&stack)) <= 0) {
-			// printStack(stack);
+			printStack(stack);
 			// printf("IN  STACKi=%c\n", (char)stackTop(&stack));			
 			*target++ = (char)pop(&stack);
 
@@ -97,11 +100,11 @@ void convertToPostfix(const char *source, char *target)
 
 	if (isNum == 1) {
 		*num = '\0';
-		// printf("IN LAST NUM NUM=%s\n", num);
+		// printf("IN LAST NUM NUM=%s\n", num);
 	
 		checkConst(&nums[0]);
 	}
-	
+
 	// Get the rest of the stack
 	while(!isEmpty(stack)) {
 		// printStack(stack);
@@ -109,14 +112,17 @@ void convertToPostfix(const char *source, char *target)
 
 		*target++ = (char)pop(&stack);
 	}
-	
+
+	printf("iSTACK AFT: ");
+	printStack(stack);
+
 	*target = '\0';
 }
 
 int checkVar(char varName)
 {
 	int pos, cell; // Number of memory cell
-	int newEntryPos;
+	// int newEntryPos;
 
 	// NEWLINE;
 	// printf(" In 'checkVar'\n");
@@ -124,17 +130,17 @@ int checkVar(char varName)
 
 	pos = findEntry(varName, 'V');
 
-	if (pos == NOT_FOUND) {
-		cell = CPU.dc--;
+	// if (pos == NOT_FOUND) {
+		// cell = CPU.dc--;
 
-		newEntryPos = findFreeEntry();
+		// newEntryPos = findFreeEntry();
 	
-		TABLEENTRY[newEntryPos].symbol = varName;
-		TABLEENTRY[newEntryPos].type = 'V';
-		TABLEENTRY[newEntryPos].location = cell;
-	} else {
+		// TABLEENTRY[newEntryPos].symbol = varName;
+		// TABLEENTRY[newEntryPos].type = 'V';
+		// TABLEENTRY[newEntryPos].location = cell;
+	// } else {
 		cell = TABLEENTRY[pos].location;
-	}
+	// }
 	
 	return cell;
 }
@@ -142,7 +148,7 @@ int checkVar(char varName)
 int checkConst(char *number)
 {
 	int pos, cell; // Number of memory cell
-	int newEntryPos;
+	// int newEntryPos;
 	int num;
 
 	// NEWLINE;
@@ -150,22 +156,23 @@ int checkConst(char *number)
 	// NEWLINE;
 
 	num = atoi(number);
+	// If enry hasn't been found findEntry do search first free cell
+	// of the TABLEENTRY and manipulate with CPU.dc
 	pos = findEntry(num, 'C');
 	// printf("NUM=%d NUMB=%s POS=%d\n", num, number, pos);
-	if (pos == NOT_FOUND) {
-		cell = CPU.dc;
+	// if (pos == NOT_FOUND) {
+		// cell = CPU.dc;
 
-		newEntryPos = findFreeEntry();
+		// newEntryPos = findFreeEntry();
 	
-		TABLEENTRY[newEntryPos].symbol = num;
-		TABLEENTRY[newEntryPos].type = 'C';
-		TABLEENTRY[newEntryPos].location = cell;
+		// TABLEENTRY[newEntryPos].symbol = num;
+		// TABLEENTRY[newEntryPos].type = 'C';
+		// TABLEENTRY[newEntryPos].location = cell;
 
-		memory[CPU.dc--] = num;
-	} else {
+		memory[CPU.dc] = num;
+	// } else {
 		cell = TABLEENTRY[pos].location;
-	}
+	// }
 	
 	return cell;
 }
-
