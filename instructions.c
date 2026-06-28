@@ -116,39 +116,52 @@ void generateLet(Statement entry, int valueCell)
 void generateIf(uint8_t lValue, uint8_t rValue, char *condition, int jumpto)
 {
 	NEWLINE;
-	printf(" In 'generate -IF-'\n");
-	NEWLINE;
+	printf(" In 'generate -IF-' : ");
+	// NEWLINE;
 
 	if (strcasecmp(condition, "==") == 0) {
+		printf("EQ\n");
 		memory[CPU.ic++] = LOAD * 100 + lValue;
 		memory[CPU.ic++] = SUB * 100 + rValue;
 		
 		generateJump(jumpto, JZERO);
+
+		return;
 	}
 
 	if (strcasecmp(condition, ">") == 0) {
+		printf("GT\n");
 		memory[CPU.ic++] = LOAD * 100 + rValue;
 		memory[CPU.ic++] = SUB * 100 + rValue;
 		
 		generateJump(jumpto, JNEG);
+
+		return;
 	}
 
 	if (strcasecmp(condition, "<") == 0) {
+		printf("LT\n");
 		memory[CPU.ic++] = LOAD * 100 + lValue;
 		memory[CPU.ic++] = SUB * 100 + rValue;
 		
 		generateJump(jumpto, JNEG);
+
+		return;
 	}
 
 	if (strcasecmp(condition, "<=") == 0) {
+		printf("LTE\n");
 		memory[CPU.ic++] = LOAD * 100 + lValue;
 		memory[CPU.ic++] = SUB * 100 + rValue;
 		
 		generateJump(jumpto, JNEG);
 		generateJump(jumpto, JZERO);
+
+		return;
 	}
 
 	if (strcasecmp(condition, ">=") == 0) {
+		printf("GTE\n");
 		memory[CPU.ic++] = LOAD * 100 + rValue;
 		memory[CPU.ic++] = SUB * 100 + lValue;
 		

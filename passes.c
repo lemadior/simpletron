@@ -80,9 +80,11 @@ void firstPass()
 			lValue = evaluatePostfixExpression(postfix);
 			printf("lValue=%d\n", lValue);
 
-			// Copy data for lValue to different cell
-			memory[CPU.dc] = memory[lValue];
-			lValue = CPU.dc--;
+			if (checkOperationsAmount(postfix) > 0) {
+				// Copy data for lValue to different cell
+				memory[CPU.dc] = memory[lValue];
+				lValue = CPU.dc--;
+			}
 
 			memset(postfix, 0, sizeof(postfix));
 			convertToPostfix(program[i].exprright, postfix);
@@ -92,23 +94,25 @@ void firstPass()
 			printf("lValue=%d\n", rValue);
 
 			generateIf(lValue, rValue, program[i].cond, program[i].jumpto);
+
+			continue;
 		}
 
-		printf(" Line: %d", program[i].line);
-		printf(" Cmd: %s", program[i].cmd);
+		// printf(" Line: %d", program[i].line);
+		// printf(" Cmd: %s", program[i].cmd);
 		
 		if (checkCommand(program[i].cmd, SL_END)) {
 			generateEnd(program[i]);
 
-			continue;
+			// continue;
 		} 
 		
-		printf(" V: %c", program[i].var);
-		printf(" L: %s", program[i].exprleft);
-		printf(" C: %s", program[i].cond);
-		printf(" R: %s", program[i].exprright);
-		printf(" J: %d", program[i].jumpto);
-		NEWLINE;
+		// printf(" V: %c", program[i].var);
+		// printf(" L: %s", program[i].exprleft);
+		// printf(" C: %s", program[i].cond);
+		// printf(" R: %s", program[i].exprright);
+		// printf(" J: %d", program[i].jumpto);
+		// NEWLINE;
 	}
 
 	// printf("Entry POS = %d", findEntry(5, 'C'));
