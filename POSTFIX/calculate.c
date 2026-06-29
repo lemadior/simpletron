@@ -10,8 +10,12 @@
 uint8_t calculate(uint8_t op1, uint8_t op2, char operator)
 {
 	uint8_t result;
-	int cell, cmd; 
-	uint8_t tmp = getTempCell(); // Temporary Cell
+	int cmd; 
+	uint8_t tmp;
+
+	
+
+	tmp = getTempCell(); // Temporary Cell
 	printf("TEMP CELL = %d\n", tmp);
 
 	switch(operator) {

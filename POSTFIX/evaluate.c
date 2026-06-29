@@ -29,6 +29,21 @@ int evaluatePostfixExpression(const char *source)
 	printf("pSTACK BEF: ");
 	printStack(stack);
 
+	// If expression just variable or constant number
+	if (checkOperationsAmount(source) == 0) {
+		printf("IF source: %s\n", source);
+		/*
+		 * Because expression (source) doesn't have any math operators,
+		 * so it means that 'source' contains or just number or var name
+		 * NOTE: number can be more than one digit!
+		 */
+		if(isAllNumeric(source)) {
+			return TABLEENTRY[findEntry(atoi(source), 'C')].location;	
+		} else {
+			return TABLEENTRY[findEntry(source[0], 'V')].location;
+		}	
+	}
+
 	// return 0;
 	while((chr = *source++) != '\0') {
 		// printf("CHR=%c\n", chr);
@@ -89,7 +104,7 @@ int evaluatePostfixExpression(const char *source)
 				ERROR("Var value %c = %d is out of allowed range (-99:99)!", chr, tmp);
 			}
 
-			// printf("A-tmp %d\n", tmp);
+			printf("A-tmp %d\n", tmp);
 			push(&stack, tmp);
 
 			isVar = 1;
@@ -116,20 +131,6 @@ int evaluatePostfixExpression(const char *source)
 	
 	printf("pSTACK AFT: ");
 	printStack(stack);
-
-	// If expression just variable or constant number
-	if (checkOperationsAmount(source) == 0) {
-		/*
-		 * Because expression (source) doesn't have any math operators,
-		 * so it means that 'source' contains or just number or var name
-		 * NOTE: number can be more than one digit!
-		 */
-		if(isAllNumeric(source)) {
-			return TABLEENTRY[findEntry(atoi(source), 'C')].location;	
-		} else {
-			return TABLEENTRY[findEntry(source[0], 'V')].location;
-		}	
-	}
 
 	return cell;
 }

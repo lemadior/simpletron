@@ -23,7 +23,7 @@ Cpu CPU = { 0, 0, 99, 0, 0, 0};
 Descriptors FDESCR = {NULL, NULL}; // File descriptors (source/target)
 uint8_t tempCell = OUT_OF_MEMORY;
 
-void showEntryTable(void);
+// void showEntryTable(void);
 void terminate(void);
 
 int main(int argc, char *argv[])

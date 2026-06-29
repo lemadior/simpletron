@@ -73,12 +73,23 @@ void firstPass()
 		}
 
 		if (checkCommand(program[i].cmd, SL_IF)) {
+
+			NEWLINE;
+			printf(" In 'generateIF Start'\n");
+			NEWLINE;
+
+			showEntryTable();
+
 			memset(postfix, 0, sizeof(postfix));
 			convertToPostfix(program[i].exprleft, postfix);
 
+			showEntryTable();
+
 			printf("LEFT postfix=%s ", postfix);
 			lValue = evaluatePostfixExpression(postfix);
-			printf("lValue=%d\n", lValue);
+			printf("lValue bef=%d\n", lValue);
+
+			showEntryTable();
 
 			if (checkOperationsAmount(postfix) > 0) {
 				// Copy data for lValue to different cell
@@ -86,12 +97,15 @@ void firstPass()
 				lValue = CPU.dc--;
 			}
 
+			printf("lValue aft=%d\n", lValue);
+
+
 			memset(postfix, 0, sizeof(postfix));
 			convertToPostfix(program[i].exprright, postfix);
 
 			printf("RIGHT postfix=%s ", postfix);
 			rValue = evaluatePostfixExpression(postfix);
-			printf("lValue=%d\n", rValue);
+			printf("rValue=%d\n", rValue);
 
 			generateIf(lValue, rValue, program[i].cond, program[i].jumpto);
 

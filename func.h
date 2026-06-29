@@ -74,6 +74,7 @@ extern TableEntry TABLEENTRY[SYMBOL_TABLE_SIZE];
 extern Descriptors FDESCR;
 extern uint8_t tempCell;
 
+void showEntryTable(void);
 
 bool isAllNumeric(const char *);
 short getOnlyNumbers();
