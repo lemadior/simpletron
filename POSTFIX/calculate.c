@@ -7,15 +7,11 @@
 #include "evaluate.h"
 
 // Here op1 & op2 is the cell address in memory
-uint8_t calculate(uint8_t op1, uint8_t op2, char operator)
+uint8_t calculate(uint8_t op1, uint8_t op2, char operator, uint8_t opCount)
 {
 	uint8_t result;
 	int cmd; 
-	uint8_t tmp;
-
-	
-
-	tmp = getTempCell(); // Temporary Cell
+	uint8_t tmp = getTempCell(); // Temporary Cell
 	printf("TEMP CELL = %d\n", tmp);
 
 	switch(operator) {
@@ -24,7 +20,7 @@ uint8_t calculate(uint8_t op1, uint8_t op2, char operator)
 			cmd = LOAD * 100 + op1;
 		    memory[CPU.ic++] = cmd;
 
-			// Add value from op2 to accumulator and store it back (acc)
+			// Add value from op2 to accumulator and store it back to acc
 			cmd = ADD * 100 + op2;
 			memory[CPU.ic++] = cmd;
 			
@@ -41,7 +37,7 @@ uint8_t calculate(uint8_t op1, uint8_t op2, char operator)
 			cmd = LOAD * 100 + op1;
 		    memory[CPU.ic++] = cmd;
 
-			// Add value from op2 to accumulator and store it back (acc)
+			// Add value from op2 to accumulator and store it back to acc
 			cmd = SUB * 100 + op2;
 			memory[CPU.ic++] = cmd;
 			
@@ -58,7 +54,7 @@ uint8_t calculate(uint8_t op1, uint8_t op2, char operator)
 			cmd = LOAD * 100 + op1;
 		    memory[CPU.ic++] = cmd;
 
-			// Add value from op2 to accumulator and store it back (acc)
+			// Add value from op2 to accumulator and store it back to acc
 			cmd = MUL * 100 + op2;
 			memory[CPU.ic++] = cmd;
 			
@@ -75,7 +71,7 @@ uint8_t calculate(uint8_t op1, uint8_t op2, char operator)
 			cmd = LOAD * 100 + op1;
 		    memory[CPU.ic++] = cmd;
 
-			// Add value from op2 to accumulator and store it back (acc)
+			// Add value from op2 to accumulator and store it back to acc
 			cmd = DIV * 100 + op2;
 			memory[CPU.ic++] = cmd;
 			

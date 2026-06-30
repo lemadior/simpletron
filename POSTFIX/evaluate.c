@@ -2,6 +2,8 @@
  * Here an evaluate the math expression prepared by INFIX
  * Instead of direct calculation of values the memory cells
  * used to it.
+ *
+ * Return: address of memory cell where has stored the result value
  */
 
 #include "evaluate.h"
@@ -23,17 +25,18 @@ int evaluatePostfixExpression(const char *source)
 	uint8_t bufPos = BUFF_SIZE - 1; // Counter for buff (to allow 2 digit numbers) 
 	uint8_t isCalc = 0; // Flag to indicate success math operation 
 	uint8_t isVar = 0;  // Flag to indicate that previous value was a var!
-    uint8_t tmp;
+    uint8_t tmp, opCount = 0;
 
 	printf("IN EVALUATE FUNCTION %s\n", source);
 	printf("pSTACK BEF: ");
 	printStack(stack);
 
+	// Count of math operator(s) in expression
+	opCount = checkOperationsAmount(source);
+
 	// If expression just variable or constant number
-	if (checkOperationsAmount(source) == 0) {
-		printf("IF source: %s\n", source);
-		/*
-		 * Because expression (source) doesn't have any math operators,
+	if (opCount == 0) {
+		/* Because expression (source) doesn't have any math operators,
 		 * so it means that 'source' contains or just number or var name
 		 * NOTE: number can be more than one digit!
 		 */
@@ -44,7 +47,6 @@ int evaluatePostfixExpression(const char *source)
 		}	
 	}
 
-	// return 0;
 	while((chr = *source++) != '\0') {
 		// printf("CHR=%c\n", chr);
 		if (chr == ' ') {
@@ -118,7 +120,7 @@ int evaluatePostfixExpression(const char *source)
 
 		// Calculate the value and push it back to the stack
 		// First argument should be y!
-		tmp = calculate(y, x, chr);
+		tmp = calculate(y, x, chr, opCount);
 		// printf("CALC=%d\n", tmp);
 		push(&stack, tmp);
 

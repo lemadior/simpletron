@@ -22,7 +22,7 @@
 /* extern char postfix[INPUT_SIZE]; */
 
 int evaluatePostfixExpression(const char *);
-uint8_t calculate(uint8_t, uint8_t, char);
+uint8_t calculate(uint8_t, uint8_t, char, uint8_t);
 void getPostfixExpression(void);
 
 /* typedef struct StackNode {  
