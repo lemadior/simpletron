@@ -132,7 +132,7 @@ void generateIf(uint8_t lValue, uint8_t rValue, char *condition, int jumpto)
 	if (strcasecmp(condition, ">") == 0) {
 		printf("GT\n");
 		memory[CPU.ic++] = LOAD * 100 + rValue;
-		memory[CPU.ic++] = SUB * 100 + rValue;
+		memory[CPU.ic++] = SUB * 100 + lValue;
 		
 		generateJump(jumpto, JNEG);
 

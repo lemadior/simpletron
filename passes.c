@@ -1,3 +1,4 @@
+#include "func.h"
 #include "slc.h"
 
 char *getToken(char *, const char *);
@@ -72,6 +73,8 @@ void firstPass()
 			continue;
 		}
 
+		// IMPORTANT: the left expression can be ONLY a var or const
+		// not an expression like `y + 1'
 		if (checkCommand(program[i].cmd, SL_IF)) {
 
 			NEWLINE;
@@ -83,6 +86,10 @@ void firstPass()
 			memset(postfix, 0, sizeof(postfix));
 			convertToPostfix(program[i].exprleft, postfix);
 
+			if (checkOperationsAmount(postfix) > 0) {
+				ERROR("Left part of the IF statement cannot be an expression!");
+			}
+
 			showEntryTable();
 
 			printf("LEFT postfix=%s ", postfix);
@@ -91,14 +98,13 @@ void firstPass()
 
 			showEntryTable();
 
-			if (checkOperationsAmount(postfix) > 0) {
+			// if (checkOperationsAmount(postfix) > 0) {
 				// Copy data for lValue to different cell
-				memory[CPU.dc] = memory[lValue];
-				lValue = CPU.dc--;
-			}
+				// memory[CPU.dc] = memory[lValue];
+				// lValue = CPU.dc--;
+			// }
 
 			printf("lValue aft=%d\n", lValue);
-
 
 			memset(postfix, 0, sizeof(postfix));
 			convertToPostfix(program[i].exprright, postfix);

@@ -106,7 +106,7 @@ int evaluatePostfixExpression(const char *source)
 				ERROR("Var value %c = %d is out of allowed range (-99:99)!", chr, tmp);
 			}
 
-			printf("A-tmp %d\n", tmp);
+			// printf("A-tmp %d\n", tmp);
 			push(&stack, tmp);
 
 			isVar = 1;
