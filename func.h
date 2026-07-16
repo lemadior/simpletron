@@ -17,6 +17,7 @@
 #define MAX_LINE_SIZE 128
 #define SYMBOL_TABLE_SIZE 250
 #define NOT_FOUND 255
+#define SINGLE_MATH 255
 #define UNOP_CMD 10000
 #define ERROR_CMD -10000
 #define SYSTEM_CMD 0
@@ -25,6 +26,8 @@
 #define FILENAME_LENGTH 64
 #define EXPRESSION_LENGTH 64
 #define OUT_OF_MEMORY 100
+#define TMPL 99 // Cell for temp value for left expression
+#define TMPR 98 // Cell for temp value for right expression
 
 #define ERROR(...) \
 	do { \
@@ -93,9 +96,10 @@ void generateEnd(Statement);
 void generateJump(int, OpCode);
 void generateLet(Statement, int);
 void generateIf(uint8_t, uint8_t, char *, int);
-uint8_t findEntry(int, char);
 uint8_t checkCommand(char *, Commands);
 uint8_t getTempCell(void);
 uint8_t checkOperationsAmount(const char *);
+int checkVar(char);
+int checkConst(const char *);
 
 #endif

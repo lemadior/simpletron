@@ -84,14 +84,14 @@ void generateJump(int jumpto, OpCode jType)
 void generateLet(Statement entry, int valueCell)
 {
 	int pos, cell; // Number of memory cell
-	int newEntryPos;
+	// int newEntryPos;
 
 	// NEWLINE;
 	// printf(" In 'generateLet Start'\n");
 	// NEWLINE;
 
 	pos = findEntry(entry.var, 'V');
-
+   printf("FPOS=%d\n", pos);
 	// if (pos == NOT_FOUND) {
 		// cell = TABLEENTRY[pos].location;
 
@@ -103,8 +103,14 @@ void generateLet(Statement entry, int valueCell)
 	// } else {
 		cell = TABLEENTRY[pos].location;
 	// }
+	printf("FCELL=%d\n", cell);
+	// If valueCell == 255 it means that expression 
+	// have operator only one math operator
+	// In this case the value has stored in CPU accumulator
+	if (valueCell != 255) {
+		memory[CPU.ic++] = LOAD * 100 + valueCell;
+	}
 
-	memory[CPU.ic++] = LOAD * 100 + valueCell;
 	memory[CPU.ic++] = STORE * 100 + cell;
 
 	
@@ -170,3 +176,65 @@ void generateIf(uint8_t lValue, uint8_t rValue, char *condition, int jumpto)
 	}
 }
 
+
+
+int checkVar(char varName)
+{
+	int pos, cell; // Number of memory cell
+	// int newEntryPos;
+
+	// NEWLINE;
+	// printf(" In 'checkVar'\n");
+	// NEWLINE;
+
+	pos = findEntry(varName, 'V');
+
+	// if (pos == NOT_FOUND) {
+		// cell = CPU.dc--;
+
+		// newEntryPos = findFreeEntry();
+	
+		// TABLEENTRY[newEntryPos].symbol = varName;
+		// TABLEENTRY[newEntryPos].type = 'V';
+		// TABLEENTRY[newEntryPos].location = cell;
+	// } else {
+		cell = TABLEENTRY[pos].location;
+	// }
+	
+	return cell;
+}
+
+int checkConst(const char *number)
+{
+	int pos, cell; // Number of memory cell
+	// int newEntryPos;
+	int num;
+
+	// NEWLINE;
+	// printf(" In 'checkConst'\n");
+	// NEWLINE;
+
+	num = atoi(number);
+	// If enry hasn't been found findEntry do search first free cell
+	// of the TABLEENTRY and manipulate with CPU.dc
+	pos = findEntry(num, 'C');
+	// printf("NUM=%d NUMB=%s POS=%d\n", num, number, pos);
+	// if (pos == NOT_FOUND) {
+		// cell = CPU.dc;
+
+		// newEntryPos = findFreeEntry();
+	
+		// TABLEENTRY[newEntryPos].symbol = num;
+		// TABLEENTRY[newEntryPos].type = 'C';
+		// TABLEENTRY[newEntryPos].location = cell;
+
+	// } else {
+		cell = TABLEENTRY[pos].location;
+	// }
+	
+	// if (memory[cell] == UNOP_CMD) {
+		// memory[CPU.dc] = num;
+	// }
+
+	return cell;
+}

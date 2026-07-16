@@ -19,7 +19,7 @@ short memory[MEMORY_SIZE];
 uint8_t flags[MEMORY_SIZE];
 TableEntry TABLEENTRY[SYMBOL_TABLE_SIZE] = {0};
 OpCode OPCODE;
-Cpu CPU = { 0, 0, 99, 0, 0, 0};
+Cpu CPU = { 0, 0, 97, 0, 0, 0};
 Descriptors FDESCR = {NULL, NULL}; // File descriptors (source/target)
 uint8_t tempCell = OUT_OF_MEMORY;
 

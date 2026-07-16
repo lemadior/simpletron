@@ -9,7 +9,7 @@
 #include "evaluate.h"
 #include "func.h"
 
-#define BUFF_SIZE 2
+#define BUFF_SIZE 3
 
 uint8_t getNumber(char);
 uint8_t getNumAddr(char *);
@@ -18,11 +18,11 @@ uint8_t getVarAddr(char var);
 
 int evaluatePostfixExpression(const char *source)
 {
-	char chr;
-	char buff[2] = {E_VALUE, E_VALUE}; // buff[0] first digit
+	char  prevChr = '\0', chr;
+	char buff[3] = {0, 0, 0}; // buff[0] first digit
 									   // buff[0] second or only digit
 	int x, y, cell;
-	uint8_t bufPos = BUFF_SIZE - 1; // Counter for buff (to allow 2 digit numbers) 
+	uint8_t bufPos = 0; // Counter for buff (to allow 2 digit numbers) 
 	uint8_t isCalc = 0; // Flag to indicate success math operation 
 	uint8_t isVar = 0;  // Flag to indicate that previous value was a var!
     uint8_t tmp, opCount = 0;
@@ -41,15 +41,20 @@ int evaluatePostfixExpression(const char *source)
 		 * NOTE: number can be more than one digit!
 		 */
 		if(isAllNumeric(source)) {
-			return TABLEENTRY[findEntry(atoi(source), 'C')].location;	
+			// tmp = findEntry(atoi(source), 'C');
+			// memory[CPU.dc] = atoi(source);
+			// return TABLEENTRY[tmp].location;
+			return checkConst(source);
 		} else {
-			return TABLEENTRY[findEntry(source[0], 'V')].location;
+			// return TABLEENTRY[findEntry(source[0], 'V')].location;
+			return checkVar(source[0]);
 		}	
 	}
 
 	while((chr = *source++) != '\0') {
 		// printf("CHR=%c\n", chr);
 		if (chr == ' ') {
+			prevChr = chr;
 			// If previous symbol was a math operator just skip this SPACE
 			if (isCalc) {
 				isCalc = 0;
@@ -65,7 +70,8 @@ int evaluatePostfixExpression(const char *source)
 			}
 
 			// Get number from string representation
-			tmp = getNumAddr(buff);
+			tmp = checkConst(buff);
+
 			// printf("N-Tmp=%d\n", tmp);
 			if (tmp >= E_VALUE || tmp <= E_VALUE*(-1)) {
 				ERROR("Const value %d is out of allowed range (-99:99)!", tmp);
@@ -77,30 +83,36 @@ int evaluatePostfixExpression(const char *source)
 			
 			// Clean the buffer
 
-		    memset(buff, E_VALUE, sizeof(buff)); 
+		    memset(buff, 0, sizeof(buff)); 
 			// for (i = 0; i < BUFF_SIZE; i++) {
 				// buff[i] = E_VALUE;
 			// }
 			
-			bufPos = BUFF_SIZE - 1;
-
+			// bufPos = BUFF_SIZE - 1;
+			bufPos = 0;
 			continue;
 		}
 
 		// If chr is numeric symbol just store it to the postfix
 		if (isdigit(chr)) {
-			if (bufPos < BUFF_SIZE - 1) {
-				buff[bufPos] = buff[bufPos+1]; // Shift unit to decimal 
+			// if (bufPos < BUFF_SIZE - 1) {
+				// buff[bufPos] = buff[bufPos+1]; // Shift unit to decimal 
+			// }
+
+			// buff[BUFF_SIZE - 1] = chr;	
+			// bufPos--;
+
+			if (bufPos == 2) {
+				continue;
 			}
 
-			buff[BUFF_SIZE - 1] = chr;	
-			bufPos--;
+			buff[bufPos++] = chr; 
 
 			continue;
 		}
 
 		if (isalpha(chr)) {
-			tmp = getVarAddr(chr);
+			tmp = checkVar(chr);
 
 			if (tmp >= E_VALUE || tmp <= E_VALUE*(-1)) {
 				ERROR("Var value %c = %d is out of allowed range (-99:99)!", chr, tmp);
@@ -138,27 +150,31 @@ int evaluatePostfixExpression(const char *source)
 }
 
 // Convert value from string
-uint8_t getNumAddr(char *buff)
-{
-	uint8_t result = 0;
-	if (*buff != E_VALUE) {
-		printf("BUFF =%c", *buff);
-		result = getNumber(*buff) * 10;
-	}
+// uint8_t getNumAddr(char *buff)
+// {
+	// uint8_t result = 0;
 
-	if (*(buff+1) != E_VALUE) {
-		printf("%c\n", *(buff+1));
-		result += getNumber(*(buff+1));
-	}
+	// printf("CONST=%d\n", atoi(buff));
+	// if (*buff != E_VALUE) {
+		// printf("BUFF =%c", *buff);
+		// result = getNumber(*buff) * 10;
+	// }
 
-	return TABLEENTRY[findEntry(result, 'C')].location;
-}
+	// if (*(buff+1) != E_VALUE) {
+		// printf("%c\n", *(buff+1));
+		// result += getNumber(*(buff+1));
+	// }
+	
+	// result = findEntry(atoi(buff), 'C');
+	// printf("CONST ADDR = %d FIUND=%d\n", TABLEENTRY[result].location, TABLEENTRY[findEntry(atoi(buff), 'C')].location);
+	// return TABLEENTRY[result].location;
+// }
 
-uint8_t getVarAddr(char var)
-{
-	printf("VARR=%c\n", var);
-	return TABLEENTRY[findEntry(var, 'V')].location;
-}
+// uint8_t getVarAddr(char var)
+// {
+	// printf("VARR=%c\n", var);
+	// return TABLEENTRY[findEntry(var, 'V')].location;
+// }
 
 // Get number from char
 uint8_t getNumber(char num)

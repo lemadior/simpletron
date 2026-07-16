@@ -60,7 +60,7 @@ void printStack(STACKNODEPTR sPtr)
 		printf("The stack is:\n");
 
 		while(sPtr != NULL) {
-			printf("%d-> ", sPtr->data);
+			printf("%c-> ", sPtr->data);
 			sPtr = sPtr->nextPtr;
 		}
 

@@ -26,7 +26,7 @@ void firstPass()
 
 	for (int i = 0; i < linesCount; i++) {
 		line = findEntry(program[i].line, 'L');
-		entryPos = findFreeEntry(); 
+		entryPos = findFreeEntry(); // Only if findEntry uses for 'L' 
 
 		if (line == NOT_FOUND) {
 			TABLEENTRY[entryPos].symbol = program[i].line;
@@ -60,14 +60,21 @@ void firstPass()
 			NEWLINE;
 			printf(" In 'generateLet Start'\n");
 			NEWLINE;
+
 			printf("EXPRRIGHT: %s\n", program[i].exprright);
 			memset(postfix, 0, sizeof(postfix)); 
 			convertToPostfix(program[i].exprright, postfix);
-
+			
+			// showEntryTable();
 			printf("postfix=%s\n", postfix);
 
 			value = evaluatePostfixExpression(postfix);
-			printf("Value=%d\n", value);
+
+			if (checkOperationsAmount(postfix) == 1) {
+				value = SINGLE_MATH;	
+			}
+			// showEntryTable();
+			printf("Value=%d Type='%c'\n", value, program[i].var);
 			generateLet(program[i], value);
 			// printf();
 			continue;
@@ -86,9 +93,9 @@ void firstPass()
 			memset(postfix, 0, sizeof(postfix));
 			convertToPostfix(program[i].exprleft, postfix);
 
-			if (checkOperationsAmount(postfix) > 0) {
-				ERROR("Left part of the IF statement cannot be an expression!");
-			}
+			// if (checkOperationsAmount(postfix) > 0) {
+				// ERROR("Left part of the IF statement cannot be an expression!");
+			// }
 
 			showEntryTable();
 
@@ -98,11 +105,13 @@ void firstPass()
 
 			showEntryTable();
 
-			// if (checkOperationsAmount(postfix) > 0) {
+			if (checkOperationsAmount(postfix) == 1) {
+				memory[TABLEENTRY[findEntry(program[i].var, 'V')].location] = lValue;
+			} else if (checkOperationsAmount(postfix) > 1) {	
 				// Copy data for lValue to different cell
-				// memory[CPU.dc] = memory[lValue];
+				memory[TMPL] = memory[lValue];
 				// lValue = CPU.dc--;
-			// }
+			}
 
 			printf("lValue aft=%d\n", lValue);
 
@@ -178,7 +187,7 @@ uint8_t findEntry(int symbol, char type)
 		}
 
 	}
-
+	printf("FINDENTRY TYPE=%c\n", type);
 	// Only for line number or  jump
 	if (type == 'L') {
 		return 255;
@@ -186,12 +195,19 @@ uint8_t findEntry(int symbol, char type)
 
 	cell = CPU.dc--;
 
+	if (type == 'C') {
+		memory[cell] = symbol;
+	}
+
 	newEntryPos = findFreeEntry();
 	
 	TABLEENTRY[newEntryPos].symbol = symbol;
 	TABLEENTRY[newEntryPos].type = type;
 	TABLEENTRY[newEntryPos].location = cell;
-	
+
+	// printf("FIND DUMP");
+		// showDump();
+
 	return newEntryPos;
 }
 

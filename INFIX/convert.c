@@ -1,8 +1,8 @@
 #include "../func.h"
 #include "convert.h"
 
-int checkVar(char);
-int checkConst(char *number);
+// int checkVar(char);
+// int checkConst(char *number);
 // STACKNODEPTR stack;
 
 // void printStack(STACKNODEPTR);
@@ -13,13 +13,15 @@ void convertToPostfix(const char *source, char *target)
 	char chr;
 	char nums[16] = {0};
 	char *num = &nums[0];
-	uint8_t isNum = 0;
+	uint8_t isNum = 0, isSpace = 0;
 	printf("--- IN CONVERT FUNCTION ---: %s\n", source);
 	printf("iSTACK BEF: ");
 	printStack(stack);
 
 	while((chr = *source++) != '\0') {
 		// printf("CHR=%c\n", chr);
+		// printf("TARGET=%s\n", target);
+		// printStack(stack);
 		if (chr == ' ') {
 			continue;
 		}
@@ -33,11 +35,15 @@ void convertToPostfix(const char *source, char *target)
 
 			continue;
 		}
-		
+	
+		// Here is alphabet symbol only passed
+		// Check if previos symbol is not the SPACE
+		// and if the at least one symbol is passed to `target'
 		if (*(target-1) != ' ' && *(target-1) != 0) {
 			// printf("CHECK isNum=%d CHR=%c\n", isNum, *(target-1)); 
+			
 			*target++ = ' ';
-
+			
 			if (isNum == 1) {
 				// printf("IN NUM\n");
 				isNum = 0;
@@ -68,10 +74,17 @@ void convertToPostfix(const char *source, char *target)
 		// If chr is closed parenthensis - save to postfix all the stack
 		// until opened '(' is occurs 
 		if (chr == ')') {
+			// printf("In close parenthensis\n");
+			isSpace = *target == ' ';
+
 			while ((chr = (char)pop(&stack)) != '(') {
 				*target++ = chr;
-
+				
 				*target++ = ' ';
+			}
+
+			if (isSpace) {
+				target--;
 			}
 
 			continue;
@@ -82,13 +95,13 @@ void convertToPostfix(const char *source, char *target)
 		// here don't worry about priority
 		if (isEmpty(stack)) {
 			push(&stack, (int)chr);
-			// printf("IN Stack CHR=%c\n", chr);
+			// printf("IN Stack at FIRST CHR=%c\n", chr);
 			continue;
 		}
 
 		while(!isEmpty(stack) && (char)stackTop(&stack) != '(' && precendence(chr, (char)stackTop(&stack)) <= 0) {
-			printStack(stack);
-			// printf("IN  STACKi=%c\n", (char)stackTop(&stack));			
+			// printStack(stack);
+			// printf("IN STACKi=%c\n", (char)stackTop(&stack));			
 			*target++ = (char)pop(&stack);
 
 			*target++ = ' '; // This need to add SPACE after last operator
@@ -108,71 +121,16 @@ void convertToPostfix(const char *source, char *target)
 	// Get the rest of the stack
 	while(!isEmpty(stack)) {
 		// printStack(stack);
-		*target++ = ' ';
+		if (*(target-1) != ' ') {
+			*target++ = ' ';
+		}
 
 		*target++ = (char)pop(&stack);
 	}
 
-	printf("iSTACK AFT: ");
-	printStack(stack);
+	// printf("iSTACK AFT: ");
+	// printStack(stack);
 
 	*target = '\0';
 }
 
-int checkVar(char varName)
-{
-	int pos, cell; // Number of memory cell
-	// int newEntryPos;
-
-	// NEWLINE;
-	// printf(" In 'checkVar'\n");
-	// NEWLINE;
-
-	pos = findEntry(varName, 'V');
-
-	// if (pos == NOT_FOUND) {
-		// cell = CPU.dc--;
-
-		// newEntryPos = findFreeEntry();
-	
-		// TABLEENTRY[newEntryPos].symbol = varName;
-		// TABLEENTRY[newEntryPos].type = 'V';
-		// TABLEENTRY[newEntryPos].location = cell;
-	// } else {
-		cell = TABLEENTRY[pos].location;
-	// }
-	
-	return cell;
-}
-
-int checkConst(char *number)
-{
-	int pos, cell; // Number of memory cell
-	// int newEntryPos;
-	int num;
-
-	// NEWLINE;
-	// printf(" In 'checkConst'\n");
-	// NEWLINE;
-
-	num = atoi(number);
-	// If enry hasn't been found findEntry do search first free cell
-	// of the TABLEENTRY and manipulate with CPU.dc
-	pos = findEntry(num, 'C');
-	// printf("NUM=%d NUMB=%s POS=%d\n", num, number, pos);
-	// if (pos == NOT_FOUND) {
-		// cell = CPU.dc;
-
-		// newEntryPos = findFreeEntry();
-	
-		// TABLEENTRY[newEntryPos].symbol = num;
-		// TABLEENTRY[newEntryPos].type = 'C';
-		// TABLEENTRY[newEntryPos].location = cell;
-
-		memory[CPU.dc] = num;
-	// } else {
-		cell = TABLEENTRY[pos].location;
-	// }
-	
-	return cell;
-}
