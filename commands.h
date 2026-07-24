@@ -4,12 +4,18 @@
  * @brief SML as system as operation commands
  * @version 0.2.0
  * @date 2026-03-16
- * * @copyright Copyright (c) 2026
- * */
+ * @copyright Copyright (c) 2026
+ */
 
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
+/**
+ * @brief Opcodes for the SML virtual machine instructions
+ * 
+ * These opcodes define the operations that can be executed by the SML virtual machine.
+ * Each opcode consists of a command code and an operand (address).
+ */
 typedef enum {
 	/* System commands (not microcode) 
 	 * use it for enter the new program
@@ -55,7 +61,12 @@ typedef enum {
 	HALT = 43			// Stop program execution
 } OpCode;
 
-/* SIMPLE language command */
+/**
+ * @brief SIMPLE language commands
+ * 
+ * These commands represent the high-level programming constructs available in the SIMPLE language.
+ * They are translated into machine code opcodes during compilation.
+ */
 typedef enum {
 	SL_UNKNOWN = 0,		// All not defined values
 	SL_REM = 1,			// Command for comment
@@ -82,4 +93,3 @@ typedef enum {
 } Entries;
 
 #endif
-
