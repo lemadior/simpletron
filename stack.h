@@ -37,4 +37,3 @@ typedef enum {
 } Operations;
 
 #endif
-
