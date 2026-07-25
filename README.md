@@ -24,4 +24,4 @@ To compile the project:
 
 ## 📖 Usage Examples
 
-Compile a SIMPLE program:
+Compile a SIMPLE pragram:
