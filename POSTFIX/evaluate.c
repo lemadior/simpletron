@@ -18,7 +18,7 @@ uint8_t getVarAddr(char var);
 
 int evaluatePostfixExpression(const char *source)
 {
-	char  prevChr = '\0', chr;
+	char chr;
 	char buff[3] = {0, 0, 0}; // buff[0] first digit
 									   // buff[0] second or only digit
 	int x, y, cell;
@@ -54,7 +54,6 @@ int evaluatePostfixExpression(const char *source)
 	while((chr = *source++) != '\0') {
 		// printf("CHR=%c\n", chr);
 		if (chr == ' ') {
-			prevChr = chr;
 			// If previous symbol was a math operator just skip this SPACE
 			if (isCalc) {
 				isCalc = 0;

@@ -1,6 +1,7 @@
 #ifndef STACK_H
 #define STACK_H
 
+#include <stdbool.h>
 #include <stdint.h>
 #define INPUT_SIZE 80
 #define E_VALUE 100 // 100 is means here empty cell or wrong value
@@ -17,7 +18,7 @@ extern STACKNODEPTR stack;
 
 void instructions(void);
 
-uint8_t isEmpty(STACKNODEPTR);
+bool isEmpty(STACKNODEPTR);
 
 void push(STACKNODEPTR *, int);
 

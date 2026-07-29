@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include "stack.h"
 
-uint8_t isEmpty(STACKNODEPTR sPtr)
+bool isEmpty(STACKNODEPTR sPtr)
 {
-	return (uint8_t)(sPtr == NULL);
+	return sPtr == NULL;
 }
 
 void push(STACKNODEPTR *sPtr, int info)
