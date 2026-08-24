@@ -2,8 +2,7 @@
  * @file dataManager.c
  * @author lemadior (https://github.com/lemadior/simpletron)
  * @brief A library module
- * @details here is the functions used to initialize memory,
- * translate instructions to the string representations,
+ * @details here is the functions used to translate  instructions to the representations,
  * getters for Code and Operand and display commands mnemonic after 
  * its being typed or edited.
  * @version 0.2
@@ -24,14 +23,14 @@ typedef struct {
  * If max valid value is 9999 the UNOP is means that the stored it memory
  * cell is untouched (not yet being modified)
  */
-void memoryInit(void)
-{
-	int i;
+//void memoryInit(void)
+//{
+//	int i;
 	//printf("In memory Init\n");
-	for (i = 0; i < MEMORY_SIZE; i++) {
-		memory[i] = UNOP_CMD;
-	}
-}
+//	for (i = 0; i < MEMORY_SIZE; i++) {
+//		memory[i] = UNOP_CMD;
+//	}
+//}
 
 // Return the name of the opcode
 const char *opcodeToString(OpCode code)
@@ -80,7 +79,7 @@ const char *cmdcodeToString(Commands cmd)
 }
 
 // Return the name of the SIMPLE language command
-int cmdnameToCode(char *cmdName)
+Commands cmdnameToCode(char *cmdName)
 {
 	static CommandMap table[] = {
 		{ "REM", SL_REM },

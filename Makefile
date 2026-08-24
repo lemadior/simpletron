@@ -8,7 +8,7 @@ MOD1_SRC = INFIX/checking.c INFIX/convert.c INFIX/input.c
 
 MOD2_SRC = POSTFIX/calculate.c POSTFIX/evaluate.c POSTFIX/get.c
 
-SRCS = main.c getCommand.c stack.c showHelp.c dataManager.c load.c save.c dump.c passes.c instructions.c
+SRCS = main.c getCommand.c stack.c showHelp.c dataManager.c load.c save.c dump.c passes.c instructions.c memory.c
 
 # Object files list (generate automatically)
 MOD1_OBJS = $(MOD1_SRC:.c=.o)

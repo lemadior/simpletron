@@ -60,13 +60,13 @@ typedef struct {
 	FILE *fdTGT;
 } Descriptors;
 
-// SIMPLE lsnguage statement (for store per line)
+// SIMPLE language statement (for store per line)
 typedef struct { 
 	int line;			// Number of line
 	char cmd[6];	    // name of the SIMPLE command
 	char var;           // variable (main for expression)
-	char exprleft[EXPRESSION_LENGTH];	// Mainly for IF (left part of comparsion)
-	char exprright[EXPRESSION_LENGTH];  // For most expression or comparstion (right part)
+	char exprleft[EXPRESSION_LENGTH];	// Mainly for IF (left part of comparison)
+	char exprright[EXPRESSION_LENGTH];  // For most expression or comparison (right part)
 	char varright;      // Second var (exmp, i = y). This will store 'y'
 	char cond[3];		// Condition (==, !=, >, <, >=, <=)
 	int jumpto;			// Line number to jump
@@ -83,7 +83,7 @@ bool isAllNumeric(const char *);
 short getOnlyNumbers();
 int readline(char *, int, FILE *);
 const char *opcodeToString(OpCode);
-int cmdnameToCode(char *);
+Commands cmdnameToCode(char *);
 uint8_t getCode(short);
 uint8_t getOperand(short);
 void firstPass();
@@ -96,7 +96,7 @@ void generateEnd(Statement);
 void generateJump(int, OpCode);
 void generateLet(Statement, int);
 void generateIf(uint8_t, uint8_t, char *, int);
-uint8_t checkCommand(char *, Commands);
+bool checkCommand(char *, Commands);
 uint8_t getTempCell(void);
 uint8_t checkOperationsAmount(const char *);
 int checkVar(char);

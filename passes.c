@@ -7,7 +7,6 @@ uint8_t getTempCell(void);
 Statement program[100];
 int parseProgram(Statement[]);
 
-
 void firstPass()
 {
 	int linesCount = 0; // Amount of lines with code in source program
@@ -163,7 +162,7 @@ char *getToken(char *str, const char *delim)
 	return tokenPtr;
 }
 
-uint8_t checkCommand(char *cmdName, Commands command)
+bool checkCommand(char *cmdName, Commands command)
 {
 	return cmdnameToCode(cmdName) == command ? 1 : 0;
 }
@@ -218,8 +217,8 @@ int parseProgram(Statement program[])
 	int lenToken, lenExpr;
 	char *token;
 	char strBuffer[MAX_LINE_SIZE];
-	uint8_t isLine, isCmd, isOperator, isExprLeft, isExprRght,
-			isCondition, isSimple, isLet, isVar, isJump;
+	bool isLine, isCmd, isExprLeft, isExprRght,
+			isCondition, isLet, isVar, isJump;
 	Statement currStat;
 
 	while((len = readline(strBuffer, MAX_LINE_SIZE, FDESCR.fdSRC)) != -1) {
@@ -228,9 +227,9 @@ int parseProgram(Statement program[])
 			continue;
 		}
 		
-		isLine = 0; isCmd = 0; isOperator = 0;
-		isExprLeft = 0; isExprRght = 0; isCondition = 0;
-		isSimple = 0; isLet = 0; isVar = 0; isJump = 0;
+		isLine = isCmd = false;
+		isExprLeft = isExprRght = isCondition = false;
+		isLet = isVar = isJump = false;
 
 		// Reinit of currStat
 		memset(&currStat, 0, sizeof(Statement));
@@ -251,7 +250,7 @@ int parseProgram(Statement program[])
 				strncpy(currStat.cmd, token, sizeof(currStat.cmd) - 1);
 				currStat.cmd[sizeof(currStat.cmd) - 1] = '\0';
 
-				isCmd = 1;
+				isCmd = true;
 				
 				isLet = checkCommand(currStat.cmd, SL_LET);
 
@@ -282,7 +281,7 @@ int parseProgram(Statement program[])
 					!isJump &&
 					strncasecmp(token, "GOTO", 4) == 0
 			) {
-				isJump = 1;
+				isJump = true;
 
 				continue;
 			}
@@ -298,9 +297,9 @@ int parseProgram(Statement program[])
 					)
 			   ) {
 				currStat.var = token[0];
-				isVar = 1;
+				isVar = true;
 
-				isExprLeft = 1;
+				isExprLeft = true;
 				continue;
 			}
 
@@ -316,7 +315,6 @@ int parseProgram(Statement program[])
 				// printf("Token %s\n", token);
 				isExprRght = (isLet && isVar) || (isCondition && isExprLeft);
 
-				isOperator = 1;
 				// TODO: add an operator enum
 				strncpy(currStat.cond, token, sizeof(currStat.cond) - 1);
 				currStat.cond[sizeof(currStat.cond) - 1] = '\0';

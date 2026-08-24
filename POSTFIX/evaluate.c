@@ -23,8 +23,8 @@ int evaluatePostfixExpression(const char *source)
 									   // buff[0] second or only digit
 	int x, y, cell;
 	uint8_t bufPos = 0; // Counter for buff (to allow 2 digit numbers) 
-	uint8_t isCalc = 0; // Flag to indicate success math operation 
-	uint8_t isVar = 0;  // Flag to indicate that previous value was a var!
+	bool isCalc = 0; // Flag to indicate success math operation 
+	bool isVar = 0;  // Flag to indicate that previous value was a var!
     uint8_t tmp, opCount = 0;
 
 	printf("IN EVALUATE FUNCTION %s\n", source);
