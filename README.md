@@ -5,7 +5,8 @@ The study project about compiler creation for fake CPU named Simpletron.
 **SBC** is a compiler for a fictional CPU driven by the **SIMPLE (Simple language for SML)**. This project allows you to create low-level programs using the virtual machine SML.
 
 ```
-Implementation of SIMPLE compiler/interpreter for the SIMPLETRON virtual machine is divided into several interdependent modules:
+Implementation of SIMPLE compiler/interpreter for the SIMPLETRON virtual machine is divided into several
+interdependent modules:
 a. Main Libraries
 1. Standard C libraries: stdio.h, stdint.h, stdbool.h
 2. Project-specific headers: func.h, infix.h, postfix.h
@@ -77,33 +78,5 @@ The project uses standard C libraries:
 ## 📖 Usage Examples
 
 ```
-Implementation of SIMPLE compiler/interpreter for the SIMPLETRON virtual machine is divided into several interdependent modules:
-
-a. Main Libraries
-1. Standard C libraries: stdio.h, stdint.h, stdbool.h
-2. Project-specific headers: func.h, infix.h, postfix.h 
-
-b) Modules and Features:  
-   
-1. Input/Output module (input.c, checking.c):
-    - Responsible for reading program from console and user input processing with validation.
-   
-a. Stack implementation stack.c:
-    - FIFO structure managing memory operations including push & pop functionality
-  
-c) Expression evaluation in POSTFIX:
-    - infix expressions parsing, conversion to postfix notation format and evaluation as arithmetic expressions for Simpletron VM operations in POSTFIX/evaluate.
-   d. Program management in instructions.c, dataManager.c: :
-     - Instruction handling (instructions.c): definitions of machine language instructions; program instructions set
-    with loading programs from storage, saving program states, implementation core VM data structures and logic execution for Simple Programs.
-f) Virtual machine operations:
-   - Core execution logic  for SIMPLE Programs via instruction set definition, stack management memory allocation  
-g) Help/documentation module (showHelp.c/h):
-    - Help information module with menu interface; command reference definitions
-   h. Command processing:  getCommand.c, commands.h) 
-      - Commands translation to VM specific function calls.
-j) User Interface in main.c :
-     - Main menu system providing user interface, error handling and messaging communication  
-i) User Interface in  passes.c:
-    - Compilation phases implementation; source translation verification
+slc -t -d test.slp -o test.slc
 ```
